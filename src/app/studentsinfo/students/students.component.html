@@ -2,10 +2,23 @@
 
     <div class="card shadow mb-4">
       <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-          <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Students Information</h6>
-          <a routerLink="/add-students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-user-graduate fa-sm text-white-50"></i> Add Student</a>
-      </div> 
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Students Information</h6>
+        <div class="d-flex flex-column flex-sm-row">          
+          <div class="dropdown mb-sm-0 mr-sm-2">
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="classDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Class
+            </button>
+            <div class="dropdown-menu" aria-labelledby="classDropdownMenu">
+                <a *ngFor="let option of classOptions" class="dropdown-item" href="#">{{ option }}</a>
+            </div>
+        </div>
+        
+            <a routerLink="/add-students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2 ">
+              <i class="fas fa-user-graduate fa-sm text-white-50"></i> Add Student
+          </a>
+        </div>
+    </div>
+    
       <div class="card-body row">
   
         <div class="table-responsive col-md-12 ">

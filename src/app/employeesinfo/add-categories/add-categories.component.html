@@ -1,5 +1,9 @@
-<div class="container col-md-12">
-    <h4 style="font-weight: 500;">Create Category </h4>
+<div class="container ">
+  <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex py-3">
+        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Create Category</h6>
+      </div>
+  <div class="card-body ">
     <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="name">Category Title:</label>
@@ -11,4 +15,6 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+ </div>
+</div>
   

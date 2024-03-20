@@ -105,13 +105,17 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="class">Class:</label>
-                <input formControlName="class" type="text" class="form-control" id="class" placeholder="Enter Class" required>
-                <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
-                  Class is required.
-                </div>
+                  <label for="class">Class:</label>
+                  <select formControlName="class" class="form-control" id="class" required>
+                      <option value="" disabled selected>Select Class</option>
+                      <option *ngFor="let option of classOptions" [value]="option">{{ option }}</option>
+                  </select>
+                  <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
+                      Class is required.
+                  </div>
               </div>
-            </div>
+          </div>
+          
           </div>
           <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid">Submit</button>
         </form>

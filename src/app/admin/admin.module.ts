@@ -20,6 +20,7 @@ import { AddDesignationsComponent } from '../employeesinfo/add-designations/add-
 import { StudentsComponent } from '../studentsinfo/students/students.component';
 import { AddStudentComponent } from '../studentsinfo/add-student/add-student.component';
 import { ClassesComponent } from '../studentsinfo/classes/classes.component';
+import { AddClassComponent } from '../studentsinfo/add-class/add-class.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ClassesComponent } from '../studentsinfo/classes/classes.component';
     StudentsComponent,
     AddStudentComponent,
     ClassesComponent,
+    AddClassComponent,
   ],
   imports: [
     CommonModule,
