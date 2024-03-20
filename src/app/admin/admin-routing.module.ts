@@ -13,8 +13,10 @@ import { AddDesignationsComponent } from '../employeesinfo/add-designations/add-
 import { StudentsComponent } from '../studentsinfo/students/students.component';
 import { AddStudentComponent } from '../studentsinfo/add-student/add-student.component';
 import { ClassesComponent } from '../studentsinfo/classes/classes.component';
+import { AddClassComponent } from '../studentsinfo/add-class/add-class.component';
+
 import { AttendanceComponent } from '../Academic/attendance/attendance.component';
-ClassesComponent
+
 
 const routes: Routes = [
   { path: 'dashboard', component:DashboardComponent  },
@@ -29,6 +31,7 @@ const routes: Routes = [
   { path: 'students', component:StudentsComponent  },
   { path: 'add-students', component:AddStudentComponent  },
   { path: 'classes', component:ClassesComponent  },
+  { path: 'add-class', component:AddClassComponent },
   { path: 'pagenotfound', component:PageNotFoundComponent  },
   { path: 'attendance', component:AttendanceComponent  },
 ];

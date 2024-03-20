@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './students.component.scss'
 })
 export class StudentsComponent {
-
+  classOptions = ['Class One', 'Class Two', 'Class Three'];
   students: any[] = [
     {
       id: 1,
@@ -17,7 +17,7 @@ export class StudentsComponent {
       email: 'john.doe@example.com',
       phone: '1234567890',
       address: '123 Main St, Cityville',
-      class: 'one',
+      class: 'Class One',
     },
     {
       id: 2,
@@ -28,6 +28,6 @@ export class StudentsComponent {
       email: 'jane.smith@example.com',
       phone: '9876543210',
       address: '456 Elm St, Townville',
-      class: 'Two',
+      class: 'Class Two',
     }  ];
 }

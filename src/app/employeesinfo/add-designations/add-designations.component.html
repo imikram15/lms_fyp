@@ -1,14 +1,20 @@
-<div class="container col-md-12">
-    <h4 style="font-weight: 500;">Create Designation </h4>
-    <form [formGroup]="designationForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">designationForm Title:</label>
-        <input type="text" class="form-control" formControlName="title" placeholder="Enter Designation Name">
-        <div *ngIf="designationForm.get('title')?.touched && designationForm.get('title')?.invalid" class="text-danger">
-         Designation Name is required.
-        </div>
+<div class="container ">
+  <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex py-3">
+        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Create Designation</h6>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      <div class="card-body ">
+        <form [formGroup]="designationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Designation Name</label>
+            <input type="text" class="form-control" formControlName="title" placeholder="Enter Designation Name">
+            <div *ngIf="designationForm.get('title')?.touched && designationForm.get('title')?.invalid" class="text-danger">
+            Designation Name is required.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+     </div>
   </div>
+</div>
   
