@@ -22,6 +22,7 @@ import { AddStudentComponent } from '../studentsinfo/add-student/add-student.com
 import { ClassesComponent } from '../studentsinfo/classes/classes.component';
 import { AddClassComponent } from '../studentsinfo/add-class/add-class.component';
 
+import { AttendanceComponent } from '../Academic/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AddClassComponent } from '../studentsinfo/add-class/add-class.component
     AddStudentComponent,
     ClassesComponent,
     AddClassComponent,
+    AttendanceComponent
   ],
   imports: [
     CommonModule,
