@@ -1,0 +1,14 @@
+<div class="container col-md-12">
+    <h4 style="font-weight: 500;">Create Department </h4>
+    <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">departmentForm Title:</label>
+        <input type="text" class="form-control" formControlName="title" placeholder="Enter Department Name">
+        <div *ngIf="departmentForm.get('title')?.touched && departmentForm.get('title')?.invalid" class="text-danger">
+          Department Name is required.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

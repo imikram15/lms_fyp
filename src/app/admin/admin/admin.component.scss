@@ -1,0 +1,27 @@
+// .container {
+//     display: flex;
+//     flex-wrap: wrap;
+//   }
+
+//   .sidebar {
+//     flex: 0 0 250px; /* Sidebar width */
+//   }
+
+//   .content {
+//     flex: 1; /* Take remaining space */
+//   }
+
+//   @media (max-width: 768px) {
+//     .container {
+//       flex-direction: column;
+//     }
+
+//     .sidebar {
+//       order: 2; /* Move sidebar below content */
+//       flex: 1 0 auto; /* Allow sidebar to grow vertically */
+//     }
+
+//     .content {
+//       order: 1; /* Move content above sidebar */
+//     }
+//   }

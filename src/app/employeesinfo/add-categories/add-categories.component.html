@@ -1,0 +1,14 @@
+<div class="container col-md-12">
+    <h4 style="font-weight: 500;">Create Category </h4>
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Category Title:</label>
+        <input type="text" class="form-control" formControlName="title" placeholder="Enter Category Name">
+        <div *ngIf="categoryForm.get('title')?.touched && categoryForm.get('title')?.invalid" class="text-danger">
+          Category Name is required.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  
