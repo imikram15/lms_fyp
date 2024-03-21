@@ -11,6 +11,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EmployeeComponent } from './employee/employee.component';
   ],
   imports: [
     CommonModule,
-    EmployeesinfoRoutingModule
+    EmployeesinfoRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class EmployeesinfoModule { }

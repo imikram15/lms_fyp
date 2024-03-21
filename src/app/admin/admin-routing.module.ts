@@ -6,6 +6,9 @@ import { PageNotFoundComponent } from '../pages/page-not-found/page-not-found.co
 import { AdminComponent } from './admin/admin.component';
 import { StudentsinfoComponent } from '../studentsinfo/studentsinfo/studentsinfo.component';
 import { EmployeesinfoComponent } from '../employeesinfo/employeesinfo/employeesinfo.component';
+import { AcademicComponent } from '../Academic/academic/academic.component';
+import { AcademicModule } from '../Academic/academic.module';
+
 
 
 const routes: Routes = [
@@ -38,8 +41,16 @@ const routes: Routes = [
   loadChildren: () => import('../employeesinfo/employeesinfo.module').then(x => x.EmployeesinfoModule)
   }]},
 
+  {
+    path: '',
+    component:AcademicComponent,
+    children: [
+        {
+      path: '',
+  loadChildren: () => import('../Academic/academic.module').then(x => x.AcademicModule)
+  }]},
 
-
+]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
