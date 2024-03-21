@@ -13,6 +13,7 @@ import { AddDesignationsComponent } from '../employeesinfo/add-designations/add-
 import { StudentsComponent } from '../studentsinfo/students/students.component';
 import { AddStudentComponent } from '../studentsinfo/add-student/add-student.component';
 import { ClassesComponent } from '../studentsinfo/classes/classes.component';
+import { AttendanceComponent } from '../Academic/attendance/attendance.component';
 ClassesComponent
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'add-students', component:AddStudentComponent  },
   { path: 'classes', component:ClassesComponent  },
   { path: 'pagenotfound', component:PageNotFoundComponent  },
+  { path: 'attendance', component:AttendanceComponent  },
 ];
 
 @NgModule({
