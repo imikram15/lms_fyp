@@ -9,9 +9,6 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { ClassesComponent } from './classes/classes.component';
 import { AddClassComponent } from './add-class/add-class.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AttendanceComponent } from '../Academic/attendance/attendance.component';
-
-
 
 
 @NgModule({
@@ -21,7 +18,6 @@ import { AttendanceComponent } from '../Academic/attendance/attendance.component
     AddStudentComponent,
     ClassesComponent,
     AddClassComponent,
-    AttendanceComponent,
   ],
   imports: [
     CommonModule,
