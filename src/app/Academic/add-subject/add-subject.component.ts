@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './add-subject.component.scss'
 })
 export class AddSubjectComponent {
+addSubject() {
+throw new Error('Method not implemented.');
+}
+studentForm: any;
+classOptions: any;
 
 }
