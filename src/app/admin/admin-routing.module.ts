@@ -16,6 +16,11 @@ import { ClassesComponent } from '../studentsinfo/classes/classes.component';
 import { AddClassComponent } from '../studentsinfo/add-class/add-class.component';
 
 import { AttendanceComponent } from '../Academic/attendance/attendance.component';
+import { TakeAttendanceComponent } from '../Academic/take-attendance/take-attendance.component';
+import { ClassRoutineComponent } from '../Academic/class-routine/class-routine.component';
+import { AddClassRoutineComponent } from '../Academic/add-class-routine/add-class-routine.component';
+import { SubjectComponent } from '../Academic/subject/subject.component';
+import { AddSubjectComponent } from '../Academic/add-subject/add-subject.component';
 
 
 const routes: Routes = [
@@ -34,6 +39,11 @@ const routes: Routes = [
   { path: 'add-class', component:AddClassComponent },
   { path: 'pagenotfound', component:PageNotFoundComponent  },
   { path: 'attendance', component:AttendanceComponent  },
+  { path: 'take-attendance', component:TakeAttendanceComponent },
+  { path: 'class-routine', component:ClassRoutineComponent },
+  { path: 'add-class-routine', component:AddClassRoutineComponent },
+  { path: 'subject', component:SubjectComponent},
+  { path: 'add-subject', component:AddSubjectComponent},
 ];
 
 @NgModule({

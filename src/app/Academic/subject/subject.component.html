@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4" style="height: 400px;">
+        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Subject</h6>
+            <a routerLink="/add-subject" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+              class="fas fa-user fa-sm text-white-50"></i> Add Subject</a>
+        </div> 
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="class">Class:</label>
+                <select style="width: 100%;" formControlName="class" class="form-control" id="class" required>
+                    <option value="" disabled selected>Select Class</option>
+                    <option *ngFor="let option of classOptions" [value]="option">{{ option }}</option>
+                </select>
+                <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
+                    Class is required.
+                </div>
+            </div>
+        
+            <div class="form-group col-6 d-flex align-items-end">
+                <button class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+        
+    </div>
+</div>

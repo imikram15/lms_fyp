@@ -8,11 +8,14 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { EmployeeComponent } from './employeesinfo/employee/employee.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     EmployeeComponent,
+    
+    
     ],
   imports: [
     BrowserModule,
