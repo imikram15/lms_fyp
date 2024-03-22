@@ -38,31 +38,34 @@ subjectOptions: any;
       const profileImageControl = this.studentForm.get('profileImage');
       if (profileImageControl && profileImageControl.value) {
         formData.append('profileImage', profileImageControl.value);
-      }
-      // console.log('Form submitted:', this.studentForm.value);
-      // console.log('Profile image:', profileImageControl ? profileImageControl.value : null);
+      } 
     } else {
       this.studentForm.markAllAsTouched();
     }
   }
-  
-  imageURL:any;
-  imagefile:any;
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
 
+imageURL:string = "assets/img/profile.jpg";
+imagefile: File | undefined;
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+
+  if (file) {
     this.imagefile = file;
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imageURL = e.target?.result as string;
-        console.log(this.imageURL); // Debugging
-        // Update the form control value after setting the imageURL
-       
-      };
-      reader.readAsDataURL(file);
-    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.imageURL = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    this.imageURL = "assets/img/profile.jpg";
+    this.imagefile = undefined;
   }
+}
+
+
+
+
 }
 
 
