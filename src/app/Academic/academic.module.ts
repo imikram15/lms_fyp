@@ -13,9 +13,6 @@ import { SubjectComponent } from './subject/subject.component';
 import { SyllabusComponent } from './syllabus/syllabus.component';
 import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
 
-
-
-
 @NgModule({
   declarations: [
     AcademicComponent,    
@@ -26,7 +23,9 @@ import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
     SubjectComponent,
     SyllabusComponent,
     AddSyllabusComponent,
-
+    SubjectComponent,
+    SyllabusComponent,
+    AddSyllabusComponent,
   ],
   imports: [
     CommonModule,
