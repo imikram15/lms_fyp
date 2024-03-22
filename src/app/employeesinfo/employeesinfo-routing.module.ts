@@ -9,6 +9,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { TeachersComponent } from './teachers/teachers.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'designations', component:DesignationsComponent  },
       { path: 'add-designations', component:AddDesignationsComponent },
       { path: 'departments', component:DepartmentsComponent  },
-      { path: 'add-departments', component:AddDepartmentsComponent  },      
+      { path: 'add-departments', component:AddDepartmentsComponent  },
+      {path: 'teachers', component:TeachersComponent}      
     ] 
   }
 

@@ -1,0 +1,20 @@
+.custom-file-input {
+    display: none;
+  }
+  
+  .custom-file-label::after {
+    content: 'Browse';
+  }
+  
+  .custom-file-label::before {
+    content: 'Choose file';
+  }
+  
+  .custom-file-input:focus ~ .custom-file-label::after {
+    border-color: #80bdff;
+  }
+  
+  .custom-file-input:lang(en)~.custom-file-label::after {
+    content: 'Browse';
+  }
+  
