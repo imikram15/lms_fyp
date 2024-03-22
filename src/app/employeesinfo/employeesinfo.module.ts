@@ -13,6 +13,7 @@ import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
+import { AddTeachersComponent } from './add-teachers/add-teachers.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { TeachersComponent } from './teachers/teachers.component';
     DepartmentsComponent,
     DesignationsComponent,
     TeachersComponent,
+    AddTeachersComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,137 @@
+<div class="container-fluid">
+
+    <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex py-3">
+        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Create Teacher</h6>
+      </div>
+      
+     <div class="card-body py-4">
+      <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="department_id">Department ID:</label>
+              <select formControlName="department_id" class="form-control" required>
+                <option value="" disabled selected>Select a Department</option>
+                <option *ngFor="let department of departments" [value]="department.id">{{ department.title }}</option>
+              </select>
+              <div *ngIf="teacherForm.get('department_id')?.invalid && teacherForm.get('department_id')?.touched" class="text-danger">
+                Department is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="designation_id">Designation ID:</label>
+              <select formControlName="designation_id" class="form-control" required >
+                <option value="" disabled selected>Select a Designation</option>
+                <option *ngFor="let designation of designations" [value]="designation.id">{{ designation.title }}</option>
+              </select>
+              <div *ngIf="teacherForm.get('designation_id')?.invalid && teacherForm.get('designation_id')?.touched" class="text-danger">
+                Designation is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="category_id">Category ID:</label>
+              <select formControlName="category_id" class="form-control" required>
+                <option value="" disabled selected>Select a Category</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</option>
+              </select>
+              <div *ngIf="teacherForm.get('category_id')?.invalid && teacherForm.get('category_id')?.touched" class="text-danger">
+                Category is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter Name" required>
+              <div *ngIf="teacherForm.get('name')?.invalid && teacherForm.get('name')?.touched" class="text-danger">
+                Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="father_name">Father Name:</label>
+              <input formControlName="father_name" type="text" class="form-control" id="father_name" placeholder="Enter Father's Name" required>
+              <div *ngIf="teacherForm.get('father_name')?.invalid && teacherForm.get('father_name')?.touched" class="text-danger">
+                Father Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="gender">Gender:</label>
+              <select formControlName="gender" class="form-control" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <div *ngIf="teacherForm.get('gender')?.invalid && teacherForm.get('gender')?.touched" class="text-danger">
+                Gender is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="dob">Date of Birth:</label>
+              <input formControlName="dob" type="date" class="form-control" id="dob" required>
+              <div *ngIf="teacherForm.get('dob')?.invalid && teacherForm.get('dob')?.touched" class="text-danger">
+                Date of Birth is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter Email" required>
+              <div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="text-danger">
+                Valid email is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input formControlName="phone" type="tel" class="form-control" id="phone" placeholder="Enter Phone Number" required>
+              <div *ngIf="teacherForm.get('phone')?.invalid && teacherForm.get('phone')?.touched" class="text-danger">
+                Valid phone number is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="joining_date">Joining Date:</label>
+              <input formControlName="joining_date" type="date" class="form-control" id="joining_date" required>
+              <div *ngIf="teacherForm.get('joining_date')?.invalid && teacherForm.get('joining_date')?.touched" class="text-danger">
+                Joining Date is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="address">Address:</label>
+            <textarea formControlName="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
+            <div *ngIf="teacherForm.get('address')?.invalid && teacherForm.get('address')?.touched" class="text-danger">
+              Address is required.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary"  [disabled]="teacherForm.invalid">Submit</button>
+      </form>
+     </div>
+    </div>
+  </div>
