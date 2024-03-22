@@ -12,6 +12,7 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TeachersComponent } from './teachers/teachers.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CategoriesComponent,
     DepartmentsComponent,
     DesignationsComponent,
+    TeachersComponent,
   ],
   imports: [
     CommonModule,

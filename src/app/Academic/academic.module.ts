@@ -9,6 +9,8 @@ import { TakeAttendanceComponent } from './take-attendance/take-attendance.compo
 import { AttendanceComponent } from './attendance/attendance.component';
 import { ClassRoutineComponent } from './class-routine/class-routine.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SubjectComponent } from './subject/subject.component';
+
 
 
 
@@ -18,9 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddClassRoutineComponent,
     AddSubjectComponent,
     TakeAttendanceComponent,
-    AddSubjectComponent,
     AttendanceComponent,
     ClassRoutineComponent,
+    SubjectComponent,
   ],
   imports: [
     CommonModule,
