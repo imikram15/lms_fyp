@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddStudentComponent {
   studentForm!: FormGroup;
   classOptions = ['Class One', 'Class Two', 'Class Three', 'Class Four'];
+sectionOptions: any;
+subjectOptions: any;
 
   constructor(private fb: FormBuilder) {}
 

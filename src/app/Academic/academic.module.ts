@@ -9,8 +9,13 @@ import { TakeAttendanceComponent } from './take-attendance/take-attendance.compo
 import { AttendanceComponent } from './attendance/attendance.component';
 import { ClassRoutineComponent } from './class-routine/class-routine.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { SubjectComponent } from './subject/subject.component';
 
+=======
+import { SyllabusComponent } from './syllabus/syllabus.component';
+import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
+>>>>>>> ed2984e044c51ffb1b21859ccd363694bc6c0608
 
 
 
@@ -18,11 +23,15 @@ import { SubjectComponent } from './subject/subject.component';
   declarations: [
     AcademicComponent,    
     AddClassRoutineComponent,
-    AddSubjectComponent,
     TakeAttendanceComponent,
     AttendanceComponent,
     ClassRoutineComponent,
+<<<<<<< HEAD
     SubjectComponent,
+=======
+    SyllabusComponent,
+    AddSyllabusComponent,
+>>>>>>> ed2984e044c51ffb1b21859ccd363694bc6c0608
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Syllabus</h6>
+        </div>
+
+        <div class="card-body py-4">
+            <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="row">
+                    <div class="col-md-6">
+                      
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input formControlName="title" type="text" class="form-control" id="title" placeholder="Enter Title" required>
+                            <div *ngIf="studentForm.get('title')?.invalid && studentForm.get('title')?.touched" class="text-danger">
+                                Title is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                       
+                        <div class="form-group">
+                            <label for="section">Select Section:</label>
+                            <select formControlName="section" class="form-control" id="section" required>
+                                <option value="" disabled selected>Select Section</option>
+                                <option *ngFor="let option of sectionOptions" [value]="option">{{ option }}</option>
+                            </select>
+                            <div *ngIf="studentForm.get('section')?.invalid && studentForm.get('section')?.touched" class="text-danger">
+                                Section is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label for="subject">Select Subject:</label>
+                            <select formControlName="subject" class="form-control" id="subject" required>
+                                <option value="" disabled selected>Select Subject</option>
+                                <option *ngFor="let option of subjectOptions" [value]="option">{{ option }}</option>
+                            </select>
+                            <div *ngIf="studentForm.get('subject')?.invalid && studentForm.get('subject')?.touched" class="text-danger">
+                                Subject is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label for="syllabus">Update Syllabus:</label>
+                            <input formControlName="syllabus" type="file" class="form-control-file" id="syllabus" accept=".pdf,.doc,.docx" required>
+                            <div *ngIf="studentForm.get('syllabus')?.invalid && studentForm.get('syllabus')?.touched" class="text-danger">
+                                Syllabus file is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Syllabus</button>
+            </form>
+        </div>
+    </div>
+</div>
