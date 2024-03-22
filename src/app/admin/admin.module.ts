@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
 import { ForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
@@ -21,9 +20,12 @@ import { StudentsComponent } from '../studentsinfo/students/students.component';
 import { AddStudentComponent } from '../studentsinfo/add-student/add-student.component';
 import { ClassesComponent } from '../studentsinfo/classes/classes.component';
 import { AddClassComponent } from '../studentsinfo/add-class/add-class.component';
-
 import { AttendanceComponent } from '../Academic/attendance/attendance.component';
-
+import { TakeAttendanceComponent } from '../Academic/take-attendance/take-attendance.component';
+import { ClassRoutineComponent } from '../Academic/class-routine/class-routine.component';
+import { AddClassRoutineComponent } from '../Academic/add-class-routine/add-class-routine.component';
+import { SubjectComponent } from '../Academic/subject/subject.component';
+import { AddSubjectComponent } from '../Academic/add-subject/add-subject.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -44,7 +46,12 @@ import { AttendanceComponent } from '../Academic/attendance/attendance.component
     AddStudentComponent,
     ClassesComponent,
     AddClassComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    TakeAttendanceComponent,
+    ClassRoutineComponent,
+    AddClassRoutineComponent,
+    SubjectComponent,
+    AddSubjectComponent
   ],
   imports: [
     CommonModule,

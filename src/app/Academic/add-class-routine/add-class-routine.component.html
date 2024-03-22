@@ -1,0 +1,133 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Add Class Routine</h6>
+        </div>
+        <div class="card-body py-4">
+            <form [formGroup]="routineForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="class">Class:</label>
+                        <select formControlName="class" class="form-control" id="class" required>
+                            <option value="" disabled selected>Select Class</option>
+                            <option *ngFor="let option of classroomOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('class')?.invalid && routineForm.get('class')?.touched"
+                            class="text-danger">
+                            Class is required.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="section">Section:</label>
+                        <select formControlName="section" class="form-control" id="section" required>
+                            <option value="" disabled selected>Select Section</option>
+                            <option *ngFor="let option of sectionOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('section')?.invalid && routineForm.get('section')?.touched"
+                            class="text-danger">
+                            Section is required.
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="subject">Subject:</label>
+                        <select formControlName="subject" class="form-control" id="subject" required>
+                            <option value="" disabled selected>Select Subject</option>
+                            <option *ngFor="let option of subjectOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('subject')?.invalid && routineForm.get('subject')?.touched"
+                            class="text-danger">
+                            Subject is required.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="teacher">Teacher:</label>
+                        <select formControlName="teacher" class="form-control" id="teacher" required>
+                            <option value="" disabled selected>Select Teacher</option>
+                            <option *ngFor="let option of teacherOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('teacher')?.invalid && routineForm.get('teacher')?.touched"
+                            class="text-danger">
+                            Teacher is required.
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="classroom">Classroom:</label>
+                        <select formControlName="classroom" class="form-control" id="classroom" required>
+                            <option value="" disabled selected>Select Classroom</option>
+                            <option *ngFor="let option of classroomOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('classroom')?.invalid && routineForm.get('classroom')?.touched"
+                            class="text-danger">
+                            Classroom is required.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="day">Day:</label>
+                        <select formControlName="day" class="form-control" id="day" required>
+                            <option value="" disabled selected>Select Day</option>
+                            <option *ngFor="let option of dayOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('day')?.invalid && routineForm.get('day')?.touched"
+                            class="text-danger">
+                            Day is required.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="starting_hour">Starting Hour:</label>
+                        <select formControlName="starting_hour" class="form-control" id="starting_hour" required>
+                            <option value="" disabled selected>Select Starting Hour</option>
+                            <option *ngFor="let option of hourOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('starting_hour')?.invalid && routineForm.get('starting_hour')?.touched"
+                            class="text-danger">
+                            Starting Hour is required.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="starting_minute">Starting Minute:</label>
+                        <select formControlName="starting_minute" class="form-control" id="starting_minute" required>
+                            <option value="" disabled selected>Select Starting Minute</option>
+                            <option *ngFor="let option of minuteOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('starting_minute')?.invalid && routineForm.get('starting_minute')?.touched"
+                            class="text-danger">
+                            Starting Minute is required.
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="ending_hour">Ending Hour:</label>
+                        <select formControlName="ending_hour" class="form-control" id="ending_hour" required>
+                            <option value="" disabled selected>Select Ending Hour</option>
+                            <option *ngFor="let option of hourOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('ending_hour')?.invalid && routineForm.get('ending_hour')?.touched"
+                            class="text-danger">
+                            Ending Hour is required.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ending_minute">Ending Minute:</label>
+                        <select formControlName="ending_minute" class="form-control" id="ending_minute" required>
+                            <option value="" disabled selected>Select Ending Minute</option>
+                            <option *ngFor="let option of minuteOptions" [value]="option">{{ option }}</option>
+                        </select>
+                        <div *ngIf="routineForm.get('ending_minute')?.invalid && routineForm.get('ending_minute')?.touched"
+                            class="text-danger">
+                            Ending Minute is required.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="routineForm.invalid">Add Class Routine</button>
+
