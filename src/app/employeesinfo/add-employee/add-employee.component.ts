@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployeesService, EmployeesResponse } from '../../services/employees.service';
+import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
+import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
+import { DesignationsService,DesignationResponse } from '../../services/designations.service';
+
 
 @Component({
   selector: 'app-add-employee',
@@ -7,12 +12,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './add-employee.component.scss'
 })
 export class AddEmployeeComponent {
-  departments: any;
-  designations: any;
-  categories: any;
+  employees: EmployeesResponse[] = [];
+  departments: DepartmentResponse[] = [];
+  designations: DesignationResponse[] = [];
+  categories: CategoriesResponse[] = [];
   employeeForm!: FormGroup;
+  errors:any =[];
   
-  constructor( private fb:FormBuilder){}
+  constructor( private fb:FormBuilder ,
+    private employeeService:EmployeesService,
+    private designationsService:DesignationsService,
+    private categoriesService:CategoriesService, 
+    private departmentSerivce:DepartmentsService ){}
 
   ngOnInit(): void {
     this.employeeForm = this.fb.group({
@@ -29,7 +40,48 @@ export class AddEmployeeComponent {
       address: ['', Validators.required]
     });
 
+      this.getDepartmentsList();
+      this.getDesignationsList();
+      this.getCategoriesList();
+      this.getEmployeesList();
+
   }
-onSubmit() {}
+
+  getEmployeesList() {
+    this.employeeService.getEmployees().subscribe((res:any)=>{     
+      this.employees = res.employees;
+    })
+  }
+  getCategoriesList() {
+    this.categoriesService.getCategories().subscribe((res:any)=>{     
+      this.categories = res.category;
+    })
+  }
+
+  getDesignationsList() {
+    this.designationsService.getDesignation().subscribe((res:any)=>{     
+      this.designations = res.designation;
+    })
+  }
+
+  getDepartmentsList() {
+    this.departmentSerivce.getDepartment().subscribe((res:any)=>{     
+      this.departments = res.department;
+    })
+  }
+
+
+onSubmit() {
+  this.employeeService.saveEmployee(this.employeeForm.value).subscribe({
+    next:(res:any)=>{
+      console.log(res,'response');  
+      this.employeeForm.reset();      
+    },
+    error:(err:any)=>{
+      this.errors = err.error.errors;
+      console.log(err);
+    }
+  });
+}
 
 }

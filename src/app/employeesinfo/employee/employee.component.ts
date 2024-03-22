@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { EmployeesService, EmployeesResponse } from '../../services/employees.service';
+import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
+import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
+import { DesignationsService,DesignationResponse } from '../../services/designations.service';
 
 @Component({
   selector: 'app-employee',
@@ -7,30 +11,43 @@ import { Component } from '@angular/core';
 })
 export class EmployeeComponent {
 
-  employees: any[] = [
-    {
-      id: 1,
-      department_id: 1,
-      designation_id: 1,
-      category_id: 1,
-      name: 'John Doe',
-      father_name: 'Michael Doe',
-      gender: 'Male',
-      dob: '1990-01-01',
-      email: 'john.doe@example.com',
-      phone: '1234567890',
-    },
-    {
-      id: 2,
-      department_id: 2,
-      designation_id: 2,
-      category_id: 2,
-      name: 'Jane Smith',
-      father_name: 'David Smith',
-      gender: 'Female',
-      dob: '1995-02-15',
-      email: 'jane.smith@example.com',
-      phone: '9876543210',
-    }  ];
+  employees: EmployeesResponse[] = [];
+  departments: DepartmentResponse[] = [];
+  designations: DesignationResponse[] = [];
+  categories: CategoriesResponse[] = [];
+
+  constructor(private employeeService:EmployeesService,
+    private designationsService:DesignationsService,
+    private categoriesService:CategoriesService, 
+    private departmentSerivce:DepartmentsService ) { }
+
+  ngOnInit(): void {
+    this.getDepartmentsList();
+    this.getDesignationsList();
+    this.getCategoriesList();
+    this.getEmployeesList();
+  }
+  getEmployeesList() {
+    this.employeeService.getEmployees().subscribe((res:any)=>{     
+      this.employees = res.employees;
+    })
+  }
+  getCategoriesList() {
+    this.categoriesService.getCategories().subscribe((res:any)=>{     
+      this.categories = res.category;
+    })
+  }
+
+  getDesignationsList() {
+    this.designationsService.getDesignation().subscribe((res:any)=>{     
+      this.designations = res.designation;
+    })
+  }
+
+  getDepartmentsList() {
+    this.departmentSerivce.getDepartment().subscribe((res:any)=>{     
+      this.departments = res.department;
+    })
+  }
 
 }

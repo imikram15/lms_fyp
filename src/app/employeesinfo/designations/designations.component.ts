@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DesignationsService,DesignationResponse } from '../../services/designations.service';
 
 @Component({
   selector: 'app-designations',
@@ -6,11 +7,18 @@ import { Component } from '@angular/core';
   styleUrl: './designations.component.scss'
 })
 export class DesignationsComponent {
-
-  designations = [
-    { id: 1, title: 'John' },
-    { id: 2, title: 'Jane' },
-    { id: 3, title: 'Alice' },
-  ];
+  designations: DesignationResponse[] = [];
   
+  constructor(private designationsService:DesignationsService,){}
+
+  ngOnInit(): void {
+    this.getDesignationsList();
+  }
+
+  getDesignationsList() {
+    this.designationsService.getDesignation().subscribe((res:any)=>{     
+      this.designations = res.designation;
+    })
+  }
+
 }

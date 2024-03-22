@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
+
 
 @Component({
   selector: 'app-departments',
@@ -6,10 +8,19 @@ import { Component } from '@angular/core';
   styleUrl: './departments.component.scss'
 })
 export class DepartmentsComponent {
-departments = [
-  { id: 1, title: 'John' },
-  { id: 2, title: 'Jane' },
-  { id: 3, title: 'Alice' },
-];
+
+  departments: DepartmentResponse[] = [];
+
+  constructor(private departmentSerivce:DepartmentsService ) { }
+
+  ngOnInit(): void {
+    this.getDepartmentsList();
+  }
+
+  getDepartmentsList() {
+    this.departmentSerivce.getDepartment().subscribe((res:any)=>{     
+      this.departments = res.department;
+    })
+  }
 
 }

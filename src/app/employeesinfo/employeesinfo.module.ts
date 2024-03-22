@@ -14,6 +14,8 @@ import { EmployeeComponent } from './employee/employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
+import { EmployeesService } from '../services/employees.service';
+
 
 
 @NgModule({
