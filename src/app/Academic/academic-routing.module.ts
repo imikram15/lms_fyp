@@ -7,6 +7,8 @@ import { SubjectComponent } from './subject/subject.component';
 import { AcademicComponent } from './academic/academic.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { TakeAttendanceComponent } from './take-attendance/take-attendance.component';
+import { SyllabusComponent } from './syllabus/syllabus.component';
+import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
 
 const routes: Routes = [
 
@@ -22,6 +24,8 @@ const routes: Routes = [
       { path: 'add-subject', component:AddSubjectComponent},      
       { path: 'attendance', component:AttendanceComponent  },
       { path: 'take-attendance', component:TakeAttendanceComponent  },
+      { path: 'syllabus', component:SyllabusComponent },
+      { path: 'add-syllabus', component:AddSyllabusComponent  },
     ]  
   },
 ];
