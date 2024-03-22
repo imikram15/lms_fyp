@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -7,10 +7,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
-   categories = [
-    { id: 1, title: 'John' },
-    { id: 2, title: 'Jane' },
-    { id: 3, title: 'Alice' },
-  ];
+
+  categories: CategoriesResponse[] = [];
+
+  constructor(private categoriesService:CategoriesService, ) { }
+
+  ngOnInit(): void {
+    this.getCategoriesList();
+  }
+
+  getCategoriesList() {
+    this.categoriesService.getCategories().subscribe((res:any)=>{     
+      this.categories = res.category;
+    })
+  }
 
 }
