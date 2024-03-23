@@ -40,26 +40,29 @@
           </div>
         </div>
   
-        <!-- Filtered table -->
-        <div class="table-responsive mt-4" *ngIf="filteredData.length > 0">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th *ngFor="let student of students">{{ student }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let attendance of filteredData">
-                <td>{{ attendance.date }}</td>
-                <td *ngFor="let student of students">
-                  <span *ngIf="attendance[student] === 'Present'" class="badge badge-success">Present</span>
-                  <span *ngIf="attendance[student] === 'Absent'" class="badge badge-danger">Absent</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<!-- Filtered table -->
+<div class="table-responsive mt-4" *ngIf="filteredData.length > 0">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th *ngFor="let attendance of filteredData">{{ attendance.date }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let student of students">
+          <tr>
+            <td>{{ student }}</td>
+            <td *ngFor="let attendance of filteredData">
+              <span *ngIf="attendance[student] === 'Present'" class="badge badge-success">P</span>
+              <span *ngIf="attendance[student] === 'Absent'" class="badge badge-danger">A</span>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
         <div class="text-center" style="margin-top: 10%;" *ngIf="filteredData.length === 0">
           <h6>No data found</h6>
         </div>

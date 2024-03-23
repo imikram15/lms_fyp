@@ -16,9 +16,17 @@ export class AttendanceComponent  {
 
   // Dummy data for testing
   dummyData: any[] = [
-    { date: '2022-03-01', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
-    { date: '2022-03-02', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
-    { date: '2022-03-03', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
+    { date: '01', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
+    { date: '02', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
+    { date: '03', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
+    { date: '04', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
+    { date: '05', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
+    { date: '06', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
+    { date: '07', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
+    { date: '08', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
+    { date: '09', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
+    { date: '10', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
+
     // Add more dummy data as needed
   ];
 
