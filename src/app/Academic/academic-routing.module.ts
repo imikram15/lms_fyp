@@ -9,6 +9,8 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { TakeAttendanceComponent } from './take-attendance/take-attendance.component';
 import { SyllabusComponent } from './syllabus/syllabus.component';
 import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
+import { ClassRoomComponent } from './class-room/class-room.component';
+import { AddClassRoomComponent } from './add-class-room/add-class-room.component';
 
 const routes: Routes = [
 
@@ -26,6 +28,8 @@ const routes: Routes = [
       { path: 'take-attendance', component:TakeAttendanceComponent  },
       { path: 'syllabus', component:SyllabusComponent },
       { path: 'add-syllabus', component:AddSyllabusComponent  },
+      { path: 'class-room', component:ClassRoomComponent },
+      { path: 'add-class-room', component:AddClassRoomComponent  },
     ]  
   },
 ];

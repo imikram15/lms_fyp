@@ -1,95 +1,69 @@
 <div class="container-fluid">
-    <div class="card shadow mb-4" style="height: 400px;">
-        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Daily Attendance</h6>
-            <a routerLink="/take-attendance" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-              class="fas fa-user fa-sm text-white-50"></i> Take Attendance </a>
-        </div> 
-
-        <div class="row">
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" style="margin-left: 40px; margin-top: 20px;">
-                      January
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">January</a>
-                        <a class="dropdown-item" href="#">February</a>
-                        <a class="dropdown-item" href="#">March</a>
-                        <a class="dropdown-item" href="#">April</a>
-                        <a class="dropdown-item" href="#">May</a>
-                        <a class="dropdown-item" href="#">June</a>
-                        <a class="dropdown-item" href="#">July</a>
-                        <a class="dropdown-item" href="#">August</a>
-                        <a class="dropdown-item" href="#">September</a>
-                        <a class="dropdown-item" href="#">October</a>
-                        <a class="dropdown-item" href="#">November</a>
-                        <a class="dropdown-item" href="#">December</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="margin-left: 40px; margin-top: 20px;" type="button" data-toggle="dropdown" aria-expanded="false">
-                      2024
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">2015</a>
-                        <a class="dropdown-item" href="#">2016</a>
-                        <a class="dropdown-item" href="#">2017</a>
-                        <a class="dropdown-item" href="#">2018</a>
-                        <a class="dropdown-item" href="#">2019</a>
-                        <a class="dropdown-item" href="#">2020</a>
-                        <a class="dropdown-item" href="#">2021</a>
-                        <a class="dropdown-item" href="#">2022</a>
-                        <a class="dropdown-item" href="#">2023</a>
-                        <a class="dropdown-item" href="#">2024</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="margin-left: 40px; margin-top: 20px;" type="button" data-toggle="dropdown" aria-expanded="false">
-                      Select Class
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Class One</a>
-                        <a class="dropdown-item" href="#">Class Two</a>
-                        <a class="dropdown-item" href="#">Class Three</a>
-                        <a class="dropdown-item" href="#">Class Four</a>
-                        <a class="dropdown-item" href="#">Class Five</a>
-                        <a class="dropdown-item" href="#">Class Six</a>
-                        <a class="dropdown-item" href="#">Class Seven</a>
-                        <a class="dropdown-item" href="#">Class Eight</a>
-                        <a class="dropdown-item" href="#">Class Nine</a>
-                        <a class="dropdown-item" href="#">Class Ten</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="margin-left: 40px; margin-top: 20px;" type="button" data-toggle="dropdown" aria-expanded="false">
-                      Select Section
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Section A</a>
-                        <a class="dropdown-item" href="#">Section B</a>
-                        <a class="dropdown-item" href="#">Section C</a>
-                        <a class="dropdown-item" href="#">Section D</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <button class="btn btn-primary" style="margin-left: 40px; margin-top: 20px;">Filter</button>
-            </div>
+    <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Daily Attendance</h6>
+        <a routerLink="/take-attendance" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <i class="fas fa-user fa-sm text-white-50"></i> Take Attendance</a>
+      </div>
+      <div class="card-body" [formGroup]="studentForm">
+        <div class="row align-items-end">
+          <div class="form-group col">
+            <label for="month">Select Month:</label>
+            <select formControlName="month" class="form-control" placeholder="Select Month">
+              <option value="" disabled selected>Select Month</option>
+              <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="year">Select Year:</label>
+            <select formControlName="year" class="form-control" placeholder="Select Year">
+              <option value="" disabled selected>Select Year</option>
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="section">Select Section:</label>
+            <select formControlName="section" class="form-control" placeholder="Select Section">
+              <option value="" disabled selected>Select Section</option>
+              <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="class">Select Class:</label>
+            <select formControlName="class" class="form-control" placeholder="Select Class">
+              <option value="" disabled selected>Select Class</option>
+              <option *ngFor="let classOption of classes" [value]="classOption">{{ classOption }}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <button class="btn btn-primary mt-4" (click)="filterData()">Filter</button>
+          </div>
         </div>
-        <div class="text-center" style="margin-top: 10%; ">
-            <h6>No data found</h6>
+  
+        <!-- Filtered table -->
+        <div class="table-responsive mt-4" *ngIf="filteredData.length > 0">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th *ngFor="let student of students">{{ student }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let attendance of filteredData">
+                <td>{{ attendance.date }}</td>
+                <td *ngFor="let student of students">
+                  <span *ngIf="attendance[student] === 'Present'" class="badge badge-success">Present</span>
+                  <span *ngIf="attendance[student] === 'Absent'" class="badge badge-danger">Absent</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        
+        <div class="text-center" style="margin-top: 10%;" *ngIf="filteredData.length === 0">
+          <h6>No data found</h6>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

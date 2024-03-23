@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectComponent } from './subject/subject.component';
 import { SyllabusComponent } from './syllabus/syllabus.component';
 import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
+import { AddClassRoomComponent } from './add-class-room/add-class-room.component';
+import { ClassRoomComponent } from './class-room/class-room.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
     SubjectComponent,
     SyllabusComponent,
     AddSyllabusComponent,
+    AddClassRoomComponent,
+    ClassRoomComponent,
   ],
   imports: [
     CommonModule,
