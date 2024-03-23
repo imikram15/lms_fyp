@@ -18,7 +18,6 @@ import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
   declarations: [
     AcademicComponent,    
     AddClassRoutineComponent,
-    AddSubjectComponent,
     TakeAttendanceComponent,
     AddSubjectComponent,
     AttendanceComponent,
