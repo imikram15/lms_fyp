@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { LoaderComponent } from './layouts/loader/loader.component';
 
 
 
@@ -13,12 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-<<<<<<< HEAD
-
-=======
     LoaderComponent,
-    
->>>>>>> b20c7ab247ad3a80a68ca17a0de930d70ca75a72
+  
     ],
   imports: [
     BrowserModule,
