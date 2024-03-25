@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
 import { EmployeesService } from '../services/employees.service';
+import { LoaderComponent } from '../layouts/loader/loader.component';
 
 
 
@@ -31,6 +32,7 @@ import { EmployeesService } from '../services/employees.service';
     DesignationsComponent,
     TeachersComponent,
     AddTeachersComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,

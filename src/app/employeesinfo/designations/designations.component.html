@@ -6,34 +6,38 @@
                class="fas fa-user fa-sm text-white-50"></i> Add Designation</a>
     </div>
    
-       <div class="card-body">
-        <!-- <div *ngIf="isLoading; else elseForm">
-          <app-load></app-load>
+       <div class="card-body"  style="position: relative;" >
+        <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <app-loader :title = "loadingTitle" />
 
-        </div> -->
-           <div class="table-responsive">
-               <table class="table table-bordered" style="text-align: center;">
-                   <thead>
-                       <tr>
-                           <th>ID</th>
-                           <th>Title</th>
-                           <th>Actions</th>
-                         </tr>
-   
-                   </thead>
-                   <tbody>
-                    <tr *ngFor="let designation of designations">
-               <td>{{ designation.id }}</td>
-               <td>{{ designation.title }}</td>
-               <td>
-                <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-                <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
-               </td>
-             </tr>
-                   </tbody>
-                 </table>
-           
-           </div>      
+        </div>
+        <ng-template #elseForm >
+          
+          <div class="table-responsive">
+            <table class="table table-bordered" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Actions</th>
+                      </tr>
+
+                </thead>
+                <tbody>
+                 <tr *ngFor="let designation of designations">
+            <td>{{ designation.id }}</td>
+            <td>{{ designation.title }}</td>
+            <td>
+             <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+             <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+            </td>
+          </tr>
+                </tbody>
+              </table>
+        
+        </div>  
+        </ng-template>
+              
      </div>
    </div>
 </div>
