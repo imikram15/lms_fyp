@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DesignationsService,DesignationResponse } from '../../services/designations.service';
 
 @Component({
@@ -7,17 +7,26 @@ import { DesignationsService,DesignationResponse } from '../../services/designat
   styleUrl: './designations.component.scss'
 })
 export class DesignationsComponent {
+
+  @ViewChild('elseForm') elseForm: any;
   designations: DesignationResponse[] = [];
+  isLoading:boolean = false;
+ 
   
   constructor(private designationsService:DesignationsService,){}
-
+  
   ngOnInit(): void {
-    this.getDesignationsList();
+    setTimeout(() => {
+      this.getDesignationsList();
+    });
   }
+  
 
   getDesignationsList() {
+    this.isLoading = true;
     this.designationsService.getDesignation().subscribe((res:any)=>{     
       this.designations = res.designation;
+      this.isLoading = false;
     })
   }
 

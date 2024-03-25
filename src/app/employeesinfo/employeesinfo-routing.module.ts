@@ -22,6 +22,7 @@ const routes: Routes = [
       {path:'', redirectTo:'employeesinfo', pathMatch:'full'},
       { path: 'employees', component:EmployeeComponent  },
       { path: 'add-employees', component:AddEmployeeComponent  },
+      { path: 'add-employees/:id/edit', component:AddEmployeeComponent  },
       { path: 'categories', component:CategoriesComponent },
       { path: 'add-categories', component:AddCategoriesComponent },
       { path: 'designations', component:DesignationsComponent  },
