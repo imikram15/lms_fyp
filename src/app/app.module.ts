@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,12 +9,14 @@ import { LoaderComponent } from './layouts/loader/loader.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoaderComponent,
-
+    
     ],
   imports: [
     BrowserModule,
