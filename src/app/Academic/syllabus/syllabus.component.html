@@ -1,39 +1,74 @@
 <div class="container-fluid">
-    <div class="card shadow mb-4" style="height: 400px;">
+    <div class="card shadow mb-4">
         <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
             <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Syllabus</h6>
-            <a routerLink="/add-syllabus" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user fa-sm text-white-50"></i> Add Syllabus</a>
+            <a routerLink="/add-syllabus" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-user fa-sm text-white-50"></i> Add Syllabus</a>
         </div> 
 
-        <div class="row">
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="margin-left: 40px; margin-top: 20px;" type="button" data-toggle="dropdown" aria-expanded="false">
-                        Select Class
-                    </button>
-                    <div class="dropdown-menu">
-                        <a *ngFor="let option of classOptions" class="dropdown-item" href="#" (click)="selectClass(option)">{{ option }}</a>
-                    </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="class">Select Class</label>
+                    <select class="form-control" id="class">
+                        <option>Select Class</option>
+                        <option *ngFor="let option of classOptions" [value]="option">{{ option }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="section">Select Section</label>
+                    <select class="form-control" id="section">
+                        <option>Select Section</option>
+                        <option *ngFor="let option of sectionOptions" [value]="option">{{ option }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4 d-flex align-items-end">
+                    <button class="btn btn-primary mt-2" (click)="filterData()">Filter</button>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" style="margin-left: 40px; margin-top: 20px;" type="button" data-toggle="dropdown" aria-expanded="false">
-                        Select Section
-                    </button>
-                    <div class="dropdown-menu">
-                        <a *ngFor="let option of sectionOptions" class="dropdown-item" href="#" (click)="selectSection(option)">{{ option }}</a>
-                    </div>
-                </div>
+            <div *ngIf="showTable" class="text-center mt-3">
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Syllabus</th>
+                            <th>Subject</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of syllabusData">
+                            <td>{{ data.title }}</td>
+                            <td><button class="btn btn-primary">Download</button></td>
+                            <td>{{ data.subject }}</td>
+                            <td>
+                                <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+                                <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
-            <div class="col">
-                <button class="btn btn-primary" style="margin-left: 40px; margin-top: 20px;">Filter</button>
+            <div *ngIf="!showTable" class="text-center mt-3">
+                <h6>No data found</h6>
             </div>
         </div>
-        <div class="text-center" style="margin-top: 10%;">
-            <h6>No data found</h6>
-        </div>
+        <nav aria-label="..." class="form-group col-md-4">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
     </div>
 </div>
