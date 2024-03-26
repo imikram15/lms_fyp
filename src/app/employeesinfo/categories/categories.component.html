@@ -6,7 +6,11 @@
                class="fas fa-user fa-sm text-white-50"></i> Add Categories</a>
     </div>
    
-       <div class="card-body">
+       <div class="card-body" style="position: relative;" >
+        <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <app-loader :title = "loadingTitle" />
+        </div>
+        <ng-template #elseForm >
            <div class="table-responsive">
                <table class="table table-bordered"style="text-align: center;">
                    <thead>
@@ -30,7 +34,7 @@
                  </table>
            
            </div>      
-       
+       </ng-template>
          </div>
    </div>
 </div>

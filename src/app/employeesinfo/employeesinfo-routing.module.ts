@@ -25,12 +25,16 @@ const routes: Routes = [
       { path: 'add-employees/:id/edit', component:AddEmployeeComponent  },
       { path: 'categories', component:CategoriesComponent },
       { path: 'add-categories', component:AddCategoriesComponent },
+      { path: 'add-categories/:id/edit', component:AddCategoriesComponent },
       { path: 'designations', component:DesignationsComponent  },
       { path: 'add-designations', component:AddDesignationsComponent },
+      { path: 'add-designations/:id/edit', component:AddDesignationsComponent },
       { path: 'departments', component:DepartmentsComponent  },
       { path: 'add-departments', component:AddDepartmentsComponent  },
+      { path: 'add-departments/:id/edit', component:AddDepartmentsComponent  },
       {path: 'teachers', component:TeachersComponent},      
-      {path: 'add-teachers', component:AddTeachersComponent}      
+      {path: 'add-teachers', component:AddTeachersComponent},      
+      {path: 'add-teachers/:id/edit', component:AddTeachersComponent}      
     ] 
   }
 

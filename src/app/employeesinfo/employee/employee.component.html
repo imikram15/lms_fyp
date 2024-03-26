@@ -1,3 +1,5 @@
+<app-confirmation></app-confirmation>
+
 <div class="container-fluid">
 
   <div class="card shadow mb-4">
@@ -6,8 +8,12 @@
         <a routerLink="/add-employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
           class="fas fa-user fa-sm text-white-50"></i> Add Employee</a>
     </div> 
-    <div class="card-body row">
+    <div class="card-body row" style="position: relative;">
+      <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <app-loader :title = "loadingTitle" />
 
+      </div>
+      <ng-template #elseForm >
       <div class="table-responsive col-md-12 ">
           <table class="table table-bordered w-100" style="text-align: center;">
               <thead>
@@ -38,7 +44,7 @@
           <td>{{ employee.category_id }}</td>
           <td >
             <a  routerLink="/add-employees/{{employee.id}}/edit" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-            <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+            <a  class="fas fa-trash-alt" style="color: #ff6347;" (click)="deleteEmployee($event, employee.id)" ></a>
           </td>
         </tr>
               </tbody>
@@ -59,8 +65,8 @@
                 </li>
               </ul>
             </nav>
-          </div>      
-      
+          </div> 
+       </ng-template>   
 
     </div>
   

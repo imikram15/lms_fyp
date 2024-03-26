@@ -5,7 +5,11 @@
        <a routerLink="/add-departments" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                class="fas fa-user fa-sm text-white-50"></i> Add Department</a>
     </div>
-       <div class="card-body">
+       <div class="card-body" style="position: relative;">
+        <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <app-loader :title = "loadingTitle" />
+        </div>
+        <ng-template #elseForm >
            <div class="table-responsive">
                <table class="table table-bordered" style="text-align: center;">
                    <thead>
@@ -21,15 +25,15 @@
                <td>{{ department.id }}</td>
                <td>{{ department.title }}</td>
                <td>
-                <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-                <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+                <a routerLink="/add-departments/{{department.id}}/edit" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+                <a  class="fas fa-trash-alt" style="color: #ff6347;" (click)="deleteDepartment(department.id)" ></a>
                </td>
              </tr>
                    </tbody>
                  </table>
            
            </div>      
-       
+       </ng-template>
          </div>
    </div>
 </div>

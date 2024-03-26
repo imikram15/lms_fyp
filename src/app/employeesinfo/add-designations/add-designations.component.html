@@ -12,7 +12,7 @@
             Designation Name is required.
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="designationForm.invalid">{{ forUpdate ? 'Update' : 'Submit' }}</button>
         </form>
      </div>
   </div>

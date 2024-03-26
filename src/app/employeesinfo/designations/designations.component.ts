@@ -7,11 +7,11 @@ import { DesignationsService,DesignationResponse } from '../../services/designat
   styleUrl: './designations.component.scss'
 })
 export class DesignationsComponent {
-
+  
   @ViewChild('elseForm') elseForm: any;
-  designations: DesignationResponse[] = [];
   isLoading:boolean = false;
- 
+  designations: DesignationResponse[] = [];
+  
   
   constructor(private designationsService:DesignationsService,){}
   
@@ -21,13 +21,20 @@ export class DesignationsComponent {
     });
   }
   
-
+  
   getDesignationsList() {
     this.isLoading = true;
-    this.designationsService.getDesignation().subscribe((res:any)=>{     
+    this.designationsService.getDesignations().subscribe((res:any)=>{     
       this.designations = res.designation;
       this.isLoading = false;
     })
   }
-
+  
+  deleteDesignation(designationID: number) {
+    if(confirm("Are you sure! You want to Delete?")){
+      this.designationsService.destroyDesignation(designationID).subscribe( (res: any) => {
+        this.getDesignationsList();
+        alert(res.message);   })
+    }
+  }
 }
