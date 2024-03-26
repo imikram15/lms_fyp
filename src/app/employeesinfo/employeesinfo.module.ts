@@ -28,7 +28,7 @@ import { LoaderComponent } from '../layouts/loader/loader.component';
     AddDesignationsComponent,
     AddEmployeeComponent,
     CategoriesComponent,
-    DepartmentsComponent,
+    DepartmentsComponent, 
     DesignationsComponent,
     TeachersComponent,
     AddTeachersComponent,
