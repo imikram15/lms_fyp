@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Exam</h6>
+        </div>
+        <div class="card-body py-4">
+            <form [formGroup]="examForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exam_name">Exam Name:</label>
+                        <input formControlName="exam_name" type="text" class="form-control" id="exam_name" required>
+                        <div *ngIf="examForm.get('exam_name')?.invalid && examForm.get('exam_name')?.touched"
+                            class="text-danger">
+                            Exam Name is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="start_date">Starting Date:</label>
+                        <input formControlName="start_date" type="date" class="form-control" id="start_date"
+                            required>
+                        <div *ngIf="examForm.get('start_date')?.invalid && examForm.get('start_date')?.touched"
+                            class="text-danger">
+                            Starting Date is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="end_date">Ending Date:</label>
+                        <input formControlName="end_date" type="date" class="form-control" id="end_date" required>
+                        <div *ngIf="examForm.get('end_date')?.invalid && examForm.get('end_date')?.touched"
+                            class="text-danger">
+                            Ending Date is required.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="examForm.invalid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
