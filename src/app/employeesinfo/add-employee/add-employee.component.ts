@@ -4,6 +4,7 @@ import { EmployeesService, EmployeesResponse } from '../../services/employees.se
 import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
 import { DesignationsService,DesignationResponse } from '../../services/designations.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,8 +19,12 @@ export class AddEmployeeComponent {
   categories: CategoriesResponse[] = [];
   employeeForm!: FormGroup;
   errors:any =[];
+  forUpdate:boolean = false;
+  employeeID: any;
+  employee: any;
   
   constructor( private fb:FormBuilder ,
+    private route:ActivatedRoute,
     private employeeService:EmployeesService,
     private designationsService:DesignationsService,
     private categoriesService:CategoriesService, 
@@ -38,6 +43,31 @@ export class AddEmployeeComponent {
       phone: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       joining_date: ['', Validators.required],
       address: ['', Validators.required]
+    });
+    this.employeeID = this.route.snapshot.paramMap.get('id');
+    
+    this.employeeService.getEmployee(this.employeeID).subscribe((res: any) => {
+      if (res && res.id) { 
+        this.forUpdate = true;
+        this.employee = res; 
+        this.employeeForm.patchValue({
+          department_id: this.employee.department_id || '', 
+          designation_id: this.employee.designation_id || '', 
+          category_id: this.employee.category_id || '', 
+          name: this.employee.name || '', 
+          father_name: this.employee.father_name || '', 
+          gender: this.employee.gender || '',
+          dob: this.employee.dob || '', 
+          email: this.employee.email || '',
+          phone: this.employee.phone || '', 
+          joining_date: this.employee.joining_date || '', 
+          address: this.employee.address || '' 
+        });
+      } else {
+        console.error('Employee data not found or invalid format:', res);
+      }
+    }, error => {
+      console.error('Error fetching employee data:', error);
     });
 
       this.getDepartmentsList();
@@ -83,5 +113,38 @@ onSubmit() {
     }
   });
 }
+
+// onSubmit() {
+//   const formData = this.employeeForm.value;
+
+//   if (this.forUpdate) {
+//     // Update existing employee
+//     this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
+//       next: (res: any) => {
+//         console.log(res, 'response');
+//         this.employeeForm.reset();
+//         // Redirect or handle success as needed
+//       },
+//       error: (err: any) => {
+//         this.errors = err.error.errors;
+//         console.error(err);
+//       }
+//     });
+//   } else {
+//     // Add new employee
+//     this.employeeService.saveEmployee(formData).subscribe({
+//       next: (res: any) => {
+//         console.log(res, 'response');
+//         this.employeeForm.reset();
+//         // Redirect or handle success as needed
+//       },
+//       error: (err: any) => {
+//         this.errors = err.error.errors;
+//         console.error(err);
+//       }
+//     });
+//   }
+// }
+
 
 }

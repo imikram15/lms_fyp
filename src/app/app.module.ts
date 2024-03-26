@@ -9,14 +9,12 @@ import { LoaderComponent } from './layouts/loader/loader.component';
 
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoaderComponent,
-    
+  
     ],
   imports: [
     BrowserModule,
