@@ -8,6 +8,7 @@ import { StudentsinfoComponent } from '../studentsinfo/studentsinfo/studentsinfo
 import { EmployeesinfoComponent } from '../employeesinfo/employeesinfo/employeesinfo.component';
 import { AcademicComponent } from '../Academic/academic/academic.component';
 import { AcademicModule } from '../Academic/academic.module';
+import { ExamComponent } from '../examinfo/exam/exam.component';
 
 
 
@@ -48,6 +49,15 @@ const routes: Routes = [
         {
       path: '',
   loadChildren: () => import('../Academic/academic.module').then(x => x.AcademicModule)
+  }]},
+
+  {
+    path: '',
+    component:ExamComponent,
+    children: [
+        {
+      path: '',
+  loadChildren: () => import('../examinfo/examinfo.module').then(x => x.ExaminfoModule)
   }]},
 
 ]

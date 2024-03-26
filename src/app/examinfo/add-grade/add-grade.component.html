@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Grade</h6>
+        </div>
+        <div class="card-body py-4">
+            <form [formGroup]="gradeForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="grade">Grade:</label>
+                        <input formControlName="grade" type="text" class="form-control" id="grade" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="gradePoint">Grade Point:</label>
+                        <input formControlName="gradePoint" type="number" class="form-control" id="gradePoint" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="markFrom">Mark From:</label>
+                        <input formControlName="markFrom" type="number" class="form-control" id="markFrom" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="markUpto">Mark Upto:</label>
+                        <input formControlName="markUpto" type="number" class="form-control" id="markUpto" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary">Create Grade</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

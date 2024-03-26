@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Manage Marks</h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="studentForm" (ngSubmit)="filterData()">
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="selectExam">Select Exam:</label>
+            <select style="width: 100%;" formControlName="selectExam" class="form-control" id="selectExam">
+              <option value="" disabled selected>Select Exam</option>
+              <option *ngFor="let exam of examOptions" [value]="exam">{{ exam }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="selectClass">Select Class:</label>
+            <select style="width: 100%;" formControlName="selectClass" class="form-control" id="selectClass">
+              <option value="" disabled selected>Select Class</option>
+              <option *ngFor="let class of classOptions" [value]="class">{{ class }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="selectSubject">Select Subject:</label>
+            <select style="width: 100%;" formControlName="selectSubject" class="form-control" id="selectSubject">
+              <option value="" disabled selected>Select Subject</option>
+              <option *ngFor="let subject of subjectOptions" [value]="subject">{{ subject }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="selectSection">Select Section:</label>
+            <select style="width: 100%;" formControlName="selectSection" class="form-control" id="selectSection">
+              <option value="" disabled selected>Select Section</option>
+              <option *ngFor="let section of sectionOptions" [value]="section">{{ section }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </div>
+        </div>
+      </form>
+      
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Student Name</th>
+            <th scope="col">Marks</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of filteredData">
+            <td>{{ student.name }}</td>
+            <td>{{ student.marks }}</td>
+            <td>{{ student.grade }}</td>
+            <td>{{ student.comment }}</td>
+            <td><i routerLink="" class="fas fa-check-circle text-success"></i></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center" *ngIf="filteredData.length === 0">
+        <h6>No data found</h6>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Examination</h6>
+            <button class="btn btn-sm btn-primary shadow-sm" routerLink="/add-exam" >
+                <i class="fas fa-plus fa-sm text-white-50"></i> Add Exam
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="entries">Show entries:</label>
+                        <select class="form-control" id="entries">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        
+                        <input type="text" class="form-control" style="margin-top: 31px;" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" style="margin-top: 31px;" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Exam Name</th>
+                        <th scope="col">Starting Date (Weekday)</th>
+                        <th scope="col">Ending Date (Weekday)</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let exam of exams">
+                        <td>{{ exam.name }}</td>
+                        <td>{{ exam.startingDate }} ({{ exam.startingWeekday }})</td>
+                        <td>{{ exam.endingDate }} ({{ exam.endingWeekday }})</td>
+                        <td>
+                            <button class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
