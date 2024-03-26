@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
 
 
@@ -8,7 +8,9 @@ import { DepartmentsService, DepartmentResponse } from '../../services/departmen
   styleUrl: './departments.component.scss'
 })
 export class DepartmentsComponent {
-
+ 
+  @ViewChild('elseForm') elseForm: any;
+  isLoading:boolean = false;
   departments: DepartmentResponse[] = [];
 
   constructor(private departmentSerivce:DepartmentsService ) { }
@@ -17,10 +19,20 @@ export class DepartmentsComponent {
     this.getDepartmentsList();
   }
 
-  getDepartmentsList() {
-    this.departmentSerivce.getDepartment().subscribe((res:any)=>{     
-      this.departments = res.department;
+  getDepartmentsList() {    
+    this.isLoading = true;
+    this.departmentSerivce.getDepartments().subscribe((res:any)=>{     
+      this.departments = res.department;      
+    this.isLoading = false;
     })
   }
+
+  deleteDepartment(departmentID: number) {
+    if(confirm("Are you sure! You want to Delete?")){
+      this.departmentSerivce.destroyDepartment(departmentID).subscribe( (res: any) => {
+        this.getDepartmentsList();
+        alert(res.message);   })
+    }
+    }
 
 }

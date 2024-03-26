@@ -4,7 +4,10 @@ import { EmployeesService, EmployeesResponse } from '../../services/employees.se
 import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
 import { DesignationsService,DesignationResponse } from '../../services/designations.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from '../../services/toastr.service';
+
+
 
 
 @Component({
@@ -25,10 +28,13 @@ export class AddEmployeeComponent {
   
   constructor( private fb:FormBuilder ,
     private route:ActivatedRoute,
+    private router:Router,
     private employeeService:EmployeesService,
     private designationsService:DesignationsService,
     private categoriesService:CategoriesService, 
-    private departmentSerivce:DepartmentsService ){}
+    private departmentSerivce:DepartmentsService,
+    private toastr:ToasterService,
+    ){ }
 
   ngOnInit(): void {
     this.employeeForm = this.fb.group({
@@ -44,31 +50,34 @@ export class AddEmployeeComponent {
       joining_date: ['', Validators.required],
       address: ['', Validators.required]
     });
+
     this.employeeID = this.route.snapshot.paramMap.get('id');
     
-    this.employeeService.getEmployee(this.employeeID).subscribe((res: any) => {
-      if (res && res.id) { 
-        this.forUpdate = true;
-        this.employee = res; 
-        this.employeeForm.patchValue({
-          department_id: this.employee.department_id || '', 
-          designation_id: this.employee.designation_id || '', 
-          category_id: this.employee.category_id || '', 
-          name: this.employee.name || '', 
-          father_name: this.employee.father_name || '', 
-          gender: this.employee.gender || '',
-          dob: this.employee.dob || '', 
-          email: this.employee.email || '',
-          phone: this.employee.phone || '', 
-          joining_date: this.employee.joining_date || '', 
-          address: this.employee.address || '' 
-        });
-      } else {
-        console.error('Employee data not found or invalid format:', res);
-      }
-    }, error => {
-      console.error('Error fetching employee data:', error);
-    });
+    if (this.employeeID) {
+      this.employeeService.getEmployee(this.employeeID).subscribe((res: any) => {
+        if (res && res.id) { 
+          this.forUpdate = true;
+          this.employee = res; 
+          this.employeeForm.patchValue({
+            department_id: this.employee.department_id || '', 
+            designation_id: this.employee.designation_id || '', 
+            category_id: this.employee.category_id || '', 
+            name: this.employee.name || '', 
+            father_name: this.employee.father_name || '', 
+            gender: this.employee.gender || '',
+            dob: this.employee.dob || '', 
+            email: this.employee.email || '',
+            phone: this.employee.phone || '', 
+            joining_date: this.employee.joining_date || '', 
+            address: this.employee.address || '' 
+          });
+        } else {
+          console.error('Employee data not found or invalid format:', res);
+        }
+      }, error => {
+        console.error('Error fetching employee data:', error);
+      });
+    }
 
       this.getDepartmentsList();
       this.getDesignationsList();
@@ -89,62 +98,60 @@ export class AddEmployeeComponent {
   }
 
   getDesignationsList() {
-    this.designationsService.getDesignation().subscribe((res:any)=>{     
+    this.designationsService.getDesignations().subscribe((res:any)=>{     
       this.designations = res.designation;
     })
   }
 
   getDepartmentsList() {
-    this.departmentSerivce.getDepartment().subscribe((res:any)=>{     
+    this.departmentSerivce.getDepartments().subscribe((res:any)=>{     
       this.departments = res.department;
     })
   }
 
-
+  
 onSubmit() {
-  this.employeeService.saveEmployee(this.employeeForm.value).subscribe({
-    next:(res:any)=>{
-      console.log(res,'response');  
-      this.employeeForm.reset();      
-    },
-    error:(err:any)=>{
-      this.errors = err.error.errors;
-      console.log(err);
-    }
-  });
+  const formData = this.employeeForm.value;
+
+  if (this.forUpdate) {
+    this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
+      next: (res: any) => {
+        console.log(res, 'response');
+        this.employeeForm.reset();
+        this.router.navigate(['/employees']);
+        this.toastr.showSuccess('Employee updated successfully!', 'Success');
+      },
+      error: (err: any) => {
+        this.handle422Error(err);
+        console.error(err);
+      }
+    });
+  } else {
+    this.employeeService.saveEmployee(formData).subscribe({
+      next: (res: any) => {
+        console.log(res, 'response');
+        this.employeeForm.reset();
+        this.router.navigate(['/employees']);
+        this.toastr.showSuccess('Employee added successfully!', 'Success');
+      },
+      error: (err: any) => {
+        this.handle422Error(err);
+        console.error(err);
+      }
+    });
+  }
 }
 
-// onSubmit() {
-//   const formData = this.employeeForm.value;
-
-//   if (this.forUpdate) {
-//     // Update existing employee
-//     this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
-//       next: (res: any) => {
-//         console.log(res, 'response');
-//         this.employeeForm.reset();
-//         // Redirect or handle success as needed
-//       },
-//       error: (err: any) => {
-//         this.errors = err.error.errors;
-//         console.error(err);
-//       }
-//     });
-//   } else {
-//     // Add new employee
-//     this.employeeService.saveEmployee(formData).subscribe({
-//       next: (res: any) => {
-//         console.log(res, 'response');
-//         this.employeeForm.reset();
-//         // Redirect or handle success as needed
-//       },
-//       error: (err: any) => {
-//         this.errors = err.error.errors;
-//         console.error(err);
-//       }
-//     });
-//   }
-// }
-
+private handle422Error(err: any): void {
+  if (err.status === 422 && err.error && err.error.errors) {
+    const errorMessages = Object.values(err.error.errors).flat();
+    errorMessages.forEach((message: any) => {
+      this.toastr.showError(message, 'Error');
+    });
+  } else {
+    this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
+  }
+}
+  
 
 }

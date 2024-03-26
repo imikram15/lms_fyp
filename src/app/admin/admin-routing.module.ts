@@ -7,8 +7,6 @@ import { AdminComponent } from './admin/admin.component';
 import { StudentsinfoComponent } from '../studentsinfo/studentsinfo/studentsinfo.component';
 import { EmployeesinfoComponent } from '../employeesinfo/employeesinfo/employeesinfo.component';
 import { AcademicComponent } from '../Academic/academic/academic.component';
-import { AcademicModule } from '../Academic/academic.module';
-
 
 
 const routes: Routes = [
