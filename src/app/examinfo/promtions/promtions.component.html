@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Manage Promotions</h6>
+        <button class="btn btn-primary">Manage Promotions</button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="currentSession">Current Session:</label>
+            <select style="width: 100%;" formControlName="currentSession" class="form-control" id="currentSession">
+              <option value="" disabled selected>Select Current Session</option>
+              <option *ngFor="let session of currentSessions" [value]="session">{{ session }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="sessionFrom">Session From:</label>
+            <select style="width: 100%;" formControlName="sessionFrom" class="form-control" id="sessionFrom">
+              <option value="" disabled selected>Select Session From</option>
+              <option *ngFor="let session of sessions" [value]="session">{{ session }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="promotingFrom">Promoting From:</label>
+            <select style="width: 100%;" formControlName="promotingFrom" class="form-control" id="promotingFrom">
+              <option value="" disabled selected>Select Promoting From</option>
+              <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="promotingTo">Promoting To:</label>
+            <select style="width: 100%;" formControlName="promotingTo" class="form-control" id="promotingTo">
+              <option value="" disabled selected>Select Promoting To</option>
+              <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
+            </select>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>

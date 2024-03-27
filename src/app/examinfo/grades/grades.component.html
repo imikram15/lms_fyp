@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Grade </h6>
+            <button routerLink="/add-grade" class="btn btn-primary">Add Grade</button>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Grade <i class="fas fa-sort"></i></th>
+                        <th scope="col">Grade Point <i class="fas fa-sort"></i></th>
+                        <th scope="col">Mark From <i class="fas fa-sort"></i></th>
+                        <th scope="col">Mark Upto <i class="fas fa-sort"></i></th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let grade of grades">
+                        <td>{{ grade.grade }}</td>
+                        <td>{{ grade.gradePoint }}</td>
+                        <td>{{ grade.markFrom }}</td>
+                        <td>{{ grade.markUpto }}</td>
+                        <td>
+                            <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+                            <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
