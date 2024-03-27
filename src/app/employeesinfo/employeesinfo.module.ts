@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
 import { LoaderComponent } from '../layouts/loader/loader.component';
-import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     EmployeesinfoRoutingModule,
     ReactiveFormsModule,
-    SharedModule
   ]
 })
 export class EmployeesinfoModule { }

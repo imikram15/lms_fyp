@@ -34,7 +34,7 @@ const routes: Routes = [
       { path: 'add-departments/:id/edit', component:AddDepartmentsComponent  },
       {path: 'teachers', component:TeachersComponent},      
       {path: 'add-teachers', component:AddTeachersComponent},      
-      {path: 'add-teachers/:id/edit', component:AddTeachersComponent}      
+      {path: 'add-teachers/:id/edit', component:AddTeachersComponent},         
     ] 
   }
 

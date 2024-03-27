@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+
 
 export interface CategoriesResponse{
   id:number,
@@ -15,26 +17,26 @@ export class CategoriesService {
 
   constructor(private httpclient:HttpClient) { }
 
-  baseURL:any = 'http://127.0.0.1:8000/api/';
+  baseURL = environment.apiUrl;
 
 
   getCategories(){
-    return this.httpclient.get( this.baseURL + 'categories');
+    return this.httpclient.get( this.baseURL + '/categories');
   }
 
   saveCategories(categoryData:any){
-    return this.httpclient.post( this.baseURL + 'categories', categoryData);
+    return this.httpclient.post( this.baseURL + '/categories', categoryData);
   }
 
   getCategory(categoryID:number){
-    return this.httpclient.get( this.baseURL + `categories/${categoryID}/edit`);
+    return this.httpclient.get( this.baseURL + `/categories/${categoryID}/edit`);
   }
 
   updateCategory(categoryID: number, formData: any) {
-    return this.httpclient.put(this.baseURL + `categories/${categoryID}/edit`, formData);
+    return this.httpclient.put(this.baseURL + `/categories/${categoryID}/edit`, formData);
   }
 
   destroyCategory(categoryID:number){
-    return this.httpclient.delete(this.baseURL + `categories/${categoryID}/delete`);
+    return this.httpclient.delete(this.baseURL + `/categories/${categoryID}/delete`);
   }
 }

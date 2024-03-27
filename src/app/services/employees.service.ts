@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 export interface EmployeesResponse{
   id:number,
+  image:string,
   department_id:number,
   designation_id: number,
   category_id :number,
@@ -23,25 +26,26 @@ export interface EmployeesResponse{
 })
 export class EmployeesService {
 
+  baseUrl = environment.apiUrl
   constructor(private httpclient:HttpClient) { }
   
   saveEmployee(employeeData:any){
-    return this.httpclient.post('http://127.0.0.1:8000/api/employees', employeeData);
+    return this.httpclient.post( this.baseUrl + '/employees', employeeData);
   }
   getEmployees(){
-    return this.httpclient.get('http://127.0.0.1:8000/api/employees');
+    return this.httpclient.get( this.baseUrl + '/employees');
   }
 
   getEmployee(employeeID:number){
-    return this.httpclient.get(`http://127.0.0.1:8000/api/employees/${employeeID}/edit`);
+    return this.httpclient.get( this.baseUrl + `/employees/${employeeID}/edit`);
   }
 
   updateEmployee(employeeID: number, formData: any) {
-    return this.httpclient.put(`http://127.0.0.1:8000/api/employees/${employeeID}/edit`, formData);
+    return this.httpclient.put(this.baseUrl + `/employees/${employeeID}/edit`, formData);
   }
 
   destroyEmployee(employeeID:number){
-    return this.httpclient.delete(`http://127.0.0.1:8000/api/employees/${employeeID}/delete`);
+    return this.httpclient.delete( this.baseUrl + `/api/employees/${employeeID}/delete`);
 
   }
 

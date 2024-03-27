@@ -132,24 +132,12 @@
         </div>
         
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="image">Image:</label>
-              <input formControlName="image" type="file" class="form-control" id="image" accept="image/*">
-              <div *ngIf="employeeForm.get('image')?.invalid && employeeForm.get('image')?.touched" class="text-danger">
-                Please select a valid image file.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="row">
           <div class="col-md-12 d-flex ">
             <div class="form-group col-md-6">
               <label for="profileImage">Profile Image:</label>
               <div class="custom-file">
-                <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*" class="custom-file-input">
-                <label class="custom-file-label" for="profileImage"></label>
+                <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*">
+                <label class="custom-file-label" for="profileImage">Choose Image</label>
               </div>
             </div>
               <div class="col-md-6">
@@ -161,7 +149,7 @@
                 </div>
               </div>         
           </div>
-        </div> -->
+        </div>
 
         <button type="submit" class="btn btn-primary" >{{ forUpdate ? 'Update' : 'Submit' }}</button>
       </form>
