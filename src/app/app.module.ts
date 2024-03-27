@@ -14,7 +14,6 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    ConfirmationComponent,
     ],
   imports: [
     BrowserModule,
@@ -22,7 +21,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-    // SharedModule
+    SharedModule
   ],
   exports:[],
   providers: [],

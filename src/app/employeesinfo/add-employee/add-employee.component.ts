@@ -48,7 +48,8 @@ export class AddEmployeeComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       joining_date: ['', Validators.required],
-      address: ['', Validators.required]
+      address: ['', Validators.required],
+      mage: [null]
     });
 
     this.employeeID = this.route.snapshot.paramMap.get('id');
@@ -110,48 +111,111 @@ export class AddEmployeeComponent {
   }
 
   
-onSubmit() {
-  const formData = this.employeeForm.value;
-
-  if (this.forUpdate) {
-    this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
-      next: (res: any) => {
-        console.log(res, 'response');
-        this.employeeForm.reset();
-        this.router.navigate(['/employees']);
-        this.toastr.showSuccess('Employee updated successfully!', 'Success');
-      },
-      error: (err: any) => {
-        this.handle422Error(err);
-        console.error(err);
+  onSubmit() {
+    if (this.employeeForm.valid) {
+      const formData = new FormData();
+  
+      // Append form data
+      Object.keys(this.employeeForm.value).forEach(key => {
+        if (key !== 'image') {
+          formData.append(key, this.employeeForm.value[key]);
+        }
+      });
+  
+      // Append image file
+      const imageControl = this.employeeForm.get('image');
+      if (imageControl && imageControl.value) {
+        formData.append('image', imageControl.value);
       }
-    });
-  } else {
-    this.employeeService.saveEmployee(formData).subscribe({
-      next: (res: any) => {
-        console.log(res, 'response');
-        this.employeeForm.reset();
-        this.router.navigate(['/employees']);
-        this.toastr.showSuccess('Employee added successfully!', 'Success');
-      },
-      error: (err: any) => {
-        this.handle422Error(err);
-        console.error(err);
+  
+      // Send request to save or update employee
+      if (this.forUpdate) {
+        this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
+          next: (res: any) => {
+            console.log(res, 'response');
+            this.employeeForm.reset();
+            this.router.navigate(['/employees']);
+            this.toastr.showSuccess('Employee updated successfully!', 'Success');
+          },
+          error: (err: any) => {
+            this.handle422Error(err);
+            console.error(err);
+          }
+        });
+      } else {
+        this.employeeService.saveEmployee(formData).subscribe({
+          next: (res: any) => {
+            console.log(res, 'response');
+            this.employeeForm.reset();
+            this.router.navigate(['/employees']);
+            this.toastr.showSuccess('Employee added successfully!', 'Success');
+          },
+          error: (err: any) => {
+            this.handle422Error(err);
+            console.error(err);
+          }
+        });
       }
-    });
+    } else {
+      this.employeeForm.markAllAsTouched();
+    }
   }
-}
+  
+  private handle422Error(err: any): void {
+    if (err.status === 422 && err.error && err.error.errors) {
+      const errorMessages = Object.values(err.error.errors).flat();
+      errorMessages.forEach((message: any) => {
+        this.toastr.showError(message, 'Error');
+      });
+    } else {
+      this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
+    }
+  }
+  
 
-private handle422Error(err: any): void {
-  if (err.status === 422 && err.error && err.error.errors) {
-    const errorMessages = Object.values(err.error.errors).flat();
-    errorMessages.forEach((message: any) => {
-      this.toastr.showError(message, 'Error');
-    });
-  } else {
-    this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
-  }
-}
+
+// onSubmit() {
+//   const formData = this.employeeForm.value;
+
+//   if (this.forUpdate) {
+//     this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
+//       next: (res: any) => {
+//         console.log(res, 'response');
+//         this.employeeForm.reset();
+//         this.router.navigate(['/employees']);
+//         this.toastr.showSuccess('Employee updated successfully!', 'Success');
+//       },
+//       error: (err: any) => {
+//         this.handle422Error(err);
+//         console.error(err);
+//       }
+//     });
+//   } else {
+//     this.employeeService.saveEmployee(formData).subscribe({
+//       next: (res: any) => {
+//         console.log(res, 'response');
+//         this.employeeForm.reset();
+//         this.router.navigate(['/employees']);
+//         this.toastr.showSuccess('Employee added successfully!', 'Success');
+//       },
+//       error: (err: any) => {
+//         this.handle422Error(err);
+//         console.error(err);
+//       }
+//     });
+//   }
+// }
+
+// private handle422Error(err: any): void {
+//   if (err.status === 422 && err.error && err.error.errors) {
+//     const errorMessages = Object.values(err.error.errors).flat();
+//     errorMessages.forEach((message: any) => {
+//       this.toastr.showError(message, 'Error');
+//     });
+//   } else {
+//     this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
+//   }
+// }
   
 
 }
