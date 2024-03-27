@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DepartmentsService } from '../../services/departments.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from '../../services/toastr.service';
 DepartmentsService
 
 @Component({
@@ -12,14 +13,15 @@ DepartmentsService
 export class AddDepartmentsComponent implements OnInit {
 
   departmentForm!: FormGroup;
-  departmentID:any ;
+  departmentID: any;
   forUpdate: boolean = false;
   departmentUpdate: any;
 
-  constructor(private formBuilder: FormBuilder, 
-     private departmentsService:DepartmentsService,
-     private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+    private departmentsService: DepartmentsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastr: ToasterService,) { }
 
   ngOnInit(): void {
     this.departmentForm = this.formBuilder.group({
@@ -32,19 +34,19 @@ export class AddDepartmentsComponent implements OnInit {
           this.forUpdate = true;
           this.departmentUpdate = res;
           this.departmentForm.patchValue({
-            designation_id: this.departmentUpdate.designation_id,
+            department_id: this.departmentUpdate.department_id,
             title: this.departmentUpdate.title,
           })
         } else {
-          console.error('Department data not found or invalid format:', res);
+        this.toastr.showError('Department data not found or invalid format', 'Error');
         }
       }, error => {
-        console.error('Error fetching Department data:', error);
+        this.toastr.showError('Error fetching Department data', error );
       });
     }
   }
 
-  errors:any =[];
+  errors: any = [];
 
   onSubmit(): void {
     const formData = this.departmentForm.value;
@@ -55,10 +57,10 @@ export class AddDepartmentsComponent implements OnInit {
           console.log(res, 'response');
           this.departmentForm.reset();
           this.router.navigate(['/departments'])
-          // this.toastr.success('designation updated successfully!', 'Success');
+          this.toastr.showSuccess('Department updated successfully!', 'Success');
         },
         error: (err: any) => {
-          this.errors = err.error.errors;
+          this.handle422Error(err);
           console.error(err);
         }
       });
@@ -68,15 +70,26 @@ export class AddDepartmentsComponent implements OnInit {
           console.log(res, 'response');
           this.departmentForm.reset();
           this.router.navigate(['/departments']);
-       // this.toastr.success('Employee added successfully!', 'Success');
+          this.toastr.showSuccess('Department added successfully!', 'Success');
 
         },
         error: (err: any) => {
-          this.errors = err.error.errors;
-          console.log(err);
+          this.handle422Error(err);
+           console.log(err);
         }
       });
     }
-   }
- 
+  }
+
+  private handle422Error(err: any): void {
+    if (err.status === 422 && err.error && err.error.errors) {
+      const errorMessages = Object.values(err.error.errors).flat();
+      errorMessages.forEach((message: any) => {
+        this.toastr.showError(message, 'Error');
+      });
+    } else {
+      this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
+    }
+  }
+
 }

@@ -130,8 +130,42 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary"  >{{ forUpdate ? 'Update' : 'Submit' }}</button>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="image">Image:</label>
+              <input formControlName="image" type="file" class="form-control" id="image" accept="image/*">
+              <div *ngIf="employeeForm.get('image')?.invalid && employeeForm.get('image')?.touched" class="text-danger">
+                Please select a valid image file.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-md-12 d-flex ">
+            <div class="form-group col-md-6">
+              <label for="profileImage">Profile Image:</label>
+              <div class="custom-file">
+                <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*" class="custom-file-input">
+                <label class="custom-file-label" for="profileImage"></label>
+              </div>
+            </div>
+              <div class="col-md-6">
+                <div class="row d-flex justify-content-center align-content-center mt-3">
+                    <img style="height: 180px; width: 150px; border:solid rgb(228, 228, 228); border-radius: 10%;" [src]="imageURL">
+                </div>
+                <div *ngIf="employeeForm.get('profileImage')?.invalid && employeeForm.get('profileImage')?.touched" class="text-danger">
+                  Profile image is required.
+                </div>
+              </div>         
+          </div>
+        </div> -->
+
+        <button type="submit" class="btn btn-primary" >{{ forUpdate ? 'Update' : 'Submit' }}</button>
       </form>
+      <!-- [disabled]="employeeForm.invalid"  -->
      </div>
     </div>
   </div>

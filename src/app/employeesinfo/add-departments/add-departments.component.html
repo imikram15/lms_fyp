@@ -12,7 +12,7 @@
               Department Name is required.
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="departmentForm.invalid">{{ forUpdate ? 'Update' : 'Submit' }}</button>
         </form>
       </div>
   </div>

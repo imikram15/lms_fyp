@@ -25,5 +25,13 @@ export class CategoriesComponent {
     this.isLoading = false;
     })
   }
+  
+  deleteCategory(categoryID: number) {
+    if(confirm("Are you sure! You want to Delete?")){
+      this.categoriesService.destroyCategory(categoryID).subscribe( (res: any) => {
+        this.getCategoriesList();
+        alert(res.message);   })
+    }
+    }
 
 }

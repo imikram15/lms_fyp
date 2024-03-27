@@ -36,7 +36,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     EmployeesinfoRoutingModule,
     ReactiveFormsModule,
-    // SharedModule
+    SharedModule
   ]
 })
 export class EmployeesinfoModule { }

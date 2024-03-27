@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DesignationsService } from '../../services/designations.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from '../../services/toastr.service';
 
 @Component({
   selector: 'app-add-designations',
@@ -18,7 +19,8 @@ export class AddDesignationsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private designationsService: DesignationsService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private toastr:ToasterService,) { }
 
   ngOnInit(): void {
     this.designationForm = this.formBuilder.group({
@@ -54,10 +56,10 @@ export class AddDesignationsComponent implements OnInit {
           console.log(res, 'response');
           this.designationForm.reset();
           this.router.navigate(['/designations'])
-          // this.toastr.success('designation updated successfully!', 'Success');
+          this.toastr.showSuccess('designation updated successfully!', 'Success');
         },
         error: (err: any) => {
-          this.errors = err.error.errors;
+          this.handle422Error(err);
           console.error(err);
         }
       });
@@ -67,15 +69,27 @@ export class AddDesignationsComponent implements OnInit {
           console.log(res, 'response');
           this.designationForm.reset();
           this.router.navigate(['/designations']);
-       // this.toastr.success('Employee added successfully!', 'Success');
+       this.toastr.showSuccess('Designation added successfully!', 'Success');
 
         },
         error: (err: any) => {
-          this.errors = err.error.errors;
+          this.handle422Error(err);
           console.log(err);
         }
       });
     }
   }
+
+  private handle422Error(err: any): void {
+    if (err.status === 422 && err.error && err.error.errors) {
+      const errorMessages = Object.values(err.error.errors).flat();
+      errorMessages.forEach((message: any) => {
+        this.toastr.showError(message, 'Error');
+      });
+    } else {
+      this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
+    }
+  }
+    
 
 }

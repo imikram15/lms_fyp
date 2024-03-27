@@ -26,8 +26,8 @@
                <td>{{ category.id }}</td>
                <td>{{ category.title }}</td>
                <td>
-                <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-                <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+                <a routerLink="/add-categories/{{category.id}}/edit" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+                <a  class="fas fa-trash-alt" style="color: #ff6347;" (click)="deleteCategory(category.id)" ></a>
                </td>
              </tr>
                    </tbody>

@@ -44,8 +44,8 @@ subjectOptions: any;
     }
   }
 
-imageURL:string = "assets/img/profile.jpg";
-imagefile: File | undefined;
+  imageURL:string = "assets/img/profile.jpg";
+  imagefile: File | undefined;
 
 onFileSelected(event: any) {
   const file: File = event.target.files[0];
