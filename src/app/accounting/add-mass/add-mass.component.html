@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="card shadow mb-4">
+      <div class="card-header">
+        <h6 class="m-0 font-weight-bold text-primary">Add Mass Invoice</h6>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="classDropdown">Class:</label>
+          <select class="form-control colorful" id="classDropdown">
+            <option value="" selected>Select Class</option>
+            <option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sectionDropdown">Section:</label>
+          <select class="form-control colorful" id="sectionDropdown">
+            <option value="" selected>Select Section</option>
+            <option *ngFor="let section of sections" [value]="section.id">{{ section.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="invoiceTitle">Invoice Title:</label>
+          <input type="text" class="form-control colorful" id="invoiceTitle">
+        </div>
+        <div class="form-group">
+          <label for="totalAmount">Total Amount (Rs):</label>
+          <input type="number" class="form-control colorful" id="totalAmount">
+        </div>
+        <div class="form-group">
+          <label for="paidAmount">Paid Amount (Rs):</label>
+          <input type="number" class="form-control colorful" id="paidAmount">
+        </div>
+        <div class="form-group">
+          <label for="statusDropdown">Status:</label>
+          <select class="form-control colorful" id="statusDropdown">
+            <option value="" selected>Select Status</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" (click)="createMassInvoice()">Create Mass Invoice</button>
+      </div>
+    </div>
+  </div>
+  
