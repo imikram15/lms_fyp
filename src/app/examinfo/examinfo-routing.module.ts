@@ -7,6 +7,7 @@ import { PromtionsComponent } from './promtions/promtions.component';
 import { ExamComponent } from './exam/exam.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { AddGradeComponent } from './add-grade/add-grade.component';
+
 const routes: Routes = [
   { path: 'exam', component:ExamComponent},
   {
