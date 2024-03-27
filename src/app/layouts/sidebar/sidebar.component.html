@@ -101,7 +101,36 @@
             </div>
         </div>
     </li>
-
+    <!-- live class -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLiveClass"
+            aria-expanded="true" aria-controls="collapseLiveClass">
+            <i class="fa-solid fa-video"></i>
+            <span>Live Class</span>
+        </a>
+        <div id="collapseLiveClass" class="collapse" aria-labelledby="headingLiveClass"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Live Class Info:</h6>
+                <a class="collapse-item" routerLink="/live-class">Live Class Settings</a>
+            </div>
+        </div>
+    </li>
+    <!-- Student fee manager -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounting"
+            aria-expanded="true" aria-controls="collapseAccounting">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Accounting</span>
+        </a>
+        <div id="collapseAccounting" class="collapse" aria-labelledby="headingAccounting"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Accounting Info:</h6>
+                <a class="collapse-item" routerLink="/student-fee-manager">Student fee manager</a>
+            </div>
+        </div>
+    </li>
     <!-- Divider -->
     <!-- <hr class="sidebar-divider"> -->
 
