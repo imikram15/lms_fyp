@@ -25,6 +25,8 @@ export class AddEmployeeComponent {
   forUpdate: boolean = false;
   employeeID: any;
   employee: any;
+  imageURL: string = "assets/img/profile.jpg";
+  imagefile: File | undefined;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -156,19 +158,16 @@ export class AddEmployeeComponent {
   }
   
 
-  imageURL: string = "assets/img/profile.jpg";
-  imagefile: File | undefined;
-
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
+    const image: File = event.target.files[0];
 
-    if (file) {
-      this.imagefile = file;
+    if (image) {
+      this.imagefile = image;
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.imageURL = e.target?.result as string;
+        this.imageURL = e.target?.result as string;        
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(image);         
     } else {
       this.imageURL = "assets/img/profile.jpg";
       this.imagefile = undefined;

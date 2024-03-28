@@ -15,7 +15,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
 import { LoaderComponent } from '../layouts/loader/loader.component';
-
+import { SharedModule } from '../shared/shared.module';
+import { CustomMaterialModule } from '../custom-material/custom-material.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,11 @@ import { LoaderComponent } from '../layouts/loader/loader.component';
     CommonModule,
     EmployeesinfoRoutingModule,
     ReactiveFormsModule,
-  ]
+    SharedModule,
+    CustomMaterialModule,
+    MatDialogModule,
+    MatButtonModule  
+  ],
+ 
 })
 export class EmployeesinfoModule { }
