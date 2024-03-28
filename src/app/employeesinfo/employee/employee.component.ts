@@ -1,8 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, getNgModuleById } from '@angular/core';
 import { EmployeesService, EmployeesResponse } from '../../services/employees.service';
 import { CategoriesService, CategoriesResponse } from '../../services/categories.service';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
 import { DesignationsService, DesignationResponse } from '../../services/designations.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-employee',
@@ -16,14 +19,16 @@ export class EmployeeComponent {
   departments: DepartmentResponse[] = [];
   designations: DesignationResponse[] = [];
   categories: CategoriesResponse[] = [];
-  
+  imgUrl = environment.mediaUrl;
+
   @ViewChild('elseForm') elseForm: any;
   isLoading: boolean = false;
 
   constructor(private employeeService: EmployeesService,
     private designationsService: DesignationsService,
     private categoriesService: CategoriesService,
-    private departmentSerivce: DepartmentsService) { }
+    private departmentSerivce: DepartmentsService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getDepartmentsList();
@@ -54,16 +59,25 @@ export class EmployeeComponent {
     this.departmentSerivce.getDepartments().subscribe((res: any) => {
       this.departments = res.department;
     })
-  }
+  }  
+  
+  result: string = '';
 
-  deleteEmployee(event: any, employeeID: number) {
-    if (confirm("Are you sure! You want to Delete?")) {
-      this.employeeService.destroyEmployee(employeeID).subscribe((res: any) => {
-        this.getEmployeesList();
-        alert(res.message);
-      })
-    }
-  }
+  confirmDialog(id:string|number): void {
+    const message = `Are you sure you want to do this?`;
 
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: "35%",
+      position: { left: '35%' },
+      data: {data : dialogData , id:id},
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      this.getEmployeesList();
+    });
+  }
 
 }

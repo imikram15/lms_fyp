@@ -32,7 +32,7 @@
                 <td>{{ employee.id }}</td>
                 <td>
                   <div class="avatar-container">
-                    <img [src]="employee.image || 'assets/img/profile.jpg'" class="avatar-img" alt="Avatar">
+                    <img [src]="imgUrl + 'profile' + '/' + employee.image " class="avatar-img" alt="Avatar">
                   </div>
                 </td>
                 <td>{{ employee.name }}</td>
@@ -45,7 +45,7 @@
                 <td>{{ employee.category_id }}</td>
                 <td >
                   <a routerLink="/add-employees/{{employee.id}}/edit" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
-                  <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="deleteEmployee($event, employee.id)"></a>
+                  <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(employee.id)"></a>
                 </td>
               </tr>
             </tbody>

@@ -27,6 +27,7 @@ export interface EmployeesResponse{
 export class EmployeesService {
 
   baseUrl = environment.apiUrl
+
   constructor(private httpclient:HttpClient) { }
   
   saveEmployee(employeeData:any){
@@ -45,7 +46,7 @@ export class EmployeesService {
   }
 
   destroyEmployee(employeeID:number){
-    return this.httpclient.delete( this.baseUrl + `/api/employees/${employeeID}/delete`);
+    return this.httpclient.delete( this.baseUrl + `/employees/${employeeID}/delete`);
 
   }
 
