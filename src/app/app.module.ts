@@ -22,7 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     MatDialogModule,
-    MatButtonModule    
+    MatButtonModule,
   ],
   exports:[],
   providers: [],

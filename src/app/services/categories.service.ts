@@ -21,22 +21,22 @@ export class CategoriesService {
 
 
   getCategories(){
-    return this.httpclient.get( this.baseURL + '/categories');
+    return this.httpclient.get( this.baseURL + 'categories');
   }
 
   saveCategories(categoryData:any){
-    return this.httpclient.post( this.baseURL + '/categories', categoryData);
+    return this.httpclient.post( this.baseURL + 'categories', categoryData);
   }
 
   getCategory(categoryID:number){
-    return this.httpclient.get( this.baseURL + `/categories/${categoryID}/edit`);
+    return this.httpclient.get( this.baseURL + `categories/${categoryID}/edit`);
   }
 
   updateCategory(categoryID: number, formData: any) {
-    return this.httpclient.put(this.baseURL + `/categories/${categoryID}/edit`, formData);
+    return this.httpclient.put(this.baseURL + `categories/${categoryID}/edit`, formData);
   }
 
   destroyCategory(categoryID:number){
-    return this.httpclient.delete(this.baseURL + `/categories/${categoryID}/delete`);
+    return this.httpclient.delete(this.baseURL + `categories/${categoryID}/delete`);
   }
 }

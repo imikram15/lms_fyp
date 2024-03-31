@@ -1,16 +1,31 @@
 <div class="container-fluid">
   <div class="card shadow mb-4">
-    <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;">Employees Information</h6>
-        <a routerLink="/add-employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-          class="fas fa-user fa-sm text-white-50"></i> Add Employee</a>
-    </div> 
+    <div class="card-header d-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Employees Information</h6>
+        <div class="d-flex">
+            <a routerLink="/add-employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-user fa-sm text-white-50"></i> Add Employee</a>
+            <form class="d-none d-sm-inline-block form-inline ml-3">
+              <!-- (ngSubmit)="search()" -->
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm  " placeholder="Search for..."
+                        aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="searchTerm" name="searchTerm">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-sm" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card-body row" style="position: relative;">
       <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <app-loader :title="loadingTitle" />
       </div>
       <ng-template #elseForm >
         <div class="table-responsive col-md-12 ">
+
           <table class="table table-bordered w-100" style="text-align: center;">
             <thead>
               <tr>
@@ -28,7 +43,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr scope="row" *ngFor="let employee of employees">
+              <tr scope="row" *ngFor="let employee of employees | filter:searchTerm | paginate:{
+               itemsPerPage:perPage, currentPage:page, totalItems:total}; let i = index;">
                 <td>{{ employee.id }}</td>
                 <td>
                   <div class="avatar-container">
@@ -45,27 +61,17 @@
                 <td>{{ employee.category_id }}</td>
                 <td >
                   <a routerLink="/add-employees/{{employee.id}}/edit" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
-                  <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(employee.id)"></a>
+                  <a class="fas fa-trash-alt " style="color: #ff6347; cursor:pointer" (click)="confirmDialog(employee.id)"></a>
                 </td>
               </tr>
             </tbody>
           </table>
-        
-          <nav aria-label="...">
-            <ul class="pagination">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
+          <div>
+            <pagination-controls
+            previousLabel = "prev"
+            nextLabel = "Next"
+            (pageChange) = "onTableDataChange($event)"></pagination-controls>
+          </div>
         </div> 
       </ng-template>   
     </div>

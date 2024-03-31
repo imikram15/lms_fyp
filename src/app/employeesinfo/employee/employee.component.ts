@@ -6,14 +6,23 @@ import { DesignationsService, DesignationResponse } from '../../services/designa
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { environment } from '../../../environments/environment.development';
+import { PaginationService } from '../../services/pagination.service';
+import { Paginator } from '../../paginator';
+import { EmployeesinfoModule } from '../employeesinfo.module';
+
+
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
-  styleUrl: './employee.component.scss'
+  styleUrl: './employee.component.scss',
 })
-export class EmployeeComponent {
-
+export class EmployeeComponent extends Paginator{
+searchTerm: any;
+search() {
+  console.log('Searching for:', this.searchTerm);
+  
+}
 
   employees: EmployeesResponse[] = [];
   departments: DepartmentResponse[] = [];
@@ -28,7 +37,10 @@ export class EmployeeComponent {
     private designationsService: DesignationsService,
     private categoriesService: CategoriesService,
     private departmentSerivce: DepartmentsService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public paginationService:PaginationService) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getDepartmentsList();
@@ -38,8 +50,12 @@ export class EmployeeComponent {
   }
   getEmployeesList() {
     this.isLoading = true;
-    this.employeeService.getEmployees().subscribe((res: any) => {
-      this.employees = res.employees;
+    this.employeeService.getPaginatedEmployees(this.page, this.perPage).subscribe((res: any) => {
+      this.employees = res.employees.data;
+      this.page = res.employees.current_page;
+      this.total = res.employees.total; 
+      this.perPage = res.employees.per_page; 
+
       this.isLoading = false;
     })
   }
@@ -70,7 +86,6 @@ export class EmployeeComponent {
 
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: "35%",
-      position: { left: '35%' },
       data: {data : dialogData , id:id},
     });
 
@@ -79,5 +94,13 @@ export class EmployeeComponent {
       this.getEmployeesList();
     });
   }
+
+
+  onTableDataChange(event:any){
+  this.page = event;
+  console.log(this.page);  
+  this.getEmployeesList();
+  }
+
 
 }
