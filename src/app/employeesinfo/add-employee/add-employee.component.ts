@@ -6,9 +6,7 @@ import { DepartmentsService, DepartmentResponse } from '../../services/departmen
 import { DesignationsService, DesignationResponse } from '../../services/designations.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '../../services/toastr.service';
-
-
-
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-add-employee',
@@ -24,9 +22,11 @@ export class AddEmployeeComponent {
   errors: any = [];
   forUpdate: boolean = false;
   employeeID: any;
-  employee: any;
+  updateEmployee: any;
   imageURL: string = "assets/img/profile.jpg";
   imagefile: File | undefined;
+  imgUrl = environment.mediaUrl;
+  isLoading:boolean = false;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -48,7 +48,7 @@ export class AddEmployeeComponent {
       gender: ['', Validators.required],
       dob: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      phone: ['', [Validators.required, Validators.pattern(/^\+(?:[0-9] ?){6,14}[0-9]$|^\+[0-9]{1,4}\s\([0-9]{1,4}\)\s[0-9]{1,4}(-[0-9]{1,4}){1,2}$/)]],
       joining_date: ['', Validators.required],
       address: ['', Validators.required],
       image: [null]
@@ -57,23 +57,28 @@ export class AddEmployeeComponent {
     this.employeeID = this.route.snapshot.paramMap.get('id');
 
     if (this.employeeID) {
+      this.isLoading = true;
       this.employeeService.getEmployee(this.employeeID).subscribe((res: any) => {
         if (res && res.id) {
           this.forUpdate = true;
-          this.employee = res;
+          this.updateEmployee = res;
           this.employeeForm.patchValue({
-            department_id: this.employee.department_id || '',
-            designation_id: this.employee.designation_id || '',
-            category_id: this.employee.category_id || '',
-            name: this.employee.name || '',
-            father_name: this.employee.father_name || '',
-            gender: this.employee.gender || '',
-            dob: this.employee.dob || '',
-            email: this.employee.email || '',
-            phone: this.employee.phone || '',
-            joining_date: this.employee.joining_date || '',
-            address: this.employee.address || ''
+            department_id: this.updateEmployee.department_id || '',
+            designation_id: this.updateEmployee.designation_id || '',
+            category_id: this.updateEmployee.category_id || '',
+            name: this.updateEmployee.name || '',
+            father_name: this.updateEmployee.father_name || '',
+            gender: this.updateEmployee.gender || '',
+            dob: this.updateEmployee.dob || '',
+            email: this.updateEmployee.email || '',
+            phone: this.updateEmployee.phone || '',
+            joining_date: this.updateEmployee.joining_date || '',
+            address: this.updateEmployee.address || '',
+            image: this.imgUrl + 'profile' + '/' + this.updateEmployee.image || ''
+            
           });
+          this.imageURL = this.imgUrl + 'profile' + '/' + this.updateEmployee.image
+          this.isLoading = false;
         } else {
           console.error('Employee data not found or invalid format:', res);
         }
@@ -92,35 +97,55 @@ export class AddEmployeeComponent {
   getEmployeesList() {
     this.employeeService.getEmployees().subscribe((res: any) => {
       this.employees = res.employees;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching employees:', error);
+      this.toastr.showError('Failed to fetch employees. Please try again later.','Error');
+    }
+    )
   }
   getCategoriesList() {
     this.categoriesService.getCategories().subscribe((res: any) => {
       this.categories = res.category;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching Categories:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+    }
+    )
   }
 
   getDesignationsList() {
     this.designationsService.getDesignations().subscribe((res: any) => {
       this.designations = res.designation;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching Designations:', error);
+      this.toastr.showError('Failed to fetch Designations. Please try again later.','Error');
+    }
+    )
   }
 
   getDepartmentsList() {
     this.departmentSerivce.getDepartments().subscribe((res: any) => {
       this.departments = res.department;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching Departments:', error);
+      this.toastr.showError('Failed to fetch Departments. Please try again later.','Error');
+    }
+    )
   }
 
 
   onSubmit() {
     if (this.employeeForm.valid) {
       const formData = new FormData();
-  
+
       Object.keys(this.employeeForm.value).forEach(key => {
         formData.append(key, this.employeeForm.value[key]);
       });
-  
+
       if (this.imagefile) {
         formData.append('image', this.imagefile);
       }
@@ -156,7 +181,7 @@ export class AddEmployeeComponent {
       this.employeeForm.markAllAsTouched();
     }
   }
-  
+
 
   onFileSelected(event: any) {
     const image: File = event.target.files[0];
@@ -165,9 +190,9 @@ export class AddEmployeeComponent {
       this.imagefile = image;
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.imageURL = e.target?.result as string;        
+        this.imageURL = e.target?.result as string;
       };
-      reader.readAsDataURL(image);         
+      reader.readAsDataURL(image);
     } else {
       this.imageURL = "assets/img/profile.jpg";
       this.imagefile = undefined;
@@ -184,51 +209,5 @@ export class AddEmployeeComponent {
       this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
     }
   }
-
-
-
-  // onSubmit() {
-  //   const formData = this.employeeForm.value;
-
-  //   if (this.forUpdate) {
-  //     this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
-  //       next: (res: any) => {
-  //         console.log(res, 'response');
-  //         this.employeeForm.reset();
-  //         this.router.navigate(['/employees']);
-  //         this.toastr.showSuccess('Employee updated successfully!', 'Success');
-  //       },
-  //       error: (err: any) => {
-  //         this.handle422Error(err);
-  //         console.error(err);
-  //       }
-  //     });
-  //   } else {
-  //     this.employeeService.saveEmployee(formData).subscribe({
-  //       next: (res: any) => {
-  //         console.log(res, 'response');
-  //         this.employeeForm.reset();
-  //         this.router.navigate(['/employees']);
-  //         this.toastr.showSuccess('Employee added successfully!', 'Success');
-  //       },
-  //       error: (err: any) => {
-  //         this.handle422Error(err);
-  //         console.error(err);
-  //       }
-  //     });
-  //   }
-  // }
-
-  // private handle422Error(err: any): void {
-  //   if (err.status === 422 && err.error && err.error.errors) {
-  //     const errorMessages = Object.values(err.error.errors).flat();
-  //     errorMessages.forEach((message: any) => {
-  //       this.toastr.showError(message, 'Error');
-  //     });
-  //   } else {
-  //     this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
-  //   }
-  // }
-
 
 }

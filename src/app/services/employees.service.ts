@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 
 export interface EmployeesResponse{
@@ -31,22 +32,26 @@ export class EmployeesService {
   constructor(private httpclient:HttpClient) { }
   
   saveEmployee(employeeData:any){
-    return this.httpclient.post( this.baseUrl + '/employees', employeeData);
+    return this.httpclient.post( this.baseUrl + 'employees', employeeData);
   }
-  getEmployees(){
-    return this.httpclient.get( this.baseUrl + '/employees');
+  getEmployees(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'employees');
   }
 
+  getPaginatedEmployees(page: number|string, pageSize: number|string): Observable<EmployeesResponse[]> {
+    return this.httpclient.get<EmployeesResponse[]>(`${this.baseUrl}employees?page=${page}&pageSize=${pageSize}`);
+  }  
+
   getEmployee(employeeID:number){
-    return this.httpclient.get( this.baseUrl + `/employees/${employeeID}/edit`);
+    return this.httpclient.get( this.baseUrl + `employees/${employeeID}/edit`);
   }
 
   updateEmployee(employeeID: number, formData: any) {
-    return this.httpclient.put(this.baseUrl + `/employees/${employeeID}/edit`, formData);
+    return this.httpclient.put(this.baseUrl + `employees/${employeeID}/edit`, formData);
   }
 
   destroyEmployee(employeeID:number){
-    return this.httpclient.delete( this.baseUrl + `/employees/${employeeID}/delete`);
+    return this.httpclient.delete( this.baseUrl + `employees/${employeeID}/delete`);
 
   }
 

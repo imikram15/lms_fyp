@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
+import { ToasterService } from '../../services/toastr.service';
 
 @Component({
   selector: 'app-categories',
@@ -12,7 +13,8 @@ export class CategoriesComponent {
   isLoading:boolean = false;
   categories: CategoriesResponse[] = [];
 
-  constructor(private categoriesService:CategoriesService, ) { }
+  constructor(private categoriesService:CategoriesService,
+    private toastr:ToasterService ) { }
 
   ngOnInit(): void {
     this.getCategoriesList();
@@ -23,7 +25,13 @@ export class CategoriesComponent {
     this.categoriesService.getCategories().subscribe((res:any)=>{     
       this.categories = res.category;      
     this.isLoading = false;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching classes:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+      this.isLoading = false; 
+    }
+    )
   }
   
   deleteCategory(categoryID: number) {

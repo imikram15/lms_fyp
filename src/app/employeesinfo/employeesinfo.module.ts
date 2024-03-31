@@ -11,14 +11,16 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
-import { LoaderComponent } from '../layouts/loader/loader.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from '../filter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     DesignationsComponent,
     TeachersComponent,
     AddTeachersComponent,
-    LoaderComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,9 @@ import { MatButtonModule } from '@angular/material/button';
     SharedModule,
     CustomMaterialModule,
     MatDialogModule,
-    MatButtonModule  
+    MatButtonModule,
+    NgxPaginationModule  ,
+    FormsModule,
   ],
  
 })

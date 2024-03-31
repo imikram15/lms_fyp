@@ -21,22 +21,22 @@ export class DesignationsService {
    baseURL:any = environment.apiUrl;
    
    saveDesignation(designationData:any){
-     return this.httpclient.post(this.baseURL + '/designations', designationData);
+     return this.httpclient.post(this.baseURL + 'designations', designationData);
     }
     
     getDesignations(){
-      return this.httpclient.get(this.baseURL +'/designations');
+      return this.httpclient.get(this.baseURL +'designations');
     }
 
     getDesignation(designationID:number){
-      return this.httpclient.get( this.baseURL + `/designations/${designationID}/edit`);
+      return this.httpclient.get( this.baseURL + `designations/${designationID}/edit`);
     }
 
     updateDesignation(designationID: number, formData: any) {
-      return this.httpclient.put(this.baseURL + `/designations/${designationID}/edit`, formData);
+      return this.httpclient.put(this.baseURL + `designations/${designationID}/edit`, formData);
     }
 
     destroyDesignation(designationID:number){
-      return this.httpclient.delete(this.baseURL + `/designations/${designationID}/delete`);
+      return this.httpclient.delete(this.baseURL + `designations/${designationID}/delete`);
     }
 }

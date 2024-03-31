@@ -5,7 +5,11 @@
         <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Employee Information</h6>
       </div>
       
-     <div class="card-body py-4">
+     <div class="card-body py-4" style="position: relative;">
+      <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <app-loader :title="loadingTitle" />
+      </div>
+      <ng-template #elseForm >
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="row">
           <div class="col-md-6">
@@ -151,9 +155,10 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" >{{ forUpdate ? 'Update' : 'Submit' }}</button>
+        <button type="submit" class="btn btn-primary"  [disabled]="employeeForm.invalid"  >{{ forUpdate ? 'Update' : 'Submit' }}</button>
       </form>
-      <!-- [disabled]="employeeForm.invalid"  -->
+
+      </ng-template>    
      </div>
     </div>
   </div>

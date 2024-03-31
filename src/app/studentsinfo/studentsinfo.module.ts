@@ -9,6 +9,7 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { ClassesComponent } from './classes/classes.component';
 import { AddClassComponent } from './add-class/add-class.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     StudentsinfoRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
   ]
 })
 export class StudentsinfoModule { }
