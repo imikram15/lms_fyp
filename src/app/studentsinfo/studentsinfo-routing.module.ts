@@ -14,8 +14,10 @@ const routes: Routes = [
       {path:'', redirectTo:'studentsinfo', pathMatch:'full'},
       { path: 'students', component:StudentsComponent  },
       { path: 'add-students', component:AddStudentComponent  },
+      { path: 'add-students/:id/edit', component:AddStudentComponent  },
       { path: 'classes', component:ClassesComponent  },
       { path: 'add-class', component:AddClassComponent  },
+      { path: 'add-class/:id/edit', component:AddClassComponent  },
       
     ]  
   },

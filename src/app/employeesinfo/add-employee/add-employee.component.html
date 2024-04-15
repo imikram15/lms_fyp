@@ -1,9 +1,11 @@
 <div class="container-fluid">
 
     <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex py-3">
-        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Employee Information</h6>
-      </div>
+      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Employee Form</h6>
+        <a routerLink="/employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+          class="fas fa-list fa-sm text-white-50"></i> Show List</a>
+    </div> 
       
      <div class="card-body py-4" style="position: relative;">
       <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
@@ -138,24 +140,25 @@
         <div class="row">
           <div class="col-md-12 d-flex ">
             <div class="form-group col-md-6">
-              <label for="profileImage">Profile Image:</label>
+              <label for="image">Profile Image:</label>
               <div class="custom-file">
-                <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*">
-                <label class="custom-file-label" for="profileImage">Choose Image</label>
+                <input type="file" formControlName="image" id="image" (change)="onFileSelected($event)" accept="image/*">
+                <label class="custom-file-label" for="image">Choose Image</label>
+              </div>
+              <div *ngIf="employeeForm.get('image')?.invalid && employeeForm.get('image')?.touched" class="text-danger">
+                Profile image is required.
               </div>
             </div>
               <div class="col-md-6">
-                <div class="row d-flex justify-content-center align-content-center mt-3">
-                    <img style="height: 180px; width: 150px; border:solid rgb(228, 228, 228); border-radius: 10%;" [src]="imageURL">
-                </div>
-                <div *ngIf="employeeForm.get('profileImage')?.invalid && employeeForm.get('profileImage')?.touched" class="text-danger">
-                  Profile image is required.
+                <div class="row d-flex justify-content-center align-content-center mt-3" *ngIf="imageURL">
+                    <img style="height: 180px; width: 150px; border:solid rgb(228, 228, 228); border-radius: 10%;" [src]="imageURL" alt="Selected Image">
                 </div>
               </div>         
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary"  [disabled]="employeeForm.invalid"  >{{ forUpdate ? 'Update' : 'Submit' }}</button>
+        <button type="submit" class="btn btn-primary"   >{{ forUpdate ? 'Update' : 'Submit' }}</button>
+        <!-- [disabled]="employeeForm.invalid" -->
       </form>
 
       </ng-template>    

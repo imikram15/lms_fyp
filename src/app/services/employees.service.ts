@@ -47,7 +47,7 @@ export class EmployeesService {
   }
 
   updateEmployee(employeeID: number, formData: any) {
-    return this.httpclient.put(this.baseUrl + `employees/${employeeID}/edit`, formData);
+    return this.httpclient.post(this.baseUrl + `employees/${employeeID}/edit`, formData);
   }
 
   destroyEmployee(employeeID:number){
