@@ -15,9 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
 import { SharedModule } from '../shared/shared.module';
-import { CustomMaterialModule } from '../custom-material/custom-material.module';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterPipe } from '../filter.pipe';
 
@@ -42,12 +39,9 @@ import { FilterPipe } from '../filter.pipe';
     EmployeesinfoRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    CustomMaterialModule,
-    MatDialogModule,
-    MatButtonModule,
-    NgxPaginationModule  ,
-    FormsModule,
+    FormsModule,   
+    NgxPaginationModule
   ],
- 
+  exports:[]
 })
 export class EmployeesinfoModule { }

@@ -15,6 +15,7 @@ export class AddDesignationsComponent implements OnInit {
   forUpdate: boolean = false;
   designationID!: any;
   designationUpdate: any;
+  errors: any = [];
 
   constructor(private formBuilder: FormBuilder,
     private designationsService: DesignationsService,
@@ -44,7 +45,7 @@ export class AddDesignationsComponent implements OnInit {
       });
     }
   }
-  errors: any = [];
+ 
 
   onSubmit(): void {
 

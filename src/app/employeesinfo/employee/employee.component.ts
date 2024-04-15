@@ -6,10 +6,7 @@ import { DesignationsService, DesignationResponse } from '../../services/designa
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { environment } from '../../../environments/environment.development';
-import { PaginationService } from '../../services/pagination.service';
 import { Paginator } from '../../paginator';
-import { EmployeesinfoModule } from '../employeesinfo.module';
-
 
 
 @Component({
@@ -18,12 +15,12 @@ import { EmployeesinfoModule } from '../employeesinfo.module';
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent extends Paginator{
-searchTerm: any;
-search() {
-  console.log('Searching for:', this.searchTerm);
+  search() {
+    console.log('Searching for:', this.searchTerm);
+    
+  }
   
-}
-
+  searchTerm: any;
   employees: EmployeesResponse[] = [];
   departments: DepartmentResponse[] = [];
   designations: DesignationResponse[] = [];
@@ -38,7 +35,7 @@ search() {
     private categoriesService: CategoriesService,
     private departmentSerivce: DepartmentsService,
     public dialog: MatDialog,
-    public paginationService:PaginationService) {
+    ) {
     super();
   }
 
@@ -54,8 +51,7 @@ search() {
       this.employees = res.employees.data;
       this.page = res.employees.current_page;
       this.total = res.employees.total; 
-      this.perPage = res.employees.per_page; 
-
+      this.perPage = res.employees.per_page;
       this.isLoading = false;
     })
   }
@@ -86,7 +82,7 @@ search() {
 
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: "35%",
-      data: {data : dialogData , id:id},
+      data: {data : dialogData , id:id, loc:'employee'},
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {

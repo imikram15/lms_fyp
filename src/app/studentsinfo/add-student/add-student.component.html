@@ -1,19 +1,71 @@
 <div class="container-fluid">
 
   <div class="card shadow mb-4">
-    <div class="card-header d-sm-flex py-3">
-      <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Student Admission Form</h6>
-    </div>
+    <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+      <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Student Admission Form</h6>
+      <a routerLink="/students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-list fa-sm text-white-50"></i> Show List</a>
+    </div> 
 
-    <div class="card-body py-4">
+    <div class="card-body py-4" style="position: relative;">
+      <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <app-loader :title="loadingTitle" />
+      </div>
+      <ng-template #elseForm >
       <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="name">Name:</label>
-              <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter Name" required>
-              <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched" class="text-danger">
-                Name is required.
+              <label for="first_name">First Name:</label>
+              <input formControlName="first_name" type="text" class="form-control" id="first_name" placeholder="Enter First Name" required>
+              <div *ngIf="studentForm.get('first_name')?.invalid && studentForm.get('first_name')?.touched" class="text-danger">
+                First Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="last_name">Last Name:</label>
+              <input formControlName="last_name" type="text" class="form-control" id="last_name" placeholder="Enter Last Name" required>
+              <div *ngIf="studentForm.get('last_name')?.invalid && studentForm.get('last_name')?.touched" class="text-danger">
+                Last Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+                <label for="class">Class:</label>
+                <select formControlName="class" class="form-control" id="class" required>
+                    <option value="" disabled selected>Select Class</option>
+                    <option *ngFor="let class of classOptions" [value]="class.title">{{ class.title }}</option>
+                </select>
+                <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
+                    Class is required.
+                </div> 
+            </div>
+        </div> 
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="section">Section:</label>
+            <select formControlName="section" class="form-control">
+              <option value="" disabled selected>Select Section</option>
+              <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
+            </select>
+            <div *ngIf="studentForm.get('section')?.touched && studentForm.get('section')?.invalid" class="text-danger">
+              Section is required.
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="roll_no">Roll Number:</label>
+              <input formControlName="roll_no" type="text" class="form-control" id="roll_no" placeholder="Enter Roll Number" required>
+              <div *ngIf="studentForm.get('roll_no')?.invalid && studentForm.get('roll_no')?.touched" class="text-danger">
+                Roll Number is required.
               </div>
             </div>
           </div>
@@ -31,7 +83,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="b_form">B-Form No:</label>
-              <input formControlName="b_form" type="text" class="form-control" id="b_form" placeholder="Enter B-Form Number" required>
+              <input formControlName="b_form" type="text" class="form-control" id="b_form" placeholder="442XX-XXXXXXX-X" required>
               <div *ngIf="studentForm.get('b_form')?.invalid && studentForm.get('b_form')?.touched" class="text-danger">
                 B-Form is required.
               </div>
@@ -40,7 +92,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="father_cnic">Father's CNIC:</label>
-              <input formControlName="father_cnic" type="text" class="form-control" id="father_cnic" placeholder="Enter Father's CNIC" required>
+              <input formControlName="father_cnic" type="text" class="form-control" id="father_cnic" placeholder="442XX-XXXXXXX-X" required>
               <div *ngIf="studentForm.get('father_cnic')?.invalid && studentForm.get('father_cnic')?.touched" class="text-danger">
                 Father's CNIC is required.
               </div>
@@ -94,7 +146,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group">
               <label for="address">Address:</label>
               <textarea formControlName="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
@@ -103,44 +155,34 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label for="class">Class:</label>
-                <select formControlName="class" class="form-control" id="class" required>
-                    <option value="" disabled selected>Select Class</option>
-                    <option *ngFor="let option of classOptions" [value]="option">{{ option }}</option>
-                </select>
-                <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
-                    Class is required.
-                </div> 
-            </div>
-        </div>          
+                 
         </div>
         
         <div class="row">
           <div class="col-md-12 d-flex ">
             <div class="form-group col-md-6">
-              <label for="profileImage">Profile Image:</label>
+              <label for="image">Profile Image:</label>
               <div class="custom-file">
-                <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*" class="custom-file-input">
-                <label class="custom-file-label" for="profileImage"></label>
+                <input type="file" formControlName="image"  id="image" (change)="onFileSelected($event)" accept="image/*">
+                <label class="custom-file-label" for="image">Choose Image</label>
+              </div>
+              <div *ngIf="studentForm.get('image')?.invalid && studentForm.get('image')?.touched" class="text-danger">
+                Profile image is required.
               </div>
             </div>
               <div class="col-md-6">
                 <div class="row d-flex justify-content-center align-content-center mt-3">
                     <img style="height: 180px; width: 150px; border:solid rgb(228, 228, 228); border-radius: 10%;" [src]="imageURL">
                 </div>
-                <div *ngIf="studentForm.get('profileImage')?.invalid && studentForm.get('profileImage')?.touched" class="text-danger">
-                  Profile image is required.
-                </div>
               </div>         
           </div>
         </div>
         
         
-        <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid" >Submit</button>
-        
+        <button type="submit" class="btn btn-primary"  >{{ forUpdate ? 'Update' : 'Submit' }}</button>
+        <!-- [disabled]="studentForm.invalid" -->
       </form>
+      </ng-template>
     </div>
   </div>
 </div>

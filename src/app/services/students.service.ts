@@ -1,0 +1,56 @@
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface StudentsResponse{
+  id:number,
+  roll_no:number,
+  image:string,
+  first_name: string,
+  last_name: string,
+  father_name: string,
+  class:string,
+  gender:string,        
+  dob: Date,
+  email: string,
+  phone: number,
+  address: string, 
+  created_at:Date,
+  updated_at:Date,
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StudentsService {
+
+  baseUrl = environment.apiUrl
+
+  constructor(private httpclient:HttpClient) { }
+  
+  saveStudent(studentData:any){
+    return this.httpclient.post( this.baseUrl + 'students', studentData);
+  }
+  getStudents(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'students');
+  }
+
+  getPaginatedStudents(page: number|string, pageSize: number|string): Observable<StudentsResponse[]> {
+    return this.httpclient.get<StudentsResponse[]>(`${this.baseUrl}students?page=${page}&pageSize=${pageSize}`);
+  }  
+
+  getStudent(studentID:number){
+    return this.httpclient.get( this.baseUrl + `students/${studentID}/edit`);
+  }
+
+  updateStudent(studentID: number, formData: any) {
+    return this.httpclient.post(this.baseUrl + `students/${studentID}/edit`, formData);
+  }
+
+  destroyStudent(studentID:number){
+    return this.httpclient.delete( this.baseUrl + `students/${studentID}/delete`);
+
+  }
+}

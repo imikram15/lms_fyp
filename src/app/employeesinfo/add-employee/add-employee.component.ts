@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeesService, EmployeesResponse } from '../../services/employees.service';
 import { CategoriesService, CategoriesResponse } from '../../services/categories.service';
@@ -24,10 +24,11 @@ export class AddEmployeeComponent {
   employeeID: any;
   updateEmployee: any;
   imageURL: string = "assets/img/profile.jpg";
-  imagefile: File | undefined;
   imgUrl = environment.mediaUrl;
+  imagefile: File | undefined;
   isLoading:boolean = false;
-
+  @ViewChild('elseForm') elseForm: any;
+  
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -51,12 +52,17 @@ export class AddEmployeeComponent {
       phone: ['', [Validators.required, Validators.pattern(/^\+(?:[0-9] ?){6,14}[0-9]$|^\+[0-9]{1,4}\s\([0-9]{1,4}\)\s[0-9]{1,4}(-[0-9]{1,4}){1,2}$/)]],
       joining_date: ['', Validators.required],
       address: ['', Validators.required],
-      image: [null]
+      image: [null, Validators.required],
+      // blood_group: ['', Validators.required],
+      // password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]]
     });
-
+    
+   
     this.employeeID = this.route.snapshot.paramMap.get('id');
+    console.log(this.employeeID);
+    
 
-    if (this.employeeID) {
+    if (this.employeeID != null) {
       this.isLoading = true;
       this.employeeService.getEmployee(this.employeeID).subscribe((res: any) => {
         if (res && res.id) {
@@ -86,6 +92,9 @@ export class AddEmployeeComponent {
         console.error('Error fetching employee data:', error);
       });
     }
+    if(this.forUpdate === true){
+      this.employeeForm.get('image')?.clearValidators();      
+    }
 
     this.getDepartmentsList();
     this.getDesignationsList();
@@ -95,7 +104,7 @@ export class AddEmployeeComponent {
   }
 
   getEmployeesList() {
-    this.employeeService.getEmployees().subscribe((res: any) => {
+    this.employeeService.getEmployees().subscribe((res: any) => {      
       this.employees = res.employees;
     },
     (error: any) => {
@@ -106,7 +115,7 @@ export class AddEmployeeComponent {
   }
   getCategoriesList() {
     this.categoriesService.getCategories().subscribe((res: any) => {
-      this.categories = res.category;
+      this.categories = res.category;      
     },
     (error: any) => {
       console.error('Error fetching Categories:', error);
@@ -151,6 +160,7 @@ export class AddEmployeeComponent {
       }
 
       if (this.forUpdate) {
+          
         this.employeeService.updateEmployee(this.employeeID, formData).subscribe({
           next: (res: any) => {
             console.log(res, 'response');
@@ -162,6 +172,7 @@ export class AddEmployeeComponent {
             this.handle422Error(err);
             console.error(err);
           }
+
         });
       } else {
         this.employeeService.saveEmployee(formData).subscribe({
@@ -181,7 +192,6 @@ export class AddEmployeeComponent {
       this.employeeForm.markAllAsTouched();
     }
   }
-
 
   onFileSelected(event: any) {
     const image: File = event.target.files[0];
