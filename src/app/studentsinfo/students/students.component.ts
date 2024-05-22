@@ -50,13 +50,13 @@ export class StudentsComponent extends Paginator{
   result: string = '';
 
   confirmDialog(id:string|number): void {
-    const message = `Are you sure you want to do this?`;
+    const message = `Are you sure you want to delete this?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: "35%",
-      data: {data : dialogData , id:id},
+      data: {data : dialogData , id:id, loc:'student'},
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {

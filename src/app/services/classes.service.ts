@@ -31,6 +31,7 @@ export class ClassesService {
   }
 
   getPaginatedClasses(page: number|string, pageSize: number|string): Observable<ClassesResponse[]> {
+    
     return this.httpclient.get<ClassesResponse[]>(`${this.baseURL}classes?page=${page}&pageSize=${pageSize}`);
   } 
   getClass(classID:number){

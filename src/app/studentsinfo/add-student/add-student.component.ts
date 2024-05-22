@@ -23,7 +23,11 @@ export class AddStudentComponent {
   imagefile: File | undefined;
   imageURL: string = "assets/img/profile.jpg";
   imgUrl = environment.mediaUrl;
+  showPassword: boolean = false;
+  passwordFieldType: string = 'password';
+
   sections: string[] = ['A', 'B', 'C', 'D'];
+
   
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -45,8 +49,10 @@ export class AddStudentComponent {
       gender: ['', Validators.required],
       dob: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^\+(?:[0-9] ?){6,14}[0-9]$|^\+[0-9]{1,4}\s\([0-9]{1,4}\)\s[0-9]{1,4}(-[0-9]{1,4}){1,2}$/)]],
       address: ['', Validators.required],
+      blood_group: ['', Validators.required],
       image: [null]
     });
 
@@ -90,7 +96,7 @@ export class AddStudentComponent {
 
   getClasses(){
     this.classesService.getClasses().subscribe((res: any) => {
-      this.classOptions = res.school_class.data;
+      this.classOptions = res.classes.data;
     },
     (error: any) => {
       console.error('Error fetching Classes:', error);
@@ -171,7 +177,10 @@ export class AddStudentComponent {
     }
   }
 
-
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+    this.passwordFieldType = this.showPassword ? 'text' : 'password';
+  }
 
 }
 

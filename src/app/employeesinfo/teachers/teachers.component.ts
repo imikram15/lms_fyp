@@ -7,6 +7,7 @@ import { TeachersResponse, TeachersService } from '../../services/teachers.servi
 import { environment } from '../../../environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { Paginator } from '../../paginator';
+import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 
 @Component({
   selector: 'app-teachers',
@@ -23,6 +24,7 @@ export class TeachersComponent extends Paginator{
   @ViewChild('elseForm') elseForm: any;
   isLoading:boolean = false;
   searchTerm: any;
+  result: string = '';
 
   constructor( private designationsService: DesignationsService,
     private categoriesService: CategoriesService,
@@ -36,10 +38,10 @@ export class TeachersComponent extends Paginator{
     this.getDepartmentsList();
     this.getDesignationsList();
     this.getCategoriesList();
-    this.getStudentsList();
+    this.getTeachersList();
   }
 
-  getStudentsList() {
+  getTeachersList() {
     this.isLoading = true;
     this.teachersService.getPaginatedTeachers(this.page, this.perPage).subscribe((res: any) => {
       this.teachers = res.teachers.data;
@@ -68,10 +70,26 @@ export class TeachersComponent extends Paginator{
     })
   }  
 
+  confirmDialog(id:string|number): void {
+    const message = `Are you sure you want to delete this?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: "35%",
+      data: {data : dialogData , id:id, loc:'teacher'},
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      this.getTeachersList();
+    });
+  }
+
   onTableDataChange(event:any){
     this.page = event;
     console.log(this.page);  
-    this.getStudentsList();
+    this.getTeachersList();
     }
 
   
