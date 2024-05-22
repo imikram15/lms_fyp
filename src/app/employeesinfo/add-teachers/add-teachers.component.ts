@@ -77,6 +77,8 @@ export class AddTeachersComponent {
             father_name: this.updateTeacher.father_name || '',
             gender: this.updateTeacher.gender || '',
             dob: this.updateTeacher.dob || '',
+            blood_group:this.updateTeacher.blood_group || '',
+            password: this.updateTeacher.password || '',
             email: this.updateTeacher.email || '',
             phone: this.updateTeacher.phone || '',
             joining_date: this.updateTeacher.joining_date || '',

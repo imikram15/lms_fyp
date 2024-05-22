@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, ViewChild, input, Input } from '@angular/cor
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EmployeesService } from '../../services/employees.service';
 import { ClassesService } from '../../services/classes.service';
+import { TeachersService } from '../../services/teachers.service';
+import { StudentsService } from '../../services/students.service';
 
 @Component({
   selector: 'app-confirm',
@@ -18,6 +20,9 @@ export class ConfirmComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data:any,
     private employeeService:EmployeesService,
     private classService:ClassesService,
+    private teacherService:TeachersService,
+    private studentService:StudentsService,
+
     ) {
    
     this.title = data.data.title ;
@@ -38,6 +43,16 @@ export class ConfirmComponent implements OnInit {
       
       case 'class':
         this.classService.destroyClass(this.data.id).subscribe((res: any) => { 
+          this.dialogRef.close(true);              
+        });
+        break;
+      case 'teacher':
+        this.teacherService.destroyTeacher(this.data.id).subscribe((res: any) => { 
+          this.dialogRef.close(true);              
+        });
+        break;
+      case 'student':
+        this.studentService.destroyStudent(this.data.id).subscribe((res: any) => { 
           this.dialogRef.close(true);              
         });
         break;
