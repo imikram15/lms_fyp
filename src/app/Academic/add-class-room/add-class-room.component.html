@@ -4,17 +4,19 @@
           <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Create Class Room</h6>
         </div>
     <div class="card-body ">
-        <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="classrooms" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="name">Class Room Name:</label>
               <input type="text" class="form-control" formControlName="title" placeholder="Enter Class Name">
-              <div *ngIf="classForm.get('title')?.touched && classForm.get('title')?.invalid" class="text-danger">
+              <div *ngIf="classrooms.get('title')?.touched && classrooms.get('title')?.invalid" class="text-danger">
                 Class Name is required.
               </div>
             </div>  
-            <button type="submit" class="btn btn-primary">Create Class</button>
+            <button type="submit" class="btn btn-primary" [disabled]="classrooms.invalid" >{{ forUpdate ? 'Update  Class Room' : 'Create Class Room' }}</button>
           </form>
     </div>
   </div>
 </div>
+
+
   

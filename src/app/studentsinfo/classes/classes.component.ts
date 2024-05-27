@@ -30,7 +30,7 @@ export class ClassesComponent extends Paginator{
     getClassesList() {
       this.isLoading = true;
       this.classesService.getPaginatedClasses(this.page, this.perPage).subscribe((res: any) => {  
-        console.log(res);
+        console.log(res.classes);
            
         this.classes = res.classes.data;
         this.page = res.classes.current_page;

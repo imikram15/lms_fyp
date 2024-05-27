@@ -38,7 +38,7 @@ export class AddClassComponent {
             title: this.classUpdate.title,
           })
         } else {
-          console.error('Classes data not found or invalid format:', res);
+          this.toastr.showError('Classes data not found or invalid format:', res);
         }
       }, error => {
         console.error('Error fetching Classes data:', error);
@@ -89,4 +89,6 @@ export class AddClassComponent {
       this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
     }
   }
+
+
 }

@@ -10,7 +10,7 @@ export interface StudentsResponse{
   first_name: string,
   last_name: string,
   father_name: string,
-  class:string,
+  classes:any,
   gender:string,        
   dob: Date,
   email: string,
