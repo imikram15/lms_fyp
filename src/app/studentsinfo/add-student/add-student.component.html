@@ -37,24 +37,21 @@
           <div class="col-md-6">
             <div class="form-group">
                 <label for="class">Class:</label>
-                <select formControlName="class" class="form-control" id="class" required>
+                <select formControlName="class_id" class="form-control" id="class_id" required>
                     <option value="" disabled selected>Select Class</option>
-                    <option *ngFor="let class of classOptions" [value]="class.title">{{ class.title }}</option>
+                    <option *ngFor="let class of classOptions" [value]="class.id">{{ class.title }}</option>
                 </select>
-                <div *ngIf="studentForm.get('class')?.invalid && studentForm.get('class')?.touched" class="text-danger">
+                <div *ngIf="studentForm.get('class_id')?.invalid && studentForm.get('class_id')?.touched" class="text-danger">
                     Class is required.
                 </div> 
             </div>
         </div> 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="section">Section:</label>
-            <select formControlName="section" class="form-control">
-              <option value="" disabled selected>Select Section</option>
-              <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
-            </select>
-            <div *ngIf="studentForm.get('section')?.touched && studentForm.get('section')?.invalid" class="text-danger">
-              Section is required.
+            <label for="phone">Phone:</label>
+            <input formControlName="phone" type="tel" class="form-control" id="phone" placeholder="Enter Phone Number" required>
+            <div *ngIf="studentForm.get('phone')?.invalid && studentForm.get('phone')?.touched" class="text-danger">
+              Valid phone number is required.
             </div>
           </div>
         </div>
@@ -155,15 +152,6 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="phone">Phone:</label>
-              <input formControlName="phone" type="tel" class="form-control" id="phone" placeholder="Enter Phone Number" required>
-              <div *ngIf="studentForm.get('phone')?.invalid && studentForm.get('phone')?.touched" class="text-danger">
-                Valid phone number is required.
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
               <label for="blood_group">Blood Group:</label>
               <input formControlName="blood_group" type="text" class="form-control" id="blood_group" placeholder="Enter Blood Group" required>
               <div *ngIf="studentForm.get('blood_group')?.invalid && studentForm.get('blood_group')?.touched" class="text-danger">
@@ -171,23 +159,20 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="form-group">
               <label for="address">Address:</label>
-              <textarea formControlName="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
+              <textarea formControlName="address" class="form-control" id="address" rows="1" placeholder="Enter Address" required></textarea>
               <div *ngIf="studentForm.get('address')?.invalid && studentForm.get('address')?.touched" class="text-danger">
                 Address is required.
               </div>
             </div>
           </div>
-                 
         </div>
-        
+               
         <div class="row">
-          <div class="col-md-12 d-flex ">
-            <div class="form-group col-md-6">
+          <div class="col-md-12 d-flex">
+            <div class="form-group col-md-6 pl-0 " >
               <label for="image">Profile Image:</label>
               <div class="custom-file">
                 <input type="file" formControlName="image"  id="image" (change)="onFileSelected($event)" accept="image/*">

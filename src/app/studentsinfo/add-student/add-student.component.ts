@@ -26,7 +26,6 @@ export class AddStudentComponent {
   showPassword: boolean = false;
   passwordFieldType: string = 'password';
 
-  sections: string[] = ['A', 'B', 'C', 'D'];
 
   
   constructor(private fb: FormBuilder,
@@ -41,8 +40,7 @@ export class AddStudentComponent {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       roll_no: ['', Validators.required],  
-      class: ['', Validators.required],
-      section: ['', Validators.required],
+      class_id: ['', Validators.required],
       b_form: ['', [Validators.required ,Validators.pattern(/^\d{5}-\d{7}-\d{1}$/ )]],
       father_name: ['', Validators.required],
       father_cnic: ['', [Validators.required ,Validators.pattern(/^\d{5}-\d{7}-\d{1}$/)]],
@@ -67,8 +65,7 @@ export class AddStudentComponent {
           this.studentForm.patchValue({
             first_name: this.UpdateStudent.first_name || '',
             last_name: this.UpdateStudent.last_name || '',
-            class: this.UpdateStudent.class || '',
-            section: this.UpdateStudent.section || '',
+            class_id: this.UpdateStudent.class_id || '',
             roll_no: this.UpdateStudent.roll_no || '',
             b_form: this.UpdateStudent.b_form || '',
             father_name: this.UpdateStudent.father_name || '',
@@ -78,6 +75,7 @@ export class AddStudentComponent {
             email: this.UpdateStudent.email || '',
             phone: this.UpdateStudent.phone || '',
             address: this.UpdateStudent.address || '',
+            blood_group: this.UpdateStudent.blood_group || '',
             image: this.imgUrl + 'profile' + '/' + this.UpdateStudent.image || ''
             
           });
@@ -106,6 +104,8 @@ export class AddStudentComponent {
   }
   
   onSubmit() {
+    console.log(this.studentForm.valid);
+    
     if (this.studentForm.valid) {
       const formData = new FormData();
 

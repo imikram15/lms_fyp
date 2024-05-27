@@ -14,29 +14,33 @@ import { SyllabusComponent } from './syllabus/syllabus.component';
 import { AddSyllabusComponent } from './add-syllabus/add-syllabus.component';
 import { AddClassRoomComponent } from './add-class-room/add-class-room.component';
 import { ClassRoomComponent } from './class-room/class-room.component';
+import { SharedModule } from "../shared/shared.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [
-    AcademicComponent,    
-    AddClassRoutineComponent,
-    TakeAttendanceComponent,
-    AttendanceComponent,
-    ClassRoutineComponent,
-    SubjectComponent,
-    AddSubjectComponent,
-    SyllabusComponent,
-    AddSyllabusComponent,
-    SubjectComponent,
-    SyllabusComponent,
-    AddSyllabusComponent,
-    AddClassRoomComponent,
-    ClassRoomComponent,
-  ],
-  imports: [
-    CommonModule,
-    AcademicRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ]
+    declarations: [
+        AcademicComponent,
+        AddClassRoutineComponent,
+        TakeAttendanceComponent,
+        AttendanceComponent,
+        ClassRoutineComponent,
+        SubjectComponent,
+        AddSubjectComponent,
+        SyllabusComponent,
+        AddSyllabusComponent,
+        SubjectComponent,
+        SyllabusComponent,
+        AddSyllabusComponent,
+        AddClassRoomComponent,
+        ClassRoomComponent,
+    ],
+    imports: [
+        CommonModule,
+        AcademicRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SharedModule,
+        NgxPaginationModule
+    ]
 })
 export class AcademicModule { }

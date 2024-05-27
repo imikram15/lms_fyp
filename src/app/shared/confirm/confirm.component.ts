@@ -4,6 +4,8 @@ import { EmployeesService } from '../../services/employees.service';
 import { ClassesService } from '../../services/classes.service';
 import { TeachersService } from '../../services/teachers.service';
 import { StudentsService } from '../../services/students.service';
+import { ClassRoomService } from '../../services/class-room.service';
+import { SubjectsService } from '../../services/subjects.service';
 
 @Component({
   selector: 'app-confirm',
@@ -22,6 +24,8 @@ export class ConfirmComponent implements OnInit {
     private classService:ClassesService,
     private teacherService:TeachersService,
     private studentService:StudentsService,
+    private classroomService:ClassRoomService,
+    private subjectService:SubjectsService,
 
     ) {
    
@@ -56,6 +60,16 @@ export class ConfirmComponent implements OnInit {
           this.dialogRef.close(true);              
         });
         break;
+        case 'classroom':
+        this.classroomService.deleteClassroom(this.data.id).subscribe((res: any) => { 
+          this.dialogRef.close(true);              
+        });
+        break;
+        case 'subject':
+          this.subjectService.destroySubject(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+          break;
     
       default:        
         break;

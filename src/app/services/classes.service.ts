@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export interface ClassesResponse{
   id:number,
   title:string,
-  section_id:string,
+  sections:string,
   created_at:Date,
   updated_at:Date,
 }
@@ -19,8 +19,6 @@ export class ClassesService {
   constructor(private httpclient:HttpClient) { }
 
   baseURL = environment.apiUrl;
-
-
   
   saveClasses(classData:any){
     return this.httpclient.post( this.baseURL + 'classes', classData);

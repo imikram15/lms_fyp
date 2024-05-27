@@ -6,46 +6,43 @@
           <a routerLink="/add-class-room" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-user-graduate fa-sm text-white-50"></i> Add Class Room</a>
       </div> 
-      <div class="card-body row">
-  
-        <div class="table-responsive col-md-6">
+      
+      <div class="card-body" style="position: relative;">
+        <div *ngIf="isLoading; else elseForm"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <app-loader :title="loadingTitle" />
+        </div>
+        <ng-template #elseForm>
+
+        <div class="table-responsive col-md-12">
             <table class="table table-bordered w-100" style="text-align: center;">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Actions</th>
                       </tr>
         
                 </thead>
                 <tbody>
-                 <tr scope="row" *ngFor="let class of classes">
-            <td>{{ class.name }}</td>
-            <td >
-              <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-              <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
-            </td>
-          </tr>
-                </tbody>
-              </table>
-            
-              <nav aria-label="...">
-                <ul class="pagination">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>      
-        
-  
+                <tr scope="row" *ngFor="let classroom of classRoomList | paginate:{
+                  itemsPerPage:perPage, currentPage:page, totalItems:total}; let i = index;">
+                <td>{{ classroom.id }}</td>
+                <td>{{ classroom.title }}</td>
+                <td>
+                  <a routerLink="/add-class-room/{{classroom.id}}/edit" class="fas fa-edit text-blue-50 "
+                    style="margin:0px 10px 0px 7px;"></a>
+                  <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(classroom.id)"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>      
+          </div>
+          <div>
+            <pagination-controls previousLabel="prev" nextLabel="Next"
+              (pageChange)="onTableDataChange($event)"></pagination-controls>
+            </div>           
+          </ng-template>
       </div>
     
     </div>

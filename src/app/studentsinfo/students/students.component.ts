@@ -32,6 +32,7 @@ export class StudentsComponent extends Paginator{
     this.isLoading = true;
     this.studentsService.getPaginatedStudents(this.page, this.perPage).subscribe((res: any) => {
       this.students = res.students.data;
+      console.log(res.students.data[0].classes.title);      
       this.page = res.students.current_page;
       this.total = res.students.total; 
       this.perPage = res.students.per_page;

@@ -18,7 +18,7 @@
           </div>      
         </div>
        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="classForm.invalid" >Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="classForm.invalid" >{{ forUpdate ? 'Update' : 'Submit' }}</button>
       </form>
     </div>
   </div>

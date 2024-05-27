@@ -22,14 +22,18 @@ const routes: Routes = [
       {path:'', redirectTo:'academic', pathMatch:'full'},
       { path: 'class-routine', component:ClassRoutineComponent },
       { path: 'add-class-routine', component:AddClassRoutineComponent },
+      { path: 'add-class-routine/:id/edit', component:AddClassRoutineComponent },
       { path: 'subject', component:SubjectComponent},
       { path: 'add-subject', component:AddSubjectComponent},      
+      { path: 'add-subject/:id/edit', component:AddSubjectComponent},      
       { path: 'attendance', component:AttendanceComponent  },
       { path: 'take-attendance', component:TakeAttendanceComponent  },
       { path: 'syllabus', component:SyllabusComponent },
       { path: 'add-syllabus', component:AddSyllabusComponent  },
+      { path: 'add-syllabus/:id/edit', component:AddSyllabusComponent  },
       { path: 'class-room', component:ClassRoomComponent },
       { path: 'add-class-room', component:AddClassRoomComponent  },
+      { path: 'add-class-room/:id/edit', component:AddClassRoomComponent  },
     ]  
   },
 ];
