@@ -2,13 +2,12 @@
     <div class="card shadow mb-4">
         <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
             <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Subject</h6>
-            <a routerLink="/add-subject" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <a routerLink="/add-subject" *ngIf="this.commonService.getUrl('/add-subject')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
               <i class="fas fa-user fa-sm text-white-50"></i> Add Subject</a>
         </div>
         <div class="card-body" style="position: relative; padding-top: 0px; ">
             <div [formGroup]="subjectForm" class="row  align-items-end  d-flex justify-content-center" style="margin: 0px;" >        
                 <div class="form-group col-md-4">
-                  <!-- <label for="class">Select Class:</label> -->
                   <select formControlName="class_id" class="form-control"  required>
                     <option value="" disabled selected>Select a Class</option>
                     <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
@@ -41,7 +40,7 @@
                       <td>{{ sub.title }}</td>
                       <td *ngFor="let class of sub.classes">{{ class.title }}</td>
                       <td>
-                        <a routerLink="/add-subject/{{sub.id}}/edit" class="fas fa-edit text-blue-50 "
+                        <a routerLink="/add-subject/{{sub.id}}/edit" *ngIf="this.commonService.getUrl('/add-subject/'+sub.id+'/edit')" class="fas fa-edit text-blue-50 "
                           style="margin:0px 10px 0px 7px;"></a>
                         <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(sub.id)"></a>
                       </td>

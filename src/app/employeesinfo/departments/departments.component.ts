@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
 import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class DepartmentsComponent {
   departments: DepartmentResponse[] = [];
 
   constructor(private departmentSerivce:DepartmentsService,
-    private toastr: ToasterService ) { }
+    private toastr: ToasterService,
+    public commonService:CommonService ) { }
 
   ngOnInit(): void {
     this.getDepartmentsList();

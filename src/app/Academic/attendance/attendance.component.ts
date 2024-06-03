@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from '../../services/toastr.service';
 import { AttendanceService } from '../../services/attendance.service';
 import { catchError, throwError } from 'rxjs';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-attendance',
@@ -38,7 +39,8 @@ export class AttendanceComponent  {
 
   constructor(private fb: FormBuilder, 
     private toastr:ToasterService,
-    private attendanceService:AttendanceService) {
+    private attendanceService:AttendanceService,
+    public commonService:CommonService) {
       const currentDate = new Date();
       const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0'); 
       

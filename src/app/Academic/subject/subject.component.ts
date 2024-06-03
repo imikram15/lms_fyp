@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Paginator } from '../../paginator';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { catchError, throwError } from 'rxjs';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-subject',
@@ -26,7 +27,8 @@ export class SubjectComponent  extends Paginator{
   constructor(private subjectService:SubjectsService,
     private fb:FormBuilder,
     private toastr:ToasterService,
-    public dialog: MatDialog,){
+    public dialog: MatDialog,
+    public commonService:CommonService){
     super();
     this.subjectForm = this.fb.group({
       class_id: ['', Validators.required],

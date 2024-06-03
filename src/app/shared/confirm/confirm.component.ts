@@ -6,6 +6,9 @@ import { TeachersService } from '../../services/teachers.service';
 import { StudentsService } from '../../services/students.service';
 import { ClassRoomService } from '../../services/class-room.service';
 import { SubjectsService } from '../../services/subjects.service';
+import { ClassRoutinesService } from '../../services/class-routines.service';
+import { SyllabusService } from '../../services/syllabus.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-confirm',
@@ -26,6 +29,9 @@ export class ConfirmComponent implements OnInit {
     private studentService:StudentsService,
     private classroomService:ClassRoomService,
     private subjectService:SubjectsService,
+    private classRoutineService:ClassRoutinesService,
+    private syllabusService:SyllabusService,
+    private usersService:UsersService,
 
     ) {
    
@@ -69,8 +75,23 @@ export class ConfirmComponent implements OnInit {
           this.subjectService.destroySubject(this.data.id).subscribe((res: any) => { 
             this.dialogRef.close(true);              
           });
-          break;
-    
+        break;
+        case 'classRoutine':
+          this.classRoutineService.deleteRoutine(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+        break;
+        case 'Syllabus':
+        this.syllabusService.deleteSyllabus(this.data.id).subscribe((res: any) => { 
+          this.dialogRef.close(true);              
+        });
+        break;
+        case 'user':
+          this.usersService.destroyUser(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+            break;    
+          
       default:        
         break;
     }

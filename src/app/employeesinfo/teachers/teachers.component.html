@@ -4,7 +4,7 @@
       <div class="card-header d-flex align-items-center justify-content-between mb-2 py-3">
         <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Teachers Information</h6>
         <div class="d-flex">
-            <a routerLink="/add-teachers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a routerLink="/add-teachers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  *ngIf="this.commonService.getUrl('/add-teachers')" ><i
                     class="fas fa-user fa-sm text-white-50"></i> Add Teacher</a>
             <form class="d-none d-sm-inline-block form-inline ml-3">
               <!-- (ngSubmit)="search()" -->
@@ -40,7 +40,7 @@
                         <th scope="col">Dep</th>
                         <th scope="col">Des</th>
                         <th scope="col">Cat</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col" *ngIf="this.commonService.checkDeleteRole()" >Actions</th>
                       </tr>
         
                 </thead>
@@ -61,9 +61,9 @@
             <td>{{ teacher.department_id }}</td>
             <td>{{ teacher.designation_id }}</td>
             <td>{{ teacher.category_id }}</td>
-            <td >
-              <a  routerLink="/add-teachers/{{teacher.id}}/edit"  class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-              <a  class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(teacher.id)"></a>
+            <td *ngIf="this.commonService.checkDeleteRole()" >
+              <a  routerLink="/add-teachers/{{teacher.id}}/edit"  *ngIf="this.commonService.getUrl('/add-teachers/'+teacher.id+'/edit')"  class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+              <a  class="fas fa-trash-alt" style="color: #ff6347;"   (click)="confirmDialog(teacher.id)"></a>
             </td>
           </tr>
         </tbody>

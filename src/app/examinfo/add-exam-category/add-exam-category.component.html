@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header d-sm-flex py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Exam</h6>
+        </div>
+        <div class="card-body py-4">
+            <form [formGroup]="ExamCategoryForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title">Exam Category Name:</label>
+                        <input formControlName="title" type="text" class="form-control" id="title" required>
+                        <div *ngIf="ExamCategoryForm.get('title')?.invalid && ExamCategoryForm.get('title')?.touched"
+                            class="text-danger">
+                            Exam Name is required.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="ExamCategoryForm.invalid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

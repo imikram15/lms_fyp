@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 export interface ClassesResponse{
   id:number,
   title:string,
-  sections:string,
   created_at:Date,
   updated_at:Date,
 }

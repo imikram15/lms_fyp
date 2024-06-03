@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { Paginator } from '../../paginator';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-teachers',
@@ -30,11 +31,12 @@ export class TeachersComponent extends Paginator{
     private categoriesService: CategoriesService,
     private departmentSerivce: DepartmentsService,
     private teachersService:TeachersService,
-    public dialog: MatDialog,) {
+    public dialog: MatDialog,
+    public commonService:CommonService) {
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.getDepartmentsList();
     this.getDesignationsList();
     this.getCategoriesList();

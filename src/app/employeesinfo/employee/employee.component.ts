@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { environment } from '../../../environments/environment.development';
 import { Paginator } from '../../paginator';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class EmployeeComponent extends Paginator{
     private categoriesService: CategoriesService,
     private departmentSerivce: DepartmentsService,
     public dialog: MatDialog,
+    public commonService:CommonService
     ) {
     super();
   }
@@ -97,6 +99,7 @@ export class EmployeeComponent extends Paginator{
   console.log(this.page);  
   this.getEmployeesList();
   }
+
 
 
 }

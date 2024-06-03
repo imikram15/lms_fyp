@@ -14,8 +14,6 @@ addSubject() {
 throw new Error('Method not implemented.');
 }
 
-classOptions: any;
-
 subjectForm!: FormGroup;
   forUpdate: boolean = false;
   subjectID: any;
