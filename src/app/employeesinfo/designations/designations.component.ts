@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DesignationsService,DesignationResponse } from '../../services/designations.service';
 import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-designations',
@@ -15,7 +16,8 @@ export class DesignationsComponent {
   
   
   constructor(private designationsService:DesignationsService,
-    private toastr:ToasterService){}
+    private toastr:ToasterService,
+    public commonService:CommonService ){}
   
   ngOnInit(): void {
     setTimeout(() => {

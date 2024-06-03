@@ -10,6 +10,8 @@ import { ExamComponent } from './exam/exam.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddGradeComponent } from './add-grade/add-grade.component';
+import { ExamCategoryComponent } from './exam-category/exam-category.component';
+import { AddExamCategoryComponent } from './add-exam-category/add-exam-category.component';
 
 
 
@@ -22,6 +24,8 @@ import { AddGradeComponent } from './add-grade/add-grade.component';
     ExamComponent,
     AddExamComponent,
     AddGradeComponent,
+    ExamCategoryComponent,
+    AddExamCategoryComponent,
   ],
   imports: [
     CommonModule,

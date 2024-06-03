@@ -4,7 +4,8 @@
     <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
     <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Classes Information</h6>
     <div class="d-flex">
-      <a routerLink="/add-class" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-graduate fa-sm text-white-50"></i> Add Class</a>
+      <a routerLink="/add-class" *ngIf="this.commonService.getUrl('/add-class')"
+       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-graduate fa-sm text-white-50"></i> Add Class</a>
   
     </div> 
   </div>
@@ -21,7 +22,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Actions</th>
+                <th scope="col"  *ngIf="this.commonService.checkDeleteRole()">Actions</th>
               </tr>
 
             </thead>
@@ -30,8 +31,8 @@
                   itemsPerPage:perPage, currentPage:page, totalItems:total}; let i = index;">
                 <td>{{ class.id }}</td>
                 <td>{{ class.title }}</td>
-                <td>
-                  <a routerLink="/add-class/{{class.id}}/edit" class="fas fa-edit text-blue-50 "
+                <td *ngIf="this.commonService.checkDeleteRole()">
+                  <a routerLink="/add-class/{{class.id}}/edit" *ngIf="this.commonService.getUrl('/add-class/'+class.id+'/edit')" class="fas fa-edit text-blue-50 "
                     style="margin:0px 10px 0px 7px;"></a>
                   <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(class.id)"></a>
                 </td>

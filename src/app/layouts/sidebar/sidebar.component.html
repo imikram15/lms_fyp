@@ -35,11 +35,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Employees Info:</h6>
-                <a class="collapse-item" routerLink="/employees" >Employees</a>
-                <a class="collapse-item"  routerLink="/teachers">Teachers</a>
-                <a class="collapse-item" routerLink="/categories">Categories</a>
-                <a class="collapse-item" routerLink="/designations">Designations</a>
-                <a class="collapse-item" routerLink="/departments">Departments</a>
+                <a class="collapse-item" routerLink="/employees"  *ngIf="this.commonService.getUrl('/employees')" >Employees</a>
+                <a class="collapse-item"  routerLink="/teachers" *ngIf="this.commonService.getUrl('/teachers')" >Teachers</a>
+                <a class="collapse-item" routerLink="/categories" *ngIf="this.commonService.getUrl('/categories')" >Categories</a>
+                <a class="collapse-item" routerLink="/designations" *ngIf="this.commonService.getUrl('/designations')">Designations</a>
+                <a class="collapse-item" routerLink="/departments"  *ngIf="this.commonService.getUrl('/departments')">Departments</a>
             </div>
         </div>
     </li>
@@ -55,9 +55,10 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Students Info:</h6>
-                <a class="collapse-item" routerLink="/students">Students</a>
-                <a class="collapse-item"  routerLink="/classes">Classes</a>
-                <a class="collapse-item"  routerLink="/add-students">Admission</a>
+                <a class="collapse-item" routerLink="/students"  *ngIf="this.commonService.getUrl('/students')" >Students</a>
+                <a class="collapse-item"  routerLink="/classes" *ngIf="this.commonService.getUrl('/classes')"  >Classes</a>
+                <a class="collapse-item"  routerLink="/show-user"  *ngIf="this.commonService.getUrl('/show-user')" >Users</a>
+                <a class="collapse-item"  routerLink="/add-students" *ngIf="this.commonService.getUrl('/add-students')" >Admission</a>
             </div>
         </div>
     </li>
@@ -71,12 +72,12 @@
         <div id="collapseAcademic" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Academic info:</h6>
-                <a class="collapse-item" routerLink="/attendance" >Daily Attendance</a>
-                <a class="collapse-item" routerLink="/class-routine">Class Routine</a>
-                <a class="collapse-item" routerLink="/subject">Subject</a>
-                <a class="collapse-item" routerLink="/syllabus">Syllabus</a>
-                <a class="collapse-item" routerLink="/classes">Class</a>
-                <a class="collapse-item" routerLink="/class-room">Class Room</a>
+                <a class="collapse-item" routerLink="/attendance"  *ngIf="this.commonService.getUrl('/attendance')" >Daily Attendance</a>
+                <a class="collapse-item" routerLink="/class-routine"  *ngIf="this.commonService.getUrl('/class-routine')" >Class Routine</a>
+                <a class="collapse-item" routerLink="/subject" *ngIf="this.commonService.getUrl('/subject')" >Subject</a>
+                <a class="collapse-item" routerLink="/syllabus" *ngIf="this.commonService.getUrl('/syllabus')" >Syllabus</a>
+                <a class="collapse-item" routerLink="/classes" *ngIf="this.commonService.getUrl('/classes')" >Class</a>
+                <a class="collapse-item" routerLink="/class-room" *ngIf="this.commonService.getUrl('/class-room')" >Class Room</a>
                 
             </div>
         </div>
@@ -93,10 +94,11 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Examination Info:</h6>
-                <a class="collapse-item" routerLink="/marks">Marks</a>
-                <a class="collapse-item"  routerLink="/examination">Examination</a>
-                <a class="collapse-item"  routerLink="/grades">Grades</a>
-                <a class="collapse-item"  routerLink="/promotion">Promotion</a>
+                <a class="collapse-item" routerLink="/marks" *ngIf="this.commonService.getUrl('/marks')" >Marks</a>
+                <a class="collapse-item"  routerLink="/examination" *ngIf="this.commonService.getUrl('/examination')">Examination</a>
+                <a class="collapse-item"  routerLink="/examination" *ngIf="this.commonService.getUrl('/exam-category')">Exam Category</a>
+                <a class="collapse-item"  routerLink="/grades" *ngIf="this.commonService.getUrl('/grades')">Grades</a>
+                <a class="collapse-item"  routerLink="/promotion" *ngIf="this.commonService.getUrl('/promotion')" >Promotion</a>
                 <!-- <a class="collapse-item"  routerLink="/promotion">Send exam marks</a> -->
             </div>
         </div>

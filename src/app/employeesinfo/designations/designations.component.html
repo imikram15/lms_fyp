@@ -3,7 +3,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
        <h1 class="h4 m-0 text-primary " style="font-weight: 500;" >Designation Information</h1>
-       <a routerLink="/add-designations" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+       <a routerLink="/add-designations" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" *ngIf="this.commonService.getUrl('/add-designations')" ><i
                class="fas fa-user fa-sm text-white-50"></i> Add Designation</a>
     </div>
    
@@ -19,16 +19,17 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Actions</th>
+                        <th *ngIf="this.commonService.checkDeleteRole()" >Actions</th>
                       </tr>
 
                 </thead>
                 <tbody>
-                 <tr *ngFor="let designation of designations">
-            <td>{{ designation.id }}</td>
+                 <tr *ngFor="let designation of designations ; let i = index">
+            <td>{{i+1 }}</td>
             <td>{{ designation.title }}</td>
-            <td>
-             <a  routerLink="/add-designations/{{designation.id}}/edit" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+            <td  *ngIf="this.commonService.checkDeleteRole()" >
+             <a  routerLink="/add-designations/{{designation.id}}/edit" *ngIf="this.commonService.getUrl('/add-designations/'+designation.id+'/edit')"
+              class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
              <a   class="fas fa-trash-alt" style="color: #ff6347;" (click)="deleteDesignation(designation.id)" ></a>
             </td>
           </tr>

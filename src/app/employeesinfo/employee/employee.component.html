@@ -3,7 +3,7 @@
     <div class="card-header d-flex align-items-center justify-content-between mb-2 py-3">
         <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Employees Information</h6>
         <div class="d-flex">
-            <a routerLink="/add-employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a routerLink="/add-employees" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" *ngIf="this.commonService.getUrl('/add-employees')" ><i
                     class="fas fa-user fa-sm text-white-50"></i> Add Employee</a>
             <form class="d-none d-sm-inline-block form-inline ml-3">
               <!-- (ngSubmit)="search()" -->
@@ -39,7 +39,7 @@
                 <th scope="col">Dep</th>
                 <th scope="col">Des</th>
                 <th scope="col">Cat</th>
-                <th scope="col">Actions</th>
+                <th scope="col" *ngIf="this.commonService.checkDeleteRole()"  >Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -59,8 +59,8 @@
                 <td>{{ employee.department_id }}</td>
                 <td>{{ employee.designation_id }}</td>
                 <td>{{ employee.category_id }}</td>
-                <td >
-                  <a routerLink="/add-employees/{{employee.id}}/edit" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
+                <td *ngIf="this.commonService.checkDeleteRole()"  >
+                  <a routerLink="/add-employees/{{employee.id}}/edit" *ngIf="this.commonService.getUrl('/add-employees/'+employee.id+'/edit')" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
                   <a class="fas fa-trash-alt " style="color: #ff6347; cursor:pointer" (click)="confirmDialog(employee.id)"></a>
                 </td>
               </tr>

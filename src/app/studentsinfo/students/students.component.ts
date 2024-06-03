@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { environment } from '../../../environments/environment.development';
 import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class StudentsComponent extends Paginator{
 
   constructor(private studentsService:StudentsService,
     public dialog: MatDialog,
-    private toastr:ToasterService,){
+    private toastr:ToasterService,
+    public commonService:CommonService  ){
     super();
   }
 

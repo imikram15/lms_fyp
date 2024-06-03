@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CategoriesService, CategoriesResponse} from '../../services/categories.service';
 import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-categories',
@@ -14,7 +15,8 @@ export class CategoriesComponent {
   categories: CategoriesResponse[] = [];
 
   constructor(private categoriesService:CategoriesService,
-    private toastr:ToasterService ) { }
+    private toastr:ToasterService,
+    public commonService:CommonService  ) { }
 
   ngOnInit(): void {
     this.getCategoriesList();

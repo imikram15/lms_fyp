@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
+  constructor(){
+    // const id1 = localStorage.getItem('role_id');    
+    // console.log('role id:' ,id1);
+  }
   totalStudents = 20;
   totalTeachers = 10;
   totalParents = 18;

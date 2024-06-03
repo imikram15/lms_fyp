@@ -19,6 +19,10 @@ export class ClassRoomService {
   
   baseURL = environment.apiUrl;
 
+  getClasses(): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}classes`);
+  }
+
   getClassrooms(): Observable<any> {
     return this.http.get(this.baseURL + 'classrooms');
   }
@@ -29,7 +33,7 @@ export class ClassRoomService {
   } 
 
   getClassroom(id: number): Observable<any> {
-    return this.http.get(`${this.baseURL}+'classrooms'/${id}/edit`);
+    return this.http.get(`${this.baseURL}classrooms/${id}/edit`);
   }
 
   createClassroom(classroom: any): Observable<any> {

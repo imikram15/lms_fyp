@@ -46,7 +46,7 @@ export class TakeAttendanceComponent {
         this.toastr.showError('Failed to load classes. Please try again later.', 'Error');
         return throwError(err);
       })
-    ).subscribe(data => {
+    ).subscribe((data: { classes: { data: any[]; }; }) => {
       this.classes = data.classes.data;
     });
   }

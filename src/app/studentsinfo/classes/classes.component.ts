@@ -4,6 +4,7 @@ import { ToasterService } from '../../services/toastr.service';
 import { Paginator } from '../../paginator';
 import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-classes',
@@ -19,7 +20,8 @@ export class ClassesComponent extends Paginator{
   
   constructor(private classesService:ClassesService,
     private toastr:ToasterService,
-    public dialog: MatDialog,){
+    public dialog: MatDialog,
+    public commonService:CommonService){
     super();
   }
     

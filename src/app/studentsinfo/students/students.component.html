@@ -12,7 +12,7 @@
                 <a *ngFor="let option of classOptions" class="dropdown-item" >{{ option }}</a>
             </div>
         </div>        
-            <a routerLink="/add-students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2 ">
+            <a routerLink="/add-students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2 " *ngIf="this.commonService.getUrl('/add-students')">
               <i class="fas fa-user-graduate fa-sm text-white-50"></i> Add Student
           </a>
         </div>
@@ -35,7 +35,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Address</th>
                         <th scope="col">Class</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col"  *ngIf="this.commonService.checkDeleteRole()" >Actions</th>
                       </tr>
         
                 </thead>
@@ -56,8 +56,8 @@
                 <td>{{ student.phone }}</td>
                 <td>{{ student.address }}</td>
                 <td>{{ student.classes.title }}</td>
-                <td >
-                  <a routerLink="/add-students/{{student.id}}/edit" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
+                <td  *ngIf="this.commonService.checkDeleteRole()"  >
+                  <a routerLink="/add-students/{{student.id}}/edit" *ngIf="this.commonService.getUrl('/add-students/'+student.id+'/edit')" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
                   <a class="fas fa-trash-alt " style="color: #ff6347; cursor:pointer" (click)="confirmDialog(student.id)"></a>
                 </td>
               </tr>

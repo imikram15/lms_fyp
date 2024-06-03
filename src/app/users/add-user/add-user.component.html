@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="card shadow mb-4">
+      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">{{ forUpdate ? 'Update User' : 'Create User' }}</h6>
+        <a routerLink="/show-user" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <i class="fas fa-list fa-sm text-white-50"></i> Show List
+        </a>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Enter Email">
+                <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-danger">
+                  Valid email is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
+                <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid" class="text-danger">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="member_type">Member Type:</label>
+                <select class="form-control" formControlName="member_type" id="member_type" required (change)="getMembersList()">
+                  <option value="" disabled selected>Select Member Type</option>
+                  <ng-container *ngFor="let type of roles">
+                    <option   [value]="type.id">{{ type.title }}</option>
+                  </ng-container>
+                </select>
+                <div *ngIf="userForm.get('member_type')?.touched && userForm.get('member_type')?.invalid" class="text-danger">
+                  Member Type is required.
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6" *ngIf="isLoading; else memberSelect">
+              <div class="form-group">
+                <label for="member_id">Member ID:</label>
+                <select class="form-control" formControlName="member_id" id="member_id"  >
+                  <option >Loading...</option>
+                </select>
+              </div>
+            </div>
+            
+            <ng-template #memberSelect>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="member_id">Member ID:</label>
+                  <select class="form-control" formControlName="member_id" id="member_id" required>
+                    <option value="" disabled selected>Select Member ID</option>
+                    <option *ngFor="let user of memType" [value]="user.id">{{ nameCheck? user.first_name + ' ' + user.last_name : user.name}}</option>
+                  </select>
+                  <div *ngIf="userForm.get('member_id')?.touched && userForm.get('member_id')?.invalid" class="text-danger">
+                    Member ID is required.
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="role_id">Role ID:</label>
+                <select class="form-control" formControlName="role_id" id="role_id" required>
+                  <option value="" disabled selected>Select Role</option>
+                  <option *ngFor="let role of roles" [value]="role.id">{{ role.title }}</option>
+                </select>
+                <div *ngIf="userForm.get('role_id')?.touched && userForm.get('role_id')?.invalid" class="text-danger">
+                  Role ID is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+            {{ forUpdate ? 'Update' : 'Submit' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
