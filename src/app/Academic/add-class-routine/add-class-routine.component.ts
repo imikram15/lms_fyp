@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { FormBuilder, FormGroup } from '@angular/forms';
 =======
+=======
+>>>>>>> 19c71981f36a75967a0c307fb4db3302d6294c86
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from '../../services/toastr.service';
 import { ClassRoutinesService } from '../../services/class-routines.service';
@@ -11,7 +14,10 @@ import { catchError, throwError } from 'rxjs';
 import { SubjectsService } from '../../services/subjects.service';
 import { ClassRoomService } from '../../services/class-room.service';
 import { TeachersService } from '../../services/teachers.service';
+<<<<<<< HEAD
 >>>>>>> 6b27861e3b99117a18bf8d6eb7c2a924249ebab3
+=======
+>>>>>>> 19c71981f36a75967a0c307fb4db3302d6294c86
 
 @Component({
   selector: 'app-add-class-routine',
@@ -19,6 +25,7 @@ import { TeachersService } from '../../services/teachers.service';
   styleUrl: './add-class-routine.component.scss'
 })
 export class AddClassRoutineComponent {
+<<<<<<< HEAD
 <<<<<<< HEAD
 classroomOptions: any;
 sectionOptions: any;
@@ -33,6 +40,8 @@ throw new Error('Method not implemented.');
 }
   routineForm!: FormGroup;
 =======
+=======
+>>>>>>> 19c71981f36a75967a0c307fb4db3302d6294c86
   forUpdate: boolean = false;
   routineID: any;
   routineUpdate: any;
@@ -209,6 +218,7 @@ private handle422Error(err: any): void {
     this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
   }
 }
+<<<<<<< HEAD
 >>>>>>> 6b27861e3b99117a18bf8d6eb7c2a924249ebab3
 
   constructor(private formBuilder: FormBuilder) { }
@@ -219,4 +229,7 @@ private handle422Error(err: any): void {
       
     });
   }
+=======
+
+>>>>>>> 19c71981f36a75967a0c307fb4db3302d6294c86
 }
