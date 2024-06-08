@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,13 +14,14 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['ryhaxilapa@mailinator.com', [Validators.required, Validators.email]],
+      password: ['12341234', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
   }
@@ -32,9 +33,7 @@ export class LoginComponent {
   login(): void {
     if (this.loginForm.invalid) {
       return;
-    }
-
-    
+    }    
     const { email, password, rememberMe } = this.loginForm.value;
     
     this.authService.login(email, password).subscribe(response => {
@@ -43,10 +42,19 @@ export class LoginComponent {
           // Remember user
           localStorage.setItem('auth_email', email);
         }
+        this.snackBar.open('Login successful!', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'] 
+        });
         this.router.navigate(['/dashboard']);
       }
-    }, error => {
+    },  error => {
+      this.snackBar.open('Login failed. Please check your credentials and try again.', 'Close', {
+        duration: 5000, 
+        panelClass: ['error-snackbar'] 
+      });
       console.error('Login failed', error);
     });
   }
+
 }

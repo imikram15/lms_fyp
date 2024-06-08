@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
   ],
   exports:[],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

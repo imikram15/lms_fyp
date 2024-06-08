@@ -41,9 +41,9 @@ export class AttendanceComponent  {
     private toastr:ToasterService,
     private attendanceService:AttendanceService,
     public commonService:CommonService) {
-      const currentDate = new Date();
-      const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0'); 
       
+      const currentDate = new Date();
+      const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');      
       const currentYear = currentDate.getFullYear();
 
     this.attendanceForm = this.fb.group({

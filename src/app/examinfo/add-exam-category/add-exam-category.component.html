@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header d-sm-flex py-3">
-            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Exam</h6>
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">{{ forUpdate ? 'Update Exam Category' : 'Create Exam Category' }}</h6>
         </div>
         <div class="card-body py-4">
             <form [formGroup]="ExamCategoryForm" (ngSubmit)="onSubmit()" novalidate>
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="ExamCategoryForm.invalid">Submit</button>
+                <button type="submit" class="btn btn-primary" style="margin-left: 12px;" [disabled]="ExamCategoryForm.invalid">{{ forUpdate ? 'Update' : 'Submit' }}</button>
             </form>
         </div>
     </div>

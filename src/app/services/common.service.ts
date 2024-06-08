@@ -71,6 +71,7 @@ export class CommonService {
     '/live-class', 
     '/marks', 
     '/examination',
+    '/add-exam',
     '/exam-category', 
     '/add-exam-category', 
     '/grades', 
@@ -120,8 +121,12 @@ export class CommonService {
     '/live-class', 
     '/marks', 
     '/examination',
+    '/add-exam',
+    '/add-exam/1/edit',
     '/exam-category', 
     '/add-exam-category', 
+    '/add-exam-category/2/edit',
+    '/promotion',
     '/grades', 
     '/student-fee-manager'
   ];

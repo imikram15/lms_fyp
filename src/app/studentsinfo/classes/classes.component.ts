@@ -49,8 +49,7 @@ export class ClassesComponent extends Paginator{
     }
     
     onTableDataChange(event:any){
-      this.page = event;
-      console.log(this.page);  
+      this.page = event;  
       this.getClassesList();
       }
 

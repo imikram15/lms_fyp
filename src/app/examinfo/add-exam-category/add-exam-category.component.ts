@@ -28,12 +28,12 @@ export class AddExamCategoryComponent {
     this.ExamCategoryForm = this.fb.group({
       title:['', Validators.required]
     });
-    this.examCategoryID = this.route.snapshot.paramMap.get('id');
+    this.examCategoryID = this.route.snapshot.paramMap.get('id');    
     if (this.examCategoryID) {
       this.ExamCategoryService.getExamCategory(this.examCategoryID).subscribe((res: any) => {
-        if (res && res.id) {
+        if (res.examCategory && res.examCategory.id) {          
           this.forUpdate = true;
-          this.examCategoryUpdate = res;
+          this.examCategoryUpdate = res.examCategory;
           this.ExamCategoryForm.patchValue({
             title: this.examCategoryUpdate.title,
           })
