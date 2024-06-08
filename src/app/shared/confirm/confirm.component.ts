@@ -108,7 +108,7 @@ export class ConfirmComponent implements OnInit {
             this.dialogRef.close(true);              
           });
             break;
-        case 'exam':
+        case 'fee':
           this.StudentFeeService.deleteStudentFee(this.data.id).subscribe((res: any) => { 
             this.dialogRef.close(true);              
           });
