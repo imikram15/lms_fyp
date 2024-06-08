@@ -11,10 +11,12 @@ import { CategoriesComponent } from './categories/categories.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationsComponent } from './designations/designations.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeachersComponent } from './teachers/teachers.component';
 import { AddTeachersComponent } from './add-teachers/add-teachers.component';
-import { LoaderComponent } from '../layouts/loader/loader.component';
+import { SharedModule } from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from '../filter.pipe';
 
 
 @NgModule({
@@ -30,12 +32,16 @@ import { LoaderComponent } from '../layouts/loader/loader.component';
     DesignationsComponent,
     TeachersComponent,
     AddTeachersComponent,
-    LoaderComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
     EmployeesinfoRoutingModule,
     ReactiveFormsModule,
-  ]
+    SharedModule,
+    FormsModule,   
+    NgxPaginationModule
+  ],
+  exports:[]
 })
 export class EmployeesinfoModule { }

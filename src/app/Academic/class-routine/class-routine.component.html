@@ -2,54 +2,57 @@
   <div class="card shadow mb-4">
     <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
       <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Class Routine</h6>
-      <a routerLink="/add-class-routine" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <a routerLink="/add-class-routine" *ngIf="this.commonService.getUrl('/add-class-routine')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-user fa-sm text-white-50"></i> Add Class Routine</a>
     </div>
-    <div class="card-body" [formGroup]="studentForm">
-      <div class="row align-items-end">
-        <div class="form-group col">
-          <label for="section">Select Section:</label>
-          <select formControlName="section" class="form-control" placeholder="Select Section">
-            <option value="" disabled selected>Select Section</option>
-            <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
-          </select>
-        </div>
-        <div class="form-group col">
-          <label for="class">Select Class:</label>
-          <select formControlName="class" class="form-control" placeholder="Select Class">
+    <div class="card-body " style="padding-top: 0px; ">
+      <div  [formGroup]="classroutineForm" class="row  align-items-end  d-flex justify-content-center"  >        
+        <div class="form-group col-md-3">
+          <select formControlName="class_id" class="form-control" placeholder="Select Class">
             <option value="" disabled selected>Select Class</option>
-            <option *ngFor="let classOption of classes" [value]="classOption">{{ classOption }}</option>
+            <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
           </select>
         </div>
-        <div class="form-group col">
+        <div class="form-group col-md-2" >
           <button class="btn btn-primary mt-4" (click)="filterData()">Filter</button>
         </div>
       </div>
-
-      <!-- Grouped table -->
-      <div *ngFor="let group of groupedData" class="mt-4">
-        <h5>{{ group.weekday }}</h5>
-        <div class="table-responsive">
-          <table class="table table-bordered" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Subjects</th>
-                <th>Teacher</th>
-                <th>Room</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let routine of group.routines">
-                <td>{{ routine.time }}</td>
-                <td>{{ routine.subject }}</td>
-                <td>{{ routine.teacher }}</td>
-                <td>{{ routine.room }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      
+      <div *ngIf="isLoading; else elseForm"  style="position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);">
+        <app-loader :title = "loadingTitle" />
       </div>
+      <ng-template #elseForm >
+        
+        <div *ngFor="let group of groupedData" class="mt-4">
+          <h5 class="heading text-center">{{ group.weekday }}</h5>
+          <div class="table-responsive table-striped table-hover text-center">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Teacher</th>
+                  <th>Time</th>
+                  <th>Subjects</th>
+                  <th>Room</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let routine of group.routines">
+                  <td>{{ routine.teacher?.name }}</td>
+                  <td>{{ formatTime(routine.startinghours, routine.startingminute) }} - {{ formatTime(routine.endinghours, routine.endingminute) }}</td>
+                  <td>{{ routine.subject?.title }}</td>
+                  <td>{{ routine.classroom?.title }}</td>
+                  <td>
+                    <a routerLink="/add-class-routine/{{routine.id}}/edit" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
+                    <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(routine.id)"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+    </ng-template>
 
       <div class="text-center" style="margin-top: 10%;" *ngIf="groupedData.length === 0">
         <h6>No data found</h6>

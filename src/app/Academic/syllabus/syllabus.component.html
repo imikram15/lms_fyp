@@ -2,73 +2,58 @@
     <div class="card shadow mb-4">
         <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
             <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Syllabus</h6>
-            <a routerLink="/add-syllabus" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <a routerLink="/add-syllabus" *ngIf="this.commonService.getUrl('/add-syllabus')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-user fa-sm text-white-50"></i> Add Syllabus</a>
         </div> 
 
-        <div class="card-body">
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <label for="class">Select Class</label>
-                    <select class="form-control" id="class">
-                        <option>Select Class</option>
-                        <option *ngFor="let option of classOptions" [value]="option">{{ option }}</option>
+        <div class="card-body " style=" padding-top: 0px;" >
+            <div [formGroup]="syllabusForm" class="row align-items-end  d-flex justify-content-center">
+                <div class="form-group col-md-3">
+                    <select formControlName="class_id" class="form-control"  required>
+                      <option value="" disabled selected>Select a Class</option>
+                      <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
                     </select>
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="section">Select Section</label>
-                    <select class="form-control" id="section">
-                        <option>Select Section</option>
-                        <option *ngFor="let option of sectionOptions" [value]="option">{{ option }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-4 d-flex align-items-end">
+                  </div>
+                <div class="form-group col-md-1 d-flex align-items-end">
                     <button class="btn btn-primary mt-2" (click)="filterData()">Filter</button>
                 </div>
             </div>
-            <div *ngIf="showTable" class="text-center mt-3">
+            <div *ngIf="isLoading; else elseForm"  style="position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);">
+                <app-loader :title = "loadingTitle" />
+              </div>
+              <ng-template #elseForm >
+                
+            <div  class="table-responsive table-striped table-hover text-center" *ngIf="syllabusData.length > 0">
                 <table class="table table-bordered mt-4">
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Syllabus</th>
                             <th>Subject</th>
+                            <th>Syllabus</th>
                             <th>Option</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of syllabusData">
                             <td>{{ data.title }}</td>
-                            <td><button class="btn btn-primary">Download</button></td>
-                            <td>{{ data.subject }}</td>
+                            <td>{{ data.subjects.title }}</td>
                             <td>
-                                <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-                                <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+                                <a [href]="fileUrl + data.syllabus_file" class="btn btn-primary"  target="_blank" download>Download</a>
+                            </td>
+                            <td>
+                                <a routerLink="/add-syllabus/{{data.id}}/edit" *ngIf="this.commonService.getUrl('/add-syllabus/'+data.id+'/edit')" class="fas fa-edit text-blue-50" style="margin:0px 10px 0px 7px;"></a>
+                                <a class="fas fa-trash-alt " style="color: #ff6347; cursor:pointer"   (click)="confirmDialog(data.id)"></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div *ngIf="!showTable" class="text-center mt-3">
+            <div class="text-center" style="margin-top: 10%;" *ngIf="syllabusData.length === 0">
                 <h6>No data found</h6>
-            </div>
+              </div>
+        </ng-template>
+
         </div>
-        <nav aria-label="..." class="form-group col-md-4">
-            <ul class="pagination">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
+        
     </div>
 </div>

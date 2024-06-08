@@ -8,26 +8,34 @@ import { GradesComponent } from './grades/grades.component';
 import { PromtionsComponent } from './promtions/promtions.component';
 import { ExamComponent } from './exam/exam.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { AddGradeComponent } from './add-grade/add-grade.component';
+import { ExamCategoryComponent } from './exam-category/exam-category.component';
+import { AddExamCategoryComponent } from './add-exam-category/add-exam-category.component';
+import { SharedModule } from "../shared/shared.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
 @NgModule({
-  declarations: [
-    MarksComponent,
-    ExaminationComponent,
-    GradesComponent,
-    PromtionsComponent,
-    ExamComponent,
-    AddExamComponent,
-    AddGradeComponent,
-  ],
-  imports: [
-    CommonModule,
-    ExaminfoRoutingModule,
-    ReactiveFormsModule,
-    
-  ]
+    declarations: [
+        MarksComponent,
+        ExaminationComponent,
+        GradesComponent,
+        PromtionsComponent,
+        ExamComponent,
+        AddExamComponent,
+        AddGradeComponent,
+        ExamCategoryComponent,
+        AddExamCategoryComponent,
+    ],
+    imports: [
+        CommonModule,
+        ExaminfoRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+        NgxPaginationModule,
+        FormsModule
+    ]
 })
 export class ExaminfoModule { }

@@ -3,68 +3,53 @@
     <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
       <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Manage Marks</h6>
     </div>
-    <div class="card-body">
-      <form [formGroup]="studentForm" (ngSubmit)="filterData()">
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="selectExam">Select Exam:</label>
-            <select style="width: 100%;" formControlName="selectExam" class="form-control" id="selectExam">
-              <option value="" disabled selected>Select Exam</option>
-              <option *ngFor="let exam of examOptions" [value]="exam">{{ exam }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="selectClass">Select Class:</label>
-            <select style="width: 100%;" formControlName="selectClass" class="form-control" id="selectClass">
-              <option value="" disabled selected>Select Class</option>
-              <option *ngFor="let class of classOptions" [value]="class">{{ class }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="selectSubject">Select Subject:</label>
-            <select style="width: 100%;" formControlName="selectSubject" class="form-control" id="selectSubject">
-              <option value="" disabled selected>Select Subject</option>
-              <option *ngFor="let subject of subjectOptions" [value]="subject">{{ subject }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="selectSection">Select Section:</label>
-            <select style="width: 100%;" formControlName="selectSection" class="form-control" id="selectSection">
-              <option value="" disabled selected>Select Section</option>
-              <option *ngFor="let section of sectionOptions" [value]="section">{{ section }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <button type="submit" class="btn btn-success">Filter</button>
-          </div>
+
         </div>
       </form>
-      
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Student Name</th>
-            <th scope="col">Marks</th>
-            <th scope="col">Grade</th>
-            <th scope="col">Comment</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of filteredData">
-            <td>{{ student.name }}</td>
-            <td>{{ student.marks }}</td>
-            <td>{{ student.grade }}</td>
-            <td>{{ student.comment }}</td>
-            <td><i routerLink="" class="fas fa-check-circle text-success"></i></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="text-center" *ngIf="filteredData.length === 0">
-        <h6>No data found</h6>
+
+      <div *ngIf="isLoading" style="position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);">
+        <app-loader [title]="'Loading...'"></app-loader>
+      </div>      
+      <div class="table-responsive col-md-12 mt-3" *ngIf="marks.length!==0">
+        <table class="table table-bordered w-100" style="text-align: center;">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Mark</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" *ngFor="let mark of marks; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ mark.student.first_name }} {{ mark.student.last_name }}</td>
+              <td>{{ mark.subject.title }}</td>
+              <td>
+                <input type="number" [(ngModel)]="mark.mark" class="form-control" required />
+              </td>
+              <td>
+                <textarea [(ngModel)]="mark.comment" class="form-control" rows="1"></textarea>
+              </td>
+              <td>
+                <button class="btn btn-success" (click)="saveMark(mark)">Save</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+        </div>
       </div>
       
+      <div class="text-center" style="margin:50px;" *ngIf="marks.length===0">
+        <div class="form-group empty-img">
+          <img src="./assets/img/empty-box.png" alt="No data Found">
+        </div>
+        <h6 style="margin-left: -40px;">No data found</h6>
+      </div>
     </div>
-    
   </div>
 </div>

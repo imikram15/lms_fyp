@@ -1,1 +1,54 @@
-<p>dashboard works!</p>
+<div class="container mt-4">
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title text-dark ">Students</h5>
+            <p class="card-text">{{ totalStudents }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title text-dark ">Teachers</h5>
+            <p class="card-text">{{ totalTeachers }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title text-dark ">Parents</h5>
+            <p class="card-text">{{ totalParents }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title text-dark ">Staff</h5>
+            <p class="card-text">{{ totalStaff }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">Today's Attendance</h5>
+            <div class="chart-container">
+              <div class="chart">
+                <div *ngFor="let data of attendanceData" class="bar" [style.height]="data.value * 0.5 + 'px'">
+                  <span>{{ data.value }}</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary mt-3">Go to Attendance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

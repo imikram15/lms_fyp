@@ -1,43 +1,65 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
-        <div class="card-header d-sm-flex py-3">
-            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Create Exam</h6>
+        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">{{ forUpdate ? 'Update Exam Info' : 'Exam Info' }}</h6>
+            <a routerLink="/examination" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-list fa-sm text-white-50"></i> Show List
+            </a>
         </div>
-        <div class="card-body py-4">
-            <form [formGroup]="examForm" (ngSubmit)="onSubmit()" novalidate>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exam_name">Exam Name:</label>
-                        <input formControlName="exam_name" type="text" class="form-control" id="exam_name" required>
-                        <div *ngIf="examForm.get('exam_name')?.invalid && examForm.get('exam_name')?.touched"
-                            class="text-danger">
-                            Exam Name is required.
-                        </div>
-                    </div>
+        <div class="card-body" [formGroup]="examForm">
+            <div class="row align-items-end d-flex justify-content-center">
+                <div class="form-group col-md-4">
+                    <label for="examCategory">Select Exam Category:</label>
+                    <select formControlName="examCategory_id" class="form-control" required>
+                        <option value="" disabled selected>Select an Exam Category</option>
+                        <option *ngFor="let category of examCategories" [value]="category.id">{{ category.title }}</option>
+                    </select>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="start_date">Starting Date:</label>
-                        <input formControlName="start_date" type="date" class="form-control" id="start_date"
-                            required>
-                        <div *ngIf="examForm.get('start_date')?.invalid && examForm.get('start_date')?.touched"
-                            class="text-danger">
-                            Starting Date is required.
-                        </div>
-                    </div>
+                <div class="form-group col-md-4">
+                    <label for="class">Select Class:</label>
+                    <select formControlName="class_id" class="form-control" required>
+                        <option value="" disabled selected>Select a Class</option>
+                        <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
+                    </select>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="end_date">Ending Date:</label>
-                        <input formControlName="end_date" type="date" class="form-control" id="end_date" required>
-                        <div *ngIf="examForm.get('end_date')?.invalid && examForm.get('end_date')?.touched"
-                            class="text-danger">
-                            Ending Date is required.
-                        </div>
-                    </div>
+                <div class="form-group col-md-4">
+                    <label for="subject">Select Subject:</label>
+                    <select formControlName="subject_id" class="form-control" required>
+                        <option value="" disabled selected>Select a Subject</option>
+                        <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.title }}</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="examForm.invalid">Submit</button>
-            </form>
+                <div class="form-group col-md-4">
+                    <label for="classroom">Select Classroom:</label>
+                    <select formControlName="classroom_id" class="form-control" required>
+                        <option value="" disabled selected>Select a Classroom</option>
+                        <option *ngFor="let classroom of classrooms" [value]="classroom.id">{{ classroom.title }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" formControlName="start_date" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="start_time">Start Time:</label>
+                    <input type="time" formControlName="start_time" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" formControlName="end_date" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="end_time">End Time:</label>
+                    <input type="time" formControlName="end_time" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="total_marks">Total Marks:</label>
+                    <input type="number" placeholder="Enter Total Numbers" formControlName="total_marks" class="form-control">
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-success mt-3" (click)="createExam()">{{ forUpdate ? 'Update' : 'Submit' }}</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
