@@ -10,8 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +22,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule, 
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-
   ],
   exports:[],
   providers: [DatePipe],
