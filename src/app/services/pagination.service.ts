@@ -189,6 +189,21 @@ export class PaginationService {
     return Array(Math.ceil(this.teachers.length / this.pageSize)).fill(0).map((x, i) => i + 1);
   }
 
+  // prevPage(): void {
+  //   if (this.page > 1) {
+  //     this.page--;
+  //   }
+  // }
+
+  // nextPage(): void {
+  //   if (this.page < this.getTotalPages().length) {
+  //     this.page++;
+  //   }
+  // }
+
+  // goToPage(pageNumber: number): void {
+  //   this.page = pageNumber;
+  // }
   prevPage(): void {
     if (this.page > 1) {
       this.page--;
@@ -196,12 +211,11 @@ export class PaginationService {
   }
 
   nextPage(): void {
-    if (this.page < this.getTotalPages().length) {
-      this.page++;
-    }
+    this.page++;
   }
 
   goToPage(pageNumber: number): void {
     this.page = pageNumber;
   }
+
 }

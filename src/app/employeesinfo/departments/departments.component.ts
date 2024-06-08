@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DepartmentsService, DepartmentResponse } from '../../services/departments.service';
+import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -13,7 +15,9 @@ export class DepartmentsComponent {
   isLoading:boolean = false;
   departments: DepartmentResponse[] = [];
 
-  constructor(private departmentSerivce:DepartmentsService ) { }
+  constructor(private departmentSerivce:DepartmentsService,
+    private toastr: ToasterService,
+    public commonService:CommonService ) { }
 
   ngOnInit(): void {
     this.getDepartmentsList();
@@ -24,7 +28,13 @@ export class DepartmentsComponent {
     this.departmentSerivce.getDepartments().subscribe((res:any)=>{     
       this.departments = res.department;      
     this.isLoading = false;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching classes:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+      this.isLoading = false; 
+    }
+    )
   }
 
   deleteDepartment(departmentID: number) {

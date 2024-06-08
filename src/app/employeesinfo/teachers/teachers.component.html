@@ -1,66 +1,82 @@
 <div class="container-fluid">
 
     <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-          <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Teachers Information</h6>
-          <a routerLink="/add-teachers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-user fa-sm text-white-50"></i> Add Teacher</a>
-      </div> 
-      <div class="card-body row">
-  
+      <div class="card-header d-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Teachers Information</h6>
+        <div class="d-flex">
+            <a routerLink="/add-teachers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  *ngIf="this.commonService.getUrl('/add-teachers')" ><i
+                    class="fas fa-user fa-sm text-white-50"></i> Add Teacher</a>
+            <form class="d-none d-sm-inline-block form-inline ml-3">
+              <!-- (ngSubmit)="search()" -->
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm  " placeholder="Search for..."
+                        aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="searchTerm" name="searchTerm">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-sm" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+      <div class="card-body row" style="position: relative;">
+        <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <app-loader :title="loadingTitle" />
+        </div>
+        <ng-template #elseForm >
         <div class="table-responsive col-md-12 ">
             <table class="table table-bordered w-100" style="text-align: center;">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Profile</th>
                         <th scope="col">Name</th>
                         <th scope="col">Father Name</th>
                         <th scope="col">Gender</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">P.No</th>
                         <th scope="col">Join Date</th>
                         <th scope="col">Dep</th>
                         <th scope="col">Des</th>
                         <th scope="col">Cat</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col" *ngIf="this.commonService.checkDeleteRole()" >Actions</th>
                       </tr>
         
                 </thead>
                 <tbody>
-                 <tr scope="row" *ngFor="let teacher of teachers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                 <tr scope="row" *ngFor="let teacher of teachers | filter:searchTerm | paginate:{
+                  itemsPerPage:perPage, currentPage:page, totalItems:total}; let i = index;">
             <td>{{ teacher.id }}</td>
+            <td>
+              <div class="avatar-container">
+                <img [src]="imgUrl + 'profile' + '/' + teacher.image " class="avatar-img" alt="Avatar">
+              </div>
+            </td>
             <td>{{ teacher.name }}</td>
             <td>{{ teacher.father_name }}</td>
             <td>{{ teacher.gender }}</td>
-            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.phone }}</td>
             <td>{{ teacher.joining_date }}</td>
             <td>{{ teacher.department_id }}</td>
             <td>{{ teacher.designation_id }}</td>
             <td>{{ teacher.category_id }}</td>
-            <td >
-              <a  routerLink="" class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
-              <a  routerLink="" class="fas fa-trash-alt" style="color: #ff6347;"></a>
+            <td *ngIf="this.commonService.checkDeleteRole()" >
+              <a  routerLink="/add-teachers/{{teacher.id}}/edit"  *ngIf="this.commonService.getUrl('/add-teachers/'+teacher.id+'/edit')"  class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
+              <a  class="fas fa-trash-alt" style="color: #ff6347;"   (click)="confirmDialog(teacher.id)"></a>
             </td>
           </tr>
-                </tbody>
-              </table>
-              
-              <nav aria-label="Page navigation">
-                <ul class="pagination">
-                  <li class="page-item" [class.disabled]="page === 1">
-                    <a class="page-link" (click)="prevPage()" tabindex="-1">Previous</a>
-                  </li>
-                  <li class="page-item" *ngFor="let pageNumber of totalPages" [class.active]="pageNumber === page">
-                    <a class="page-link" (click)="goToPage(pageNumber)">{{ pageNumber }}</a>
-                  </li>
-                  <li class="page-item" [class.disabled]="page === totalPages.length">
-                    <a class="page-link"  (click)="nextPage()">Next</a>
-                  </li>
-                </ul>
-              </nav>
-              
+        </tbody>
+      </table>  
+          <div>
+            <pagination-controls
+            previousLabel = "prev"
+            nextLabel = "Next"
+            (pageChange) = "onTableDataChange($event)"></pagination-controls>
+          </div>            
   
       </div>
-    
+        </ng-template>
     </div>
   
   </div>

@@ -1,57 +1,66 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
-        <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-            <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Examination</h6>
-            <button class="btn btn-sm btn-primary shadow-sm" routerLink="/add-exam" >
-                <i class="fas fa-plus fa-sm text-white-50"></i> Add Exam
-            </button>
+      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Exam</h6>
+        <a routerLink="/add-exam" *ngIf="this.commonService.getUrl('/add-exam')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <i class="fas fa-plus fa-sm text-white-50"></i> Add Exam</a>
+      </div>
+      <div class="card-body" style="position: relative; padding-top: 0px;">
+        <div [formGroup]="examForm" class="row align-items-end d-flex justify-content-center" style="margin: 0px;">        
+          <div class="form-group col-md-4">
+            <select formControlName="class_id" class="form-control" required>
+              <option value="" disabled selected>Select Class</option>
+              <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-primary mt-3" (click)="loadExamsByClass()">Filter</button>
+          </div>
         </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="entries">Show entries:</label>
-                        <select class="form-control" id="entries">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        
-                        <input type="text" class="form-control" style="margin-top: 31px;" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" style="margin-top: 31px;" type="button">Search</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Exam Name</th>
-                        <th scope="col">Starting Date (Weekday)</th>
-                        <th scope="col">Ending Date (Weekday)</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let exam of exams">
-                        <td>{{ exam.name }}</td>
-                        <td>{{ exam.startingDate }} ({{ exam.startingWeekday }})</td>
-                        <td>{{ exam.endingDate }} ({{ exam.endingWeekday }})</td>
-                        <td>
-                            <button class="btn btn-success">
-                                <i class="fas fa-check"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+  
+        <div *ngIf="isLoading; else elseForm" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">
+            <app-loader :title="loadingTitle" />
+        </div>
+        <ng-template #elseForm>
+          <div class="table-responsive col-md-12">
+            <table class="table table-bordered w-100" style="text-align: center;">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Exam</th>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Room Number</th>
+                  <th scope="col">Starting Time</th>
+                  <th scope="col">Ending Time</th>
+                  <th scope="col">Total Marks</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row" *ngFor="let exam of exams">
+                  <td>{{ exam.id }}</td>
+                  <td>{{ exam.exam_category.title }}</td>
+                  <td>{{ exam.subject.title }}</td>
+                  <td>{{ exam.classroom.title }}</td>
+                  <td><div>{{ exam.start_date }}</div><small>{{formatTime( exam.start_time )}}</small></td>
+                  <td><div>{{ exam.end_date }}</div> <small>{{ formatTime( exam.end_time ) }}</small></td>
+                  <td>{{ exam.total_marks }}</td>
+                  <td>
+                    <a routerLink="/add-exam/{{ exam.id }}/edit" *ngIf="this.commonService.getUrl('/add-exam/'+exam.id+'/edit')" class="fas fa-edit text-blue-50"
+                      style="margin:0px 10px 0px 7px;"></a>
+                    <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(exam.id)"></a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-        </div>
+  
+            <div>
+              <pagination-controls previousLabel="prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+            </div>
+          </div>
+        </ng-template>
+  
+      </div>
     </div>
-</div>
+  </div>
+  

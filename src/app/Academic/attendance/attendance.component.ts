@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToasterService } from '../../services/toastr.service';
+import { AttendanceService } from '../../services/attendance.service';
+import { catchError, throwError } from 'rxjs';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-attendance',
@@ -7,54 +11,159 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent  {
-  studentForm: FormGroup;
-  months: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  years: number[] = [2020, 2021, 2022, 2023, 2024, 2025];
-  sections: string[] = ["A", "B", "C"];
-  classes: string[] = ["Class 1", "Class 2", "Class 3","Class 4", "Class 5", "Class 6","Class 7", "Class 8", "Class 9","Class 10"];
-  students: string[] = ["Student 1", "Student 2", "Student 3"];
-
-  // Dummy data for testing
-  dummyData: any[] = [
-    { date: '01', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
-    { date: '02', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
-    { date: '03', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
-    { date: '04', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
-    { date: '05', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
-    { date: '06', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
-    { date: '07', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
-    { date: '08', 'Student 1': 'Absent', 'Student 2': 'Present', 'Student 3': 'Present' },
-    { date: '09', 'Student 1': 'Present', 'Student 2': 'Present', 'Student 3': 'Absent' },
-    { date: '10', 'Student 1': 'Present', 'Student 2': 'Absent', 'Student 3': 'Present' },
-
-    // Add more dummy data as needed
+  
+  attendanceForm: FormGroup;  
+  isLoading: boolean = false;
+  classes: any[] = [];
+  students: any[] = [];
+  attendanceData: any[] = [];
+  attendanceDates: any[] = [];
+  status :any;
+  selectedClass:any;
+  daysInMonth: string[] = [];
+  months = [
+    { value: '01', name: 'January' },
+    { value: '02', name: 'February' },
+    { value: '03', name: 'March' },
+    { value: '04', name: 'April' },
+    { value: '05', name: 'May' },
+    { value: '06', name: 'June' },
+    { value: '07', name: 'July' },
+    { value: '08', name: 'August' },
+    { value: '09', name: 'September' },
+    { value: '10', name: 'October' },
+    { value: '11', name: 'November' },
+    { value: '12', name: 'December' }
   ];
+  years: number[] = [];
 
-  filteredData: any[] = [];
+  constructor(private fb: FormBuilder, 
+    private toastr:ToasterService,
+    private attendanceService:AttendanceService,
+    public commonService:CommonService) {
+      
+      const currentDate = new Date();
+      const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');      
+      const currentYear = currentDate.getFullYear();
 
-  constructor(private fb: FormBuilder) {
-    this.studentForm = this.fb.group({
-      month: [''],
-      year: [''],
-      section: [''],
-      class: ['']
+    this.attendanceForm = this.fb.group({
+      class_id: ['', Validators.required],
+      month: [currentMonth],
+      year: [currentYear]
+    });
+
+    for (let year = currentYear; year >= 2022; year--) {
+      this.years.push(year);
+    }
+  }
+
+  ngOnInit(): void {
+    this.loadClasses();
+    this.loadStatus();
+  }
+  loadClasses() {
+    this.attendanceService.getClasses().pipe(
+      catchError(err => {
+        console.error('Error fetching classes:', err);
+        this.toastr.showError('Failed to load classes. Please try again later.', 'Error');
+        return throwError(err);
+      })
+    ).subscribe(data => {
+      this.classes = data.classes.data;
+    });
+  }
+  
+  loadStudents() {
+    this.isLoading = true;
+    if (this.attendanceForm.invalid) {
+      this.toastr.showError('Please select a class and date', 'Error');
+      return;
+    }   
+    this.selectedClass = this.attendanceForm.get('class_id')?.value;
+    if (this.selectedClass) {
+      this.attendanceService.getStudents(this.selectedClass).pipe(
+        catchError(err => {
+          console.error('Error fetching students:', err);
+          this.toastr.showError('No Students Found For this Class.', 'Error');
+          return throwError(err);
+        })
+      ).subscribe(data => {
+        this.students = data.students;
+        this.loadAttendance();       
+      });
+    }
+    
+  }
+ 
+  loadStatus(){
+    this.attendanceService.getAttendanceStatus().pipe(
+      catchError(err => {
+        console.error('Error fetching attendance status:', err);
+        this.toastr.showError('Failed to fetch attendance status. Please try again later.', 'Error');
+        return throwError(err);
+      })
+    ).subscribe(res => {
+      this.status = res.data;
     });
   }
 
-  filterData() {
-    const selectedMonth = this.studentForm.get('month')?.value;
-    const selectedYear = this.studentForm.get('year')?.value;
-    const selectedSection = this.studentForm.get('section')?.value;
-    const selectedClass = this.studentForm.get('class')?.value;
+  loadAttendance() {    
+    const selectedClass = this.attendanceForm.get('class_id')?.value;
+    const selectedmonth = this.attendanceForm.get('month')?.value;
+    const selectedyear = this.attendanceForm.get('year')?.value;
+    console.log(selectedClass, selectedmonth, selectedyear);
 
-    this.filteredData = this.dummyData.filter(item =>
-      (!selectedMonth || item.date.includes(selectedYear + '-' + selectedMonth)) &&
-      (!selectedSection || item.section === selectedSection) &&
-      (!selectedClass || item.class === selectedClass)
-    );
+    if (selectedClass && selectedmonth && selectedyear ) {
+      this.attendanceService.getAttendance(selectedClass, selectedmonth, selectedyear).subscribe(res => {
+        this.attendanceData = res.data;
+        this.attendanceDates = res.dates;    
+      });
+    }
+    this.isLoading = false;
   }
 
-  onSubmit() {
-    // Implement your form submission logic here
+  checkAttendanceDate(headdate:any, bodyDate:any){
+    const date = new Date(bodyDate);
+    
+    const day = date.getDate();
+    const dayString = day < 10 ? '0' + day : day.toString();
+    // console.log(headdate,dayString,headdate==dayString);
+    if(headdate == dayString){
+      return true
+    }
+  return false
   }
+
+  getAttendence(day:any,arr:any){
+    let res = '-'
+    const len = arr.length;
+    let i  = 0
+    while (i<len){
+      if(this.checkAttendanceDate(day,arr[i].date)){
+        // console.log('arr',arr[i].attendance_status.title);
+        res =  arr[i].attendance_status.title
+        break;
+      }
+      if(i==len){
+        break;
+      }else{
+        i++
+      }
+    }
+    
+    return res
+  }
+  getMonth(mon:string){
+    let month = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
+    return month[Number(mon)-1];
+  }
+  generateDaysInMonth(year: number, month: number) {
+    const date = new Date(year, month - 1, 1);
+    while (date.getMonth() === month - 1) {
+      this.daysInMonth.push(date.getDate().toString());
+      date.setDate(date.getDate() + 1);
+    }
+  }
+  
+
 }

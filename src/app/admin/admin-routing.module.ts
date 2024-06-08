@@ -11,6 +11,8 @@ import { AcademicModule } from '../Academic/academic.module';
 import { ExamComponent } from '../examinfo/exam/exam.component';
 import { LivesettingComponent } from '../live/livesetting/livesetting.component';
 import { AccountinginfoComponent } from '../accounting/accountinginfo/accountinginfo.component';
+import { UserProfileComponent } from '../users/user-profile/user-profile.component';
+import { AuthGuard } from '../auth.guard';
 
 
 
@@ -29,6 +31,7 @@ const routes: Routes = [
   {
     path: '',
     component:StudentsinfoComponent,
+    canActivate:[AuthGuard],
     children: [
         {
       path: '',
@@ -66,18 +69,27 @@ const routes: Routes = [
     path: '',
     component:LivesettingComponent,
     children: [
-        {
-      path: '',
-  loadChildren: () => import('../live/live.module').then(x => x.LiveModule)
-  }]},
-  {
+      {
+    path: '',
+    loadChildren: () => import('../live/live.module').then(x => x.LiveModule)
+    }]},
+    {
     path: '',
     component:AccountinginfoComponent,
     children: [
-        {
-      path: '',
-  loadChildren: () => import('../accounting/accounting.module').then(x => x.AccountingModule)
-  }]},
+      {
+    path: '',
+    loadChildren: () => import('../accounting/accounting.module').then(x => x.AccountingModule)
+    }]},
+
+    {
+    path: '',
+    component:UserProfileComponent,
+    children: [
+      {
+    path: '',
+    loadChildren: () => import('../users/users.module').then(x => x.UsersModule )
+    }]},
 
 ]
 @NgModule({

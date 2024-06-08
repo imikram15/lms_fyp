@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DesignationsService,DesignationResponse } from '../../services/designations.service';
+import { ToasterService } from '../../services/toastr.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-designations',
@@ -13,7 +15,9 @@ export class DesignationsComponent {
   designations: DesignationResponse[] = [];
   
   
-  constructor(private designationsService:DesignationsService,){}
+  constructor(private designationsService:DesignationsService,
+    private toastr:ToasterService,
+    public commonService:CommonService ){}
   
   ngOnInit(): void {
     setTimeout(() => {
@@ -27,7 +31,12 @@ export class DesignationsComponent {
     this.designationsService.getDesignations().subscribe((res:any)=>{     
       this.designations = res.designation;
       this.isLoading = false;
-    })
+    },    
+    (error: any) => {
+      console.error('Error fetching classes:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+      this.isLoading = false; 
+    }    )
   }
   
   deleteDesignation(designationID: number) {
