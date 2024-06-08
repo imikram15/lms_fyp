@@ -19,10 +19,12 @@ const routes: Routes = [
       { path: 'examination', component:ExaminationComponent },
       { path: 'exam-category', component:ExamCategoryComponent },
       { path: 'add-exam-category', component:AddExamCategoryComponent },
+      { path: 'add-exam-category/:id/edit', component:AddExamCategoryComponent },
       { path: 'grades', component:GradesComponent },
       { path: 'marks', component:MarksComponent },
       { path: 'promotion', component:PromtionsComponent },
       { path: 'add-exam', component:AddExamComponent },
+      { path: 'add-exam/:id/edit', component:AddExamComponent },
       { path: 'add-grade', component:AddGradeComponent },
     ]
   }

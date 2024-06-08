@@ -12,26 +12,26 @@ export class ExamCategoryService {
   baseURL = environment.apiUrl;
   
   SaveExamCategory(ExamData:any){
-    return this.httpclient.post( this.baseURL + 'exam-category', ExamData);
+    return this.httpclient.post( this.baseURL + 'examCategories', ExamData);
   }
   
   getExamCategories(){
-    return this.httpclient.get( this.baseURL + 'exam-category');    
+    return this.httpclient.get( this.baseURL + 'examCategories');    
   }
 
   getPgExamCategories(page: number|string, pageSize: number|string) {
     
-    return this.httpclient.get(`${this.baseURL}exam-category?page=${page}&pageSize=${pageSize}`);
+    return this.httpclient.get(`${this.baseURL}examCategories?page=${page}&pageSize=${pageSize}`);
   } 
   getExamCategory(titleID:number){
-    return this.httpclient.get( this.baseURL + `exam-category/${titleID}/edit`);
+    return this.httpclient.get( this.baseURL + `examCategories/${titleID}/edit`);
   }
 
   updateExamCategory(titleID: number, formData: any) {
-    return this.httpclient.post(this.baseURL + `exam-category/${titleID}/edit`, formData);
+    return this.httpclient.post(this.baseURL + `examCategories/${titleID}/edit`, formData);
   }
 
   destroyExamCategory(titleID:number){
-    return this.httpclient.delete(this.baseURL + `exam-category/${titleID}/delete`);
+    return this.httpclient.delete(this.baseURL + `examCategories/${titleID}/delete`);
   }
 }

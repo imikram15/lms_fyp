@@ -57,7 +57,6 @@ export class ShowUserComponent extends Paginator{
     this.userService.getPaginatedUsers(this.page, this.perPage).subscribe((res: any) => {
       this.users = res.users;
       console.log(res.users);      
-      // if(this.users.find((el:any )=> el.member_type === 'students' )){  this.nameCheck = true } else {this.nameCheck = false }
       this.page = res.users.current_page;
       this.total = res.users.total;
       this.perPage = res.users.per_page;

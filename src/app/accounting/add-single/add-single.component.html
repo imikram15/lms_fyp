@@ -1,45 +1,85 @@
 <div class="container">
-    <div class="card shadow mb-4">
-      <div class="card-header">
-        <h6 class="m-0 font-weight-bold text-primary">Add Single Invoice</h6>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="classDropdown">Class:</label>
-          <select class="form-control colorful" id="classDropdown">
-            <option value="" selected>Select Class</option>
-            <option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</option>
-          </select>
+  <div class="card shadow mb-4">
+    <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
+      <h5 class="m-0 font-weight-bold text-primary">{{ forUpdate ? 'Update Single Invoice' : 'Add Single Invoice' }}</h5>
+      <a routerLink="/student-fee-manager" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-list fa-sm text-white-50"></i> Show List
+      </a>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="feeForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="classDropdown">Class:</label>
+            <select class="form-control colorful" id="classDropdown" formControlName="class_id">
+              <option value="" selected>Select Class</option>
+              <option *ngFor="let class of classes" [value]="class.id">{{ class.title }}</option>
+            </select>
+            <div *ngIf="feeForm.get('class_id')?.invalid && feeForm.get('class_id')?.touched" class="text-danger">
+              Class is required.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="student_id">Student:</label>
+            <select class="form-control colorful" id="student_id" formControlName="student_id">
+              <option value="" selected>Select Student</option>
+              <option *ngFor="let student of students" [value]="student.id">{{ student.first_name }}</option>
+            </select>
+            <div *ngIf="feeForm.get('student_id')?.invalid && feeForm.get('student_id')?.touched" class="text-danger">
+              Student is required.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="invoiceTitle">Invoice Title:</label>
+            <input type="text" class="form-control colorful" id="invoiceTitle" formControlName="invoiceTitle" placeholder="Enter Invoice Title" >
+            <div *ngIf="feeForm.get('invoiceTitle')?.invalid && feeForm.get('invoiceTitle')?.touched" class="text-danger">
+              Invoice Title is required.
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="sectionDropdown">Section:</label>
-          <select class="form-control colorful" id="sectionDropdown">
-            <option value="" selected>Select Section</option>
-            <option *ngFor="let section of sections" [value]="section.id">{{ section.name }}</option>
-          </select>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="totalAmount">Total Amount (Rs):</label>
+            <input type="number" class="form-control colorful" id="totalAmount" formControlName="totalAmount" placeholder="Enter Total Amount">
+            <div *ngIf="feeForm.get('totalAmount')?.invalid && feeForm.get('totalAmount')?.touched" class="text-danger">
+              Total Amount is required.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="paidAmount">Paid Amount (Rs):</label>
+            <input type="number" class="form-control colorful" id="paidAmount" formControlName="paidAmount" placeholder="Enter Paid Amount">
+            <div *ngIf="feeForm.get('paidAmount')?.invalid && feeForm.get('paidAmount')?.touched" class="text-danger">
+              Paid Amount is required.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="status">Status:</label>
+            <select class="form-control colorful" id="status" formControlName="status">
+              <option value="" selected>Select Status</option>
+              <option value="paid">Paid</option>
+              <option value="unpaid">Unpaid</option>
+            </select>
+            <div *ngIf="feeForm.get('status')?.invalid && feeForm.get('status')?.touched" class="text-danger">
+              Status is required.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="paymentMethod">Payment Method:</label>
+            <select class="form-control colorful" id="paymentMethod" formControlName="paymentMethod">
+              <option value="" selected>Select Payment Method</option>
+              <option value="Cash">Cash</option>
+              <option value="Easypaisa">Easypaisa</option>
+              <option value="Jazzcash">Jazzcash</option>
+              <option value="SadaPay">SadaPay</option>
+            </select>           
+             <div *ngIf="feeForm.get('paymentMethod')?.invalid && feeForm.get('paymentMethod')?.touched" class="text-danger">
+              Payment Method is required.
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="invoiceTitle">Invoice Title:</label>
-          <input type="text" class="form-control colorful" id="invoiceTitle">
-        </div>
-        <div class="form-group">
-          <label for="totalAmount">Total Amount (Rs):</label>
-          <input type="number" class="form-control colorful" id="totalAmount">
-        </div>
-        <div class="form-group">
-          <label for="paidAmount">Paid Amount (Rs):</label>
-          <input type="number" class="form-control colorful" id="paidAmount">
-        </div>
-        <div class="form-group">
-          <label for="statusDropdown">Status:</label>
-          <select class="form-control colorful" id="statusDropdown">
-            <option value="" selected>Select Status</option>
-            <option value="paid">Paid</option>
-            <option value="unpaid">Unpaid</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" (click)="createSingleInvoice()">Create Invoice</button>
-      </div>
+        
+        <button class="btn btn-primary" [disabled]="feeForm.invalid">{{ forUpdate ? 'Update Invoice' : 'Create Invoice' }}</button>
+      </form>
     </div>
   </div>
-  
+</div>

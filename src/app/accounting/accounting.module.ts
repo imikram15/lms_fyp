@@ -6,18 +6,22 @@ import { AccountinginfoComponent } from './accountinginfo/accountinginfo.compone
 import { StudentFeeManagerComponent } from './student-fee-manager/student-fee-manager.component';
 import { AddMassComponent } from './add-mass/add-mass.component';
 import { AddSingleComponent } from './add-single/add-single.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
-  declarations: [
-    AccountinginfoComponent,
-    StudentFeeManagerComponent,
-    AddMassComponent,
-    AddSingleComponent
-  ],
-  imports: [
-    CommonModule,
-    AccountingRoutingModule
-  ]
+    declarations: [
+        AccountinginfoComponent,
+        StudentFeeManagerComponent,
+        AddMassComponent,
+        AddSingleComponent
+    ],
+    imports: [
+        CommonModule,
+        AccountingRoutingModule,
+        ReactiveFormsModule,
+        SharedModule
+    ]
 })
 export class AccountingModule { }

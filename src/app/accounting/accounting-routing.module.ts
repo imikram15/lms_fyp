@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'student-fee-manager', component:StudentFeeManagerComponent },
       { path: 'add-mass', component:AddMassComponent },
       { path: 'add-single', component:AddSingleComponent},
+      { path: 'add-single/:id/edit', component:AddSingleComponent},
     ]
   }
 ];

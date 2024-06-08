@@ -9,6 +9,9 @@ import { SubjectsService } from '../../services/subjects.service';
 import { ClassRoutinesService } from '../../services/class-routines.service';
 import { SyllabusService } from '../../services/syllabus.service';
 import { UsersService } from '../../services/users.service';
+import { ExamCategoryService } from '../../services/exam-category.service';
+import { ExamsService } from '../../services/exams.service';
+import { StudentFeeService } from '../../services/student-fee.service';
 
 @Component({
   selector: 'app-confirm',
@@ -32,6 +35,9 @@ export class ConfirmComponent implements OnInit {
     private classRoutineService:ClassRoutinesService,
     private syllabusService:SyllabusService,
     private usersService:UsersService,
+    private ExamCategoryService:ExamCategoryService,
+    private ExamsService:ExamsService,
+    private StudentFeeService:StudentFeeService
 
     ) {
    
@@ -90,8 +96,24 @@ export class ConfirmComponent implements OnInit {
           this.usersService.destroyUser(this.data.id).subscribe((res: any) => { 
             this.dialogRef.close(true);              
           });
-            break;    
-          
+            break; 
+
+        case 'examCategory':
+          this.ExamCategoryService.destroyExamCategory(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+            break;
+        case 'exam':
+          this.ExamsService.deleteExam(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+            break;
+        case 'exam':
+          this.StudentFeeService.deleteStudentFee(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+            break;
+            
       default:        
         break;
     }
