@@ -4,9 +4,33 @@
       <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Manage Marks</h6>
     </div>
 
+    <div class="card-body" style="position: relative; padding-top: 0px;">
+      <form [formGroup]="searchForm" (ngSubmit)="searchMarks()" class="row align-items-end d-flex justify-content-center mt-3">
+        <div class="form-group col-md-3">
+          <label for="class_id">Class</label>
+          <select formControlName="class_id" class="form-control" required>
+            <option value="" disabled selected>Select Class</option>
+            <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="examCategory_id">Exam Category</label>
+          <select formControlName="examCategory_id" class="form-control" required>
+            <option value="" disabled selected>Select Exam Category</option>
+            <option *ngFor="let examCategory of examCategories" [value]="examCategory.id">{{ examCategory.title }}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="subject_id">Subject</label>
+          <select formControlName="subject_id" class="form-control" required>
+            <option value="" disabled selected>Select Subject</option>
+            <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.title }}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <button type="submit" class="btn btn-primary mt-3">Search</button>
         </div>
       </form>
-
       <div *ngIf="isLoading" style="position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);">
         <app-loader [title]="'Loading...'"></app-loader>
       </div>      
