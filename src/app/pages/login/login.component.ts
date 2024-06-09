@@ -39,11 +39,10 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe(response => {
       if (response.data.token) {
         if (rememberMe) {
-          // Remember user
           localStorage.setItem('auth_email', email);
         }
         this.snackBar.open('Login successful!', 'Close', {
-          duration: 3000, // Duration in milliseconds
+          duration: 3000,
           panelClass: ['success-snackbar'] 
         });
         this.router.navigate(['/dashboard']);
