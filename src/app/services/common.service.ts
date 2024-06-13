@@ -19,7 +19,8 @@ export class CommonService {
     '/marks', 
     '/examination',
     '/exam-category', 
-    '/grades'
+    '/grades',
+    '/events',
   ];
   UrlForTeachers = [
     '/dashboard', 
@@ -39,7 +40,7 @@ export class CommonService {
     '/examination', 
     '/exam-category',
     '/grades', 
-    ''
+    '/events',
   ];
   UrlForEmployees = [
     '/dashboard', 
@@ -75,7 +76,10 @@ export class CommonService {
     '/exam-category', 
     '/add-exam-category', 
     '/grades', 
-    '/student-fee-manager'
+    '/student-fee-manager',
+    '/events',
+    '/add-event',
+    '/add-event/1/edit'
   ];
   UrlForAdmin = [
     '/dashboard', 
@@ -128,12 +132,17 @@ export class CommonService {
     '/add-exam-category/2/edit',
     '/promotion',
     '/grades', 
-    '/student-fee-manager'
+    '/student-fee-manager',
+    '/events',
+    '/add-event',
+    '/add-event/1/edit'
   ];
   
-  constructor() { }
-  // role_id:any;
-  role_id = localStorage.getItem('role_id');
+  role_id:any;
+  constructor() {
+
+    this.role_id = localStorage.getItem('role_id');
+   }
 
   getUrl(url:any){
       switch(this.role_id){

@@ -9,25 +9,25 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { HeaderComponent } from '../layouts/header/header.component';
 import { SidebarComponent } from '../layouts/sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from "../shared/shared.module";
 
 
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    HeaderComponent,
-    SidebarComponent,
-    DashboardComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    PageNotFoundComponent,
-
-
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+        AdminComponent,
+        HeaderComponent,
+        SidebarComponent,
+        DashboardComponent,
+        RegisterComponent,
+        ForgotPasswordComponent,
+        PageNotFoundComponent,
+    ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        ReactiveFormsModule,
+        SharedModule
+    ]
 })
 export class AdminModule { }

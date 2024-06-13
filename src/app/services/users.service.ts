@@ -44,6 +44,10 @@ export class UsersService {
   getUsers(): Observable<any> {
     return this.httpclient.get(`${this.baseURL}users`);
   }
+  
+  getUsersCount(): Observable<any> {
+    return this.httpclient.get(`${this.baseURL}usersCount`);
+  }
 
   getPaginatedUsers(page: number | string, pageSize: number | string): Observable<UserResponse[]> {
     return this.httpclient.get<UserResponse[]>(`${this.baseURL}users?page=${page}&pageSize=${pageSize}`);

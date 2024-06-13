@@ -9,7 +9,6 @@ import { EmployeesinfoComponent } from '../employeesinfo/employeesinfo/employees
 import { AcademicComponent } from '../Academic/academic/academic.component';
 import { AcademicModule } from '../Academic/academic.module';
 import { ExamComponent } from '../examinfo/exam/exam.component';
-import { LivesettingComponent } from '../live/livesetting/livesetting.component';
 import { AccountinginfoComponent } from '../accounting/accountinginfo/accountinginfo.component';
 import { UserProfileComponent } from '../users/user-profile/user-profile.component';
 import { AuthGuard } from '../auth.guard';
@@ -64,15 +63,6 @@ const routes: Routes = [
       path: '',
   loadChildren: () => import('../examinfo/examinfo.module').then(x => x.ExaminfoModule)
   }]},
-
-  {
-    path: '',
-    component:LivesettingComponent,
-    children: [
-      {
-    path: '',
-    loadChildren: () => import('../live/live.module').then(x => x.LiveModule)
-    }]},
     {
     path: '',
     component:AccountinginfoComponent,

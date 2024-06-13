@@ -11,6 +11,8 @@ import { AddClassComponent } from './add-class/add-class.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AddEventComponent } from './add-event/add-event.component';
+import { EventsComponent } from './events/events.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AddStudentComponent,
     ClassesComponent,
     AddClassComponent,
+    AddEventComponent,
+    EventsComponent,
   ],
   imports: [
     CommonModule,

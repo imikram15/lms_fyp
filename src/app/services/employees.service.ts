@@ -37,6 +37,10 @@ export class EmployeesService {
   getEmployees(): Observable<any> {
     return this.httpclient.get( this.baseUrl + 'employees');
   }
+  
+  getEmployeesCount(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'employeesCount');
+  }  
 
   getPaginatedEmployees(page: number|string, pageSize: number|string): Observable<EmployeesResponse[]> {
     return this.httpclient.get<EmployeesResponse[]>(`${this.baseUrl}employees?page=${page}&pageSize=${pageSize}`);

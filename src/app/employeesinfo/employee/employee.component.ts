@@ -8,6 +8,7 @@ import { ConfirmComponent, ConfirmDialogModel } from '../../shared/confirm/confi
 import { environment } from '../../../environments/environment.development';
 import { Paginator } from '../../paginator';
 import { CommonService } from '../../services/common.service';
+import { ToasterService } from '../../services/toastr.service';
 
 
 @Component({
@@ -16,11 +17,7 @@ import { CommonService } from '../../services/common.service';
   styleUrl: './employee.component.scss',
 })
 export class EmployeeComponent extends Paginator{
-  search() {
-    console.log('Searching for:', this.searchTerm);
-    
-  }
-  
+
   searchTerm: any;
   employees: EmployeesResponse[] = [];
   departments: DepartmentResponse[] = [];
@@ -36,6 +33,7 @@ export class EmployeeComponent extends Paginator{
     private categoriesService: CategoriesService,
     private departmentSerivce: DepartmentsService,
     public dialog: MatDialog,
+    private toastr: ToasterService,
     public commonService:CommonService
     ) {
     super();
@@ -47,6 +45,7 @@ export class EmployeeComponent extends Paginator{
     this.getCategoriesList();
     this.getEmployeesList();
   }
+
   getEmployeesList() {
     this.isLoading = true;
     this.employeeService.getPaginatedEmployees(this.page, this.perPage).subscribe((res: any) => {
@@ -55,25 +54,49 @@ export class EmployeeComponent extends Paginator{
       this.total = res.employees.total; 
       this.perPage = res.employees.per_page;
       this.isLoading = false;
-    })
+    }, (error: any) => {
+      console.error('Error fetching employees:', error);
+      this.toastr.showError('Failed to fetch employees. Please try again later.','Error');
+      this.isLoading = false;
+      }
+  )
   }
+
   getCategoriesList() {
     this.categoriesService.getCategories().subscribe((res: any) => {
-      this.categories = res.category;
-    })
+      this.categories = res.category;      
+    },
+    (error: any) => {
+      console.error('Error fetching Categories:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+    }
+    )
   }
 
   getDesignationsList() {
     this.designationsService.getDesignations().subscribe((res: any) => {
       this.designations = res.designation;
-    })
+    },
+    (error: any) => {
+      console.error('Error fetching Designations:', error);
+      this.toastr.showError('Failed to fetch Designations. Please try again later.','Error');
+    }
+    )
   }
 
-  getDepartmentsList() {
-    this.departmentSerivce.getDepartments().subscribe((res: any) => {
-      this.departments = res.department;
-    })
-  }  
+  getDepartmentsList() {    
+    this.isLoading = true;
+    this.departmentSerivce.getDepartments().subscribe((res:any)=>{     
+      this.departments = res.department;      
+    this.isLoading = false;
+    },
+    (error: any) => {
+      console.error('Error fetching classes:', error);
+      this.toastr.showError('Failed to fetch Categories. Please try again later.','Error');
+      this.isLoading = false; 
+    }
+    )
+  } 
   
   result: string = '';
 

@@ -53,8 +53,7 @@ export class AddEmployeeComponent {
       joining_date: ['', Validators.required],
       address: ['', Validators.required],
       image: [null, Validators.required],
-      // blood_group: ['', Validators.required],
-      // password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]]
+      blood_group: ['', Validators.required],
     });
     
    
@@ -80,6 +79,7 @@ export class AddEmployeeComponent {
             phone: this.updateEmployee.phone || '',
             joining_date: this.updateEmployee.joining_date || '',
             address: this.updateEmployee.address || '',
+            blood_group: this.updateEmployee.blood_group || '',
             image: this.imgUrl + 'profile' + '/' + this.updateEmployee.image || ''
             
           });
@@ -99,20 +99,9 @@ export class AddEmployeeComponent {
     this.getDepartmentsList();
     this.getDesignationsList();
     this.getCategoriesList();
-    this.getEmployeesList();
 
   }
 
-  getEmployeesList() {
-    this.employeeService.getEmployees().subscribe((res: any) => {      
-      this.employees = res.employees;
-    },
-    (error: any) => {
-      console.error('Error fetching employees:', error);
-      this.toastr.showError('Failed to fetch employees. Please try again later.','Error');
-    }
-    )
-  }
   getCategoriesList() {
     this.categoriesService.getCategories().subscribe((res: any) => {
       this.categories = res.category;      

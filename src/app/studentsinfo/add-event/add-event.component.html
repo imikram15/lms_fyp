@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">
+        {{ forUpdate ? "Update Event" : "Create Event" }}
+      </h6>
+      <a
+        routerLink="/events"
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+        ><i class="fas fa-list fa-sm text-white-50"></i> Show List</a
+      >
+    </div>
+    <div class="card-body">
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="eventTitle">Event Title:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="eventTitle"
+                placeholder="Enter Event Title"
+              />
+              <div
+                *ngIf="
+                  eventForm.get('eventTitle')?.touched &&
+                  eventForm.get('eventTitle')?.invalid
+                "
+                class="text-danger"
+              >
+                Event Title is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input type="date" class="form-control" formControlName="date" />
+              <div
+                *ngIf="
+                  eventForm.get('date')?.touched &&
+                  eventForm.get('date')?.invalid
+                "
+                class="text-danger"
+              >
+                Date is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="status">Status:</label>
+              <select class="form-control" formControlName="status">
+                <option value="" disabled selected>Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+              <div
+                *ngIf="
+                  eventForm.get('status')?.touched &&
+                  eventForm.get('status')?.invalid
+                "
+                class="text-danger"
+              >
+                Status is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="eventForm.invalid"
+        >
+          {{ forUpdate ? "Update" : "Submit" }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

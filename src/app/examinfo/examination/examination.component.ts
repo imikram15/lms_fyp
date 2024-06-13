@@ -85,6 +85,7 @@ export class ExaminationComponent extends Paginator{
         catchError(err => {
           console.error('Error fetching exams:', err);
           this.toastr.showError('No exams found for this class.', 'Error');
+          this.isLoading = false;
           return throwError(err);
         })
       ).subscribe(

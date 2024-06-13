@@ -99,10 +99,10 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="email">Email:</label>
-              <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter Email" required>
-              <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="text-danger">
-                Valid email is required.
+              <label for="blood_group">Blood Group:</label>
+              <input formControlName="blood_group" type="blood_group" class="form-control" id="blood_group" placeholder="Enter Blood Group" required>
+              <div *ngIf="employeeForm.get('blood_group')?.invalid && employeeForm.get('blood_group')?.touched" class="text-danger">
+                Blood Group is required.
               </div>
             </div>
           </div>
@@ -119,6 +119,17 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
+              <label for="email">Email:</label>
+              <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter Email" required>
+              <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="text-danger">
+                Valid email is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
               <label for="joining_date">Joining Date:</label>
               <input formControlName="joining_date" type="date" class="form-control" id="joining_date" required>
               <div *ngIf="employeeForm.get('joining_date')?.invalid && employeeForm.get('joining_date')?.touched" class="text-danger">
@@ -126,11 +137,9 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label for="address">Address:</label>
-            <textarea formControlName="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
+            <textarea formControlName="address" class="form-control" id="address" rows="1" placeholder="Enter Address" required></textarea>
             <div *ngIf="employeeForm.get('address')?.invalid && employeeForm.get('address')?.touched" class="text-danger">
               Address is required.
             </div>
@@ -139,7 +148,7 @@
         
         <div class="row">
           <div class="col-md-12 d-flex ">
-            <div class="form-group col-md-6">
+            <div style="padding-left: 0px;" class="form-group col-md-6">
               <label for="image">Profile Image:</label>
               <div class="custom-file">
                 <input type="file" formControlName="image" id="image" (change)="onFileSelected($event)" accept="image/*">

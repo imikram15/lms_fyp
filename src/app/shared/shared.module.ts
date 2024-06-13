@@ -7,11 +7,14 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { LoaderComponent } from './loader/loader.component';
+import { PascalCasePipe } from './pascal-case.pipe';
+
 
 @NgModule({
   declarations: [
     ConfirmComponent,
-    LoaderComponent
+    LoaderComponent,
+    PascalCasePipe
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,6 @@ import { LoaderComponent } from './loader/loader.component';
     MatFormFieldModule
   ],
   
-  exports:[ConfirmComponent, LoaderComponent]
+  exports:[ConfirmComponent, LoaderComponent, PascalCasePipe]
 })
 export class SharedModule { }

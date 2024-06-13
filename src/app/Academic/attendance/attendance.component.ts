@@ -4,6 +4,7 @@ import { ToasterService } from '../../services/toastr.service';
 import { AttendanceService } from '../../services/attendance.service';
 import { catchError, throwError } from 'rxjs';
 import { CommonService } from '../../services/common.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-attendance',
@@ -20,6 +21,7 @@ export class AttendanceComponent  {
   attendanceDates: any[] = [];
   status :any;
   selectedClass:any;
+  baseURL = environment.apiUrl;
   daysInMonth: string[] = [];
   months = [
     { value: '01', name: 'January' },
@@ -85,6 +87,7 @@ export class AttendanceComponent  {
         catchError(err => {
           console.error('Error fetching students:', err);
           this.toastr.showError('No Students Found For this Class.', 'Error');
+          this.isLoading = false;
           return throwError(err);
         })
       ).subscribe(data => {

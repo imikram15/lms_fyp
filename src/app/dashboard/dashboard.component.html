@@ -1,54 +1,130 @@
-<div class="container mt-4">
-    <div class="row mb-4">
-      <div class="col-md-3">
-        <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title text-dark ">Students</h5>
-            <p class="card-text">{{ totalStudents }}</p>
+<div class="container mt-2">
+  <div
+    *ngIf="isLoading; else elseForm"
+    style="
+      position: absolute;
+      top: 50%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <app-loader :title="loadingTitle" />
+  </div>
+  <ng-template #elseForm>
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ formattedStudent }}</h3>
+            <p>Total Student</p>
           </div>
+          <a routerLink="/students" class="small-box-footer"
+            >More info <i class="fas fa-arrow-circle-right"></i
+          ></a>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title text-dark ">Teachers</h5>
-            <p class="card-text">{{ totalTeachers }}</p>
+
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ formattedEmployee }}</h3>
+            <p>Total Employees</p>
           </div>
+          <a routerLink="/employees" class="small-box-footer"
+            >More info <i class="fas fa-arrow-circle-right"></i
+          ></a>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title text-dark ">Parents</h5>
-            <p class="card-text">{{ totalParents }}</p>
+
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ formattedTeacher }}</h3>
+            <p>Total Teachers</p>
           </div>
+          <a routerLink="/teachers" class="small-box-footer"
+            >More info <i class="fas fa-arrow-circle-right"></i
+          ></a>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card text-center">
-          <div class="card-body">
-            <h5 class="card-title text-dark ">Staff</h5>
-            <p class="card-text">{{ totalStaff }}</p>
+
+      <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>{{ formattedUser }}</h3>
+            <p>Total Users</p>
           </div>
+          <a routerLink="/show-user" class="small-box-footer"
+            >More info <i class="fas fa-arrow-circle-right"></i
+          ></a>
         </div>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body text-center">
-            <h5 class="card-title">Today's Attendance</h5>
-            <div class="chart-container">
-              <div class="chart">
-                <div *ngFor="let data of attendanceData" class="bar" [style.height]="data.value * 0.5 + 'px'">
-                  <span>{{ data.value }}</span>
-                </div>
+      <div class="col-6">
+        <div class="card shadow">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+              Weekly Attendance of Total Students
+            </h6>
+          </div>
+          <div class="card-body">
+            <canvas id="barchart"></canvas>
+          </div>
+          <div
+            class="col-12 d-flex justify-content-center"
+            style="margin: 10px"
+          >
+            <button class="btn btn-primary mt-3 mb-3" routerLink="/attendance">
+              Go to Attendance
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="upcoming-events-card">
+          <h3>UPCOMING EVENTS</h3>
+          <hr />
+          <ul>
+            <li *ngFor="let event of filteredEvents">
+              <div class="event-details">
+                <h4>{{ event.eventTitle | uppercase }}</h4>
+                <p>{{ event.date | date : "EEE, MMM d y" }}</p>
+              </div>
+            </li>
+          </ul>
+          <div class="col-12 d-flex justify-content-center">
+            <button class="see-all-btn" routerLink="/events">See all</button>
+          </div>
+        </div>
+
+        <!-- <div class="card shadow">
+        <div class="card-header">
+          <h6 class="m-0 font-weight-bold text-primary">
+            Weekly Attendance of Total Students
+          </h6>
+        </div>
+        <div class="card-body text-center">
+          <div class="chart-container">
+            <div class="vertical-axis">
+              <div *ngFor="let data of totalData">
+                <span>{{ data.value }}</span>
               </div>
             </div>
-            <button class="btn btn-primary mt-3">Go to Attendance</button>
+            <div class="chart">
+              <div *ngFor="let data of attendanceData" class="bar-container">
+                <div class="bar" [style.height]="data.value * 1.02 + 'px'">
+                  <span>{{ data.value }}</span>
+                </div>
+                <div class="bar-label">{{ data.day }}</div>
+              </div>
+            </div>
           </div>
+          <button class="btn btn-primary mt-3">Go to Attendance</button>
         </div>
+      </div> -->
       </div>
     </div>
-  </div>
-  
+  </ng-template>
+</div>

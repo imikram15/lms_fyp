@@ -1,84 +1,173 @@
-  <div class="container-fluid">
-    <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Daily Attendance</h6>
-        <a routerLink="/take-attendance" *ngIf="this.commonService.getUrl('/take-attendance')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i class="fas fa-user fa-sm text-white-50"></i> Take Attendance</a>
-      </div>
-      <div class="card-body" [formGroup]="attendanceForm">
-        <div class="row  align-items-end d-flex justify-content-center  ">        
-          <div class="form-group p-0  col-md-3">
-            <label for="class">Select Class:</label>
-            <select formControlName="class_id" class="form-control"  required>
-              <option value="" disabled selected>Select a Class</option>
-              <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="month">Select Month:</label>
-            <select formControlName="month" class="form-control">
-                <option value="" disabled selected>Month</option>
-                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
-            </select>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">
+        Daily Attendance
+      </h6>
+      <a
+        routerLink="/take-attendance"
+        *ngIf="this.commonService.getUrl('/take-attendance')"
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      >
+        <i class="fas fa-user fa-sm text-white-50"></i> Take Attendance</a
+      >
+    </div>
+    <div class="card-body" [formGroup]="attendanceForm">
+      <div class="row align-items-end d-flex justify-content-center">
+        <div class="form-group p-0 col-md-3">
+          <label for="class">Select Class:</label>
+          <select formControlName="class_id" class="form-control" required>
+            <option value="" disabled selected>Select a Class</option>
+            <option
+              *ngFor="let classOption of classes"
+              [value]="classOption.id"
+            >
+              {{ classOption.title }}
+            </option>
+          </select>
         </div>
-        
         <div class="form-group col-md-3">
-            <label for="year">Select Year:</label>
-            <select formControlName="year" class="form-control">
-                <option value="" disabled selected>Year</option>
-                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-            </select>
+          <label for="month">Select Month:</label>
+          <select formControlName="month" class="form-control">
+            <option value="" disabled selected>Month</option>
+            <option *ngFor="let month of months" [value]="month.value">
+              {{ month.name }}
+            </option>
+          </select>
         </div>
-        
-         <div class="form-group col-md-2">
-          <button type="submit" class="btn btn-primary mt-3" (click)="loadStudents()" >Get Report</button>
-         </div>
-          </div>
-        
-       
-        <div *ngIf="isLoading; else elseForm"  style="position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%);">
-          <app-loader :title = "loadingTitle" />
+
+        <div class="form-group col-md-3">
+          <label for="year">Select Year:</label>
+          <select formControlName="year" class="form-control">
+            <option value="" disabled selected>Year</option>
+            <option *ngFor="let year of years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
         </div>
-        <ng-template #elseForm >
-          <div class="form-group text-dark " *ngIf="students.length > 0">
-          <h5> <strong>Attendance List for  {{ getMonth(attendanceForm.get('month')?.value)   }} {{ attendanceForm.get('year')?.value }} </strong></h5>
+
+        <div class="form-group col-md-1">
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            (click)="loadStudents()"
+          >
+            Report
+          </button>
+        </div>
+        <div class="form-group col-md-1">
+          <a
+            class="btn btn-warning"
+            [href]="
+              baseURL +
+              'AttendanceFee/export' +
+              '/' +
+              this.attendanceForm.get('class_id')?.value +
+              '/' +
+              this.attendanceForm.get('month')?.value +
+              '/' +
+              this.attendanceForm.get('year')?.value
+            "
+          >
+            <i class="fa-solid fa-download"></i
+          ></a>
+        </div>
+      </div>
+
+      <div
+        *ngIf="isLoading; else elseForm"
+        style="
+          position: fixed;
+          top: 50%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        <app-loader :title="loadingTitle" />
+      </div>
+      <ng-template #elseForm>
+        <div class="form-group text-dark" *ngIf="students.length > 0">
+          <h5>
+            <strong
+              >Attendance List for
+              {{ getMonth(attendanceForm.get("month")?.value) }}
+              {{ attendanceForm.get("year")?.value }}
+            </strong>
+          </h5>
           <!-- <h6> <strong>Class </strong> {{ attendanceForm.get('class_id')?.value }}</h6> -->
         </div>
-       <div class="container-fluid  table-responsive mt-4" style="max-width: 59rem;" *ngIf="students.length > 0">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <div
+          class="container-fluid table-responsive mt-4"
+          style="max-width: 59rem"
+          *ngIf="students.length > 0"
+        >
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
             <thead>
-              <tr style="text-align: center;">
-                <th>Name&#8595; Dates&#8594;</th>              
+              <tr style="text-align: center">
+                <th>Name&#8595; Dates&#8594;</th>
                 <th *ngFor="let value of attendanceDates">{{ value }}</th>
               </tr>
             </thead>
-            <tbody> 
-              
-              <tr *ngFor="let student of attendanceData;  ">
+            <tbody>
+              <tr *ngFor="let student of attendanceData">
                 <td>{{ student.first_name }} {{ student.last_name }}</td>
-                  <td *ngFor="let value of attendanceDates">
-                    <tr>
-                      <td class="border-0 ">
-                        <span *ngIf="getAttendence(value,student.attendances) === 'present'" class="badge badge-success">P</span>
-                        <span *ngIf="getAttendence(value,student.attendances) === 'absent'" class="badge badge-danger">A</span>
-                        <span *ngIf="getAttendence(value,student.attendances) === 'leave'" class="badge badge-warning">L</span>
-                        <span *ngIf="getAttendence(value,student.attendances) === '-'">-</span>
-                      </td>
-                    </tr>
-                  </td>
+                <td *ngFor="let value of attendanceDates">
+                  <tr>
+                    <td class="border-0">
+                      <span
+                        *ngIf="
+                          getAttendence(value, student.attendances) ===
+                          'present'
+                        "
+                        class="badge badge-success"
+                        >P</span
+                      >
+                      <span
+                        *ngIf="
+                          getAttendence(value, student.attendances) === 'absent'
+                        "
+                        class="badge badge-danger"
+                        >A</span
+                      >
+                      <span
+                        *ngIf="
+                          getAttendence(value, student.attendances) === 'leave'
+                        "
+                        class="badge badge-warning"
+                        >L</span
+                      >
+                      <span
+                        *ngIf="
+                          getAttendence(value, student.attendances) === '-'
+                        "
+                        >-</span
+                      >
+                    </td>
+                  </tr>
+                </td>
               </tr>
             </tbody>
           </table>
-      </div>
-    </ng-template>
-      
-      <div class="text-center" style="margin:50px;" *ngIf="students.length === 0">
-        <div class="form-group empty-img" >
-            <img src=".\assets\img\empty-box.png" alt="No data Found">
         </div>
-        <h6  style="margin-left: -40px;">No data found</h6>
+      </ng-template>
+
+      <div
+        class="text-center"
+        style="margin: 50px"
+        *ngIf="students.length === 0"
+      >
+        <div class="form-group empty-img">
+          <img src=".\assets\img\empty-box.png" alt="No data Found" />
+        </div>
+        <h6 style="margin-left: -40px">No data found</h6>
       </div>
     </div>
-     </div>
-
+  </div>
 </div>

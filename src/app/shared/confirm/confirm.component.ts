@@ -12,6 +12,7 @@ import { UsersService } from '../../services/users.service';
 import { ExamCategoryService } from '../../services/exam-category.service';
 import { ExamsService } from '../../services/exams.service';
 import { StudentFeeService } from '../../services/student-fee.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-confirm',
@@ -37,7 +38,8 @@ export class ConfirmComponent implements OnInit {
     private usersService:UsersService,
     private ExamCategoryService:ExamCategoryService,
     private ExamsService:ExamsService,
-    private StudentFeeService:StudentFeeService
+    private StudentFeeService:StudentFeeService,
+    private EventService:EventService,
 
     ) {
    
@@ -113,7 +115,11 @@ export class ConfirmComponent implements OnInit {
             this.dialogRef.close(true);              
           });
             break;
-            
+        case 'event':
+          this.EventService.destroyEvent(this.data.id).subscribe((res: any) => { 
+            this.dialogRef.close(true);              
+          });
+            break;
       default:        
         break;
     }

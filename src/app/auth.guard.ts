@@ -25,7 +25,8 @@ export class AuthGuard  implements CanActivate {
     '/marks', 
     '/examination',
     '/exam-category', 
-    '/grades'
+    '/grades',
+    '/events',
   ];
   UrlForTeachers = [
     '/dashboard', 
@@ -45,7 +46,7 @@ export class AuthGuard  implements CanActivate {
     '/examination', 
     '/exam-category',
     '/grades', 
-    ''
+    '/events',
   ];
   UrlForEmployees = [
     '/dashboard', 
@@ -81,7 +82,10 @@ export class AuthGuard  implements CanActivate {
     '/exam-category', 
     '/add-exam-category', 
     '/grades', 
-    '/student-fee-manager'
+    '/student-fee-manager',
+    '/events',
+    '/add-event',
+    '/add-event/1/edit'
   ];
   UrlForAdmin = [
     '/dashboard', 
@@ -134,7 +138,10 @@ export class AuthGuard  implements CanActivate {
     '/add-exam-category/2/edit',
     '/promotion', 
     '/grades', 
-    '/student-fee-manager'
+    '/student-fee-manager',
+    '/events',
+    '/add-event',
+    '/add-event/1/edit'
   ];
   
   

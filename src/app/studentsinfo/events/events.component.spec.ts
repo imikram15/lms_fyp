@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiveclassComponent } from './liveclass.component';
+import { EventsComponent } from './events.component';
 
-describe('LiveclassComponent', () => {
-  let component: LiveclassComponent;
-  let fixture: ComponentFixture<LiveclassComponent>;
+describe('EventsComponent', () => {
+  let component: EventsComponent;
+  let fixture: ComponentFixture<EventsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LiveclassComponent]
+      declarations: [EventsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(LiveclassComponent);
+    fixture = TestBed.createComponent(EventsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

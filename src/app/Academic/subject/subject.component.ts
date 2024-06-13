@@ -43,8 +43,7 @@ export class SubjectComponent  extends Paginator{
 
     getClassesList() {
       this.subjectService.getClasses().subscribe((res: any) => {
-        this.classes = res.classes.data;
-        // console.log(res.classes.data);            
+        this.classes = res.classes.data;          
       },
       (error: any) => {
         console.error('Error fetching Classes:', error);
@@ -57,9 +56,7 @@ export class SubjectComponent  extends Paginator{
 
     getSubjectsList() {
       this.isLoading = true;
-      this.subjectService.getPaginatedSubjects(this.page, this.perPage).subscribe((res: any) => {  
-        console.log(res.subjects);
-           
+      this.subjectService.getPaginatedSubjects(this.page, this.perPage).subscribe((res: any) => {             
         this.subjects = res.subjects.data;
         this.page = res.subjects.current_page;
         this.total = res.subjects.total; 
@@ -87,12 +84,12 @@ export class SubjectComponent  extends Paginator{
           catchError(err => {
             console.error('Error fetching subjects:', err);
             this.toastr.showError('No subjects Found For this Class.', 'Error');
+            this.isLoading = false;
             return throwError(err);
           })
         ).subscribe(data => {
           this.subjects = data.subjects;
-          console.log(data.subjects);
-      this.isLoading = false;
+          this.isLoading = false;
                       
         });
       }

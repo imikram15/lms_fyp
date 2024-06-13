@@ -58,9 +58,9 @@
             <td>{{ teacher.gender }}</td>
             <td>{{ teacher.phone }}</td>
             <td>{{ teacher.joining_date }}</td>
-            <td>{{ teacher.department_id }}</td>
-            <td>{{ teacher.designation_id }}</td>
-            <td>{{ teacher.category_id }}</td>
+            <td>{{ teacher.department.title }}</td>
+            <td>{{ teacher.designation.title }}</td>
+            <td>{{ teacher.category.title }}</td>
             <td *ngIf="this.commonService.checkDeleteRole()" >
               <a  routerLink="/add-teachers/{{teacher.id}}/edit"  *ngIf="this.commonService.getUrl('/add-teachers/'+teacher.id+'/edit')"  class="fas fa-edit text-blue-50 "  style="margin:0px 10px 0px 7px;"></a>
               <a  class="fas fa-trash-alt" style="color: #ff6347;"   (click)="confirmDialog(teacher.id)"></a>

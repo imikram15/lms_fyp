@@ -8,10 +8,10 @@
             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="classDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select Class
             </button>
-            <div class="dropdown-menu" aria-labelledby="classDropdownMenu">
-                <a *ngFor="let option of classOptions" class="dropdown-item" >{{ option }}</a>
+            <div [formGroup]="searchForm" class="dropdown-menu" aria-labelledby="classDropdownMenu">
+                <button *ngFor="let option of classes" class="dropdown-item" (click)="selectClass(option.id)" (click)="filterData()">{{ option.title }}</button>
             </div>
-        </div>        
+        </div>              
             <a routerLink="/add-students" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-2 " *ngIf="this.commonService.getUrl('/add-students')">
               <i class="fas fa-user-graduate fa-sm text-white-50"></i> Add Student
           </a>

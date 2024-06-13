@@ -36,6 +36,15 @@ export class StudentsService {
   getStudents(): Observable<any> {
     return this.httpclient.get( this.baseUrl + 'students');
   }
+   getStudentsCount(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'studentsCount');
+  }
+
+  getStudentsByClass(classId: number): Observable<any> {
+    return this.httpclient.get<any>(`${this.baseUrl}studentsByClass/${classId}`, {
+      params: { class_id: classId.toString() }
+    });
+  }
 
   getPaginatedStudents(page: number|string, pageSize: number|string): Observable<StudentsResponse[]> {
     return this.httpclient.get<StudentsResponse[]>(`${this.baseUrl}students?page=${page}&pageSize=${pageSize}`);
@@ -51,6 +60,9 @@ export class StudentsService {
 
   destroyStudent(studentID:number){
     return this.httpclient.delete( this.baseUrl + `students/${studentID}/delete`);
+  }
 
+  getClasses(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'classes');
   }
 }

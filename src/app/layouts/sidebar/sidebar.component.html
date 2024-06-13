@@ -1,141 +1,294 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100" id="accordionSidebar">
+<ul
+  class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100"
+  id="accordionSidebar"
+>
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center">
+    <div class="sidebar-brand-icon rotate-n-15"></div>
+    <div class="sidebar-brand-text mx-5">M M H S</div>
+  </a>
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" >
-        <div class="sidebar-brand-icon rotate-n-15">
-        </div>
-        <div class="sidebar-brand-text mx-5">M M H S </div>
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0" />
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/dashboard">
+      <i class="fa-solid fa-table-columns"></i>
+      <span>Dashboard</span></a
+    >
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider" />
+  <!-- Nav Item - Employees Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseTwo"
+      aria-expanded="true"
+      aria-controls="collapseTwo"
+    >
+      <i class="fas fa-user"></i>
+      <span>Users</span>
     </a>
+    <div
+      id="collapseTwo"
+      class="collapse"
+      aria-labelledby="headingTwo"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Employees Info:</h6>
+        <a
+          class="collapse-item"
+          routerLink="/employees"
+          *ngIf="this.commonService.getUrl('/employees')"
+          >Employees</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/teachers"
+          *ngIf="this.commonService.getUrl('/teachers')"
+          >Teachers</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/categories"
+          *ngIf="this.commonService.getUrl('/categories')"
+          >Categories</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/designations"
+          *ngIf="this.commonService.getUrl('/designations')"
+          >Designations</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/departments"
+          *ngIf="this.commonService.getUrl('/departments')"
+          >Departments</a
+        >
+      </div>
+    </div>
+  </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+  <!-- Nav Item - Students Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseStudents"
+      aria-expanded="true"
+      aria-controls="collapseStudents"
+    >
+      <i class="fas fa-fw fa-user-graduate"></i>
+      <span>Students</span>
+    </a>
+    <div
+      id="collapseStudents"
+      class="collapse"
+      aria-labelledby="headingStudents"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Students Info:</h6>
+        <a
+          class="collapse-item"
+          routerLink="/students"
+          *ngIf="this.commonService.getUrl('/students')"
+          >Students</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/classes"
+          *ngIf="this.commonService.getUrl('/classes')"
+          >Classes</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/show-user"
+          *ngIf="this.commonService.getUrl('/show-user')"
+          >Users</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/add-students"
+          *ngIf="this.commonService.getUrl('/add-students')"
+          >Admission</a
+        >
+      </div>
+    </div>
+  </li>
+  <!-- Nav Item - Academic Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseAcademic"
+      aria-expanded="true"
+      aria-controls="collapseTwo"
+    >
+      <i class="fas fa-book"></i>
+      <span> Academic</span>
+    </a>
+    <div
+      id="collapseAcademic"
+      class="collapse"
+      aria-labelledby="headingTwo"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Academic info:</h6>
+        <a
+          class="collapse-item"
+          routerLink="/attendance"
+          *ngIf="this.commonService.getUrl('/attendance')"
+          >Daily Attendance</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/class-routine"
+          *ngIf="this.commonService.getUrl('/class-routine')"
+          >Class Routine</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/subject"
+          *ngIf="this.commonService.getUrl('/subject')"
+          >Subject</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/syllabus"
+          *ngIf="this.commonService.getUrl('/syllabus')"
+          >Syllabus</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/classes"
+          *ngIf="this.commonService.getUrl('/classes')"
+          >Class</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/class-room"
+          *ngIf="this.commonService.getUrl('/class-room')"
+          >Class Room</a
+        >
+      </div>
+    </div>
+  </li>
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item ">
-        <a class="nav-link" routerLink="/dashboard">
-            <i class="fa-solid fa-table-columns"></i>
-            <span>Dashboard</span></a>
-    </li>
+  <!-- Nav Item - Examination Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseExamination"
+      aria-expanded="true"
+      aria-controls="collapseStudents"
+    >
+      <i class="fa-regular fa-clipboard"> </i>
+      <span>Examination</span>
+    </a>
+    <div
+      id="collapseExamination"
+      class="collapse"
+      aria-labelledby="headingStudents"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Examination Info:</h6>
+        <a
+          class="collapse-item"
+          routerLink="/marks"
+          *ngIf="this.commonService.getUrl('/marks')"
+          >Marks</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/examination"
+          *ngIf="this.commonService.getUrl('/examination')"
+          >Examination</a
+        >
+        <a
+          class="collapse-item"
+          routerLink="/exam-category"
+          *ngIf="this.commonService.getUrl('/exam-category')"
+          >Exam Category</a
+        >
+        <!-- <a class="collapse-item"  routerLink="/promotion" *ngIf="this.commonService.getUrl('/promotion')" >Promotion</a> -->
+      </div>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseAccounting"
+      aria-expanded="true"
+      aria-controls="collapseAccounting"
+    >
+      <i class="fa-solid fa-file-invoice"></i>
+      <span>Accounting</span>
+    </a>
+    <div
+      id="collapseAccounting"
+      class="collapse"
+      aria-labelledby="headingAccounting"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Accounting Info:</h6>
+        <a class="collapse-item" routerLink="/student-fee-manager"
+          >Student fee manager</a
+        >
+      </div>
+    </div>
+  </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    <!-- Nav Item - Employees Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-user"></i>
-            <span>Users</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Employees Info:</h6>
-                <a class="collapse-item" routerLink="/employees"  *ngIf="this.commonService.getUrl('/employees')" >Employees</a>
-                <a class="collapse-item"  routerLink="/teachers" *ngIf="this.commonService.getUrl('/teachers')" >Teachers</a>
-                <a class="collapse-item" routerLink="/categories" *ngIf="this.commonService.getUrl('/categories')" >Categories</a>
-                <a class="collapse-item" routerLink="/designations" *ngIf="this.commonService.getUrl('/designations')">Designations</a>
-                <a class="collapse-item" routerLink="/departments"  *ngIf="this.commonService.getUrl('/departments')">Departments</a>
-            </div>
-        </div>
-    </li>
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseEvent"
+      aria-expanded="true"
+      aria-controls="collapseEvent"
+    >
+      <i class="fa-solid fa-calendar"></i>
+      <span>Events</span>
+    </a>
+    <div
+      id="collapseEvent"
+      class="collapse"
+      aria-labelledby="headingAccounting"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Events Info:</h6>
+        <a class="collapse-item" routerLink="/events">Events</a>
+      </div>
+    </div>
+  </li>
+  <!-- Divider -->
+  <!-- <hr class="sidebar-divider"> -->
 
-    <!-- Nav Item - Students Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
-            aria-expanded="true" aria-controls="collapseStudents">
-            <i class="fas fa-fw fa-user-graduate"></i>
-            <span>Students</span>
-        </a>
-        <div id="collapseStudents" class="collapse" aria-labelledby="headingStudents"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Students Info:</h6>
-                <a class="collapse-item" routerLink="/students"  *ngIf="this.commonService.getUrl('/students')" >Students</a>
-                <a class="collapse-item"  routerLink="/classes" *ngIf="this.commonService.getUrl('/classes')"  >Classes</a>
-                <a class="collapse-item"  routerLink="/show-user"  *ngIf="this.commonService.getUrl('/show-user')" >Users</a>
-                <a class="collapse-item"  routerLink="/add-students" *ngIf="this.commonService.getUrl('/add-students')" >Admission</a>
-            </div>
-        </div>
-    </li>
-    <!-- Nav Item - Academic Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAcademic"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-book"></i>
-            <span> Academic</span>
-        </a>
-        <div id="collapseAcademic" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Academic info:</h6>
-                <a class="collapse-item" routerLink="/attendance"  *ngIf="this.commonService.getUrl('/attendance')" >Daily Attendance</a>
-                <a class="collapse-item" routerLink="/class-routine"  *ngIf="this.commonService.getUrl('/class-routine')" >Class Routine</a>
-                <a class="collapse-item" routerLink="/subject" *ngIf="this.commonService.getUrl('/subject')" >Subject</a>
-                <a class="collapse-item" routerLink="/syllabus" *ngIf="this.commonService.getUrl('/syllabus')" >Syllabus</a>
-                <a class="collapse-item" routerLink="/classes" *ngIf="this.commonService.getUrl('/classes')" >Class</a>
-                <a class="collapse-item" routerLink="/class-room" *ngIf="this.commonService.getUrl('/class-room')" >Class Room</a>
-                
-            </div>
-        </div>
-    </li>    
-
-    <!-- Nav Item - Examination Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExamination"
-            aria-expanded="true" aria-controls="collapseStudents">
-            <i class="fa-regular fa-clipboard"> </i>
-            <span>Examination</span>
-        </a>
-        <div id="collapseExamination" class="collapse" aria-labelledby="headingStudents"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Examination Info:</h6>
-                <a class="collapse-item" routerLink="/marks" *ngIf="this.commonService.getUrl('/marks')" >Marks</a>
-                <a class="collapse-item"  routerLink="/examination" *ngIf="this.commonService.getUrl('/examination')">Examination</a>
-                <a class="collapse-item"  routerLink="/exam-category" *ngIf="this.commonService.getUrl('/exam-category')">Exam Category</a>
-                <a class="collapse-item"  routerLink="/promotion" *ngIf="this.commonService.getUrl('/promotion')" >Promotion</a>
-                <!-- <a class="collapse-item"  routerLink="/promotion">Send exam marks</a> -->
-            </div>
-        </div>
-    </li>
-    <!-- live class -->
-    <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLiveClass"
-            aria-expanded="true" aria-controls="collapseLiveClass">
-            <i class="fa-solid fa-video"></i>
-            <span>Live Class</span>
-        </a>
-        <div id="collapseLiveClass" class="collapse" aria-labelledby="headingLiveClass"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Live Class Info:</h6>
-                <a class="collapse-item" routerLink="/live-class">Live Class Settings</a>
-            </div>
-        </div>
-    </li> -->
-    <!-- Student fee manager -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccounting"
-            aria-expanded="true" aria-controls="collapseAccounting">
-            <i class="fa-solid fa-file-invoice"></i>
-            <span>Accounting</span>
-        </a>
-        <div id="collapseAccounting" class="collapse" aria-labelledby="headingAccounting"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Accounting Info:</h6>
-                <a class="collapse-item" routerLink="/student-fee-manager">Student fee manager</a>
-            </div>
-        </div>
-    </li>
-    <!-- Divider -->
-    <!-- <hr class="sidebar-divider"> -->
-
-    <!-- Heading -->
-    <!-- <div class="sidebar-heading">
+  <!-- Heading -->
+  <!-- <div class="sidebar-heading">
         Addons
     </div> -->
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <!-- <li class="nav-item">
+  <!-- Nav Item - Pages Collapse Menu -->
+  <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
@@ -155,28 +308,11 @@
         </div>
     </li> -->
 
-    <!-- Nav Item - Charts -->
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li> -->
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block" />
 
-    <!-- Nav Item - Tables -->
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-    </li> -->
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-   
-
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
 </ul>

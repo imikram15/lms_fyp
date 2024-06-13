@@ -1,94 +1,3 @@
-<!-- <div class="container">
-    <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-        <h5 class="m-0 font-weight-bold text-primary">Student Fee Manager</h5>
-        <button routerLink="/add-mass" class="btn btn-success mr-2" style="margin-left: 45%;" >Add Mass Invoice</button>
-        <button routerLink="/add-single" class="btn btn-info">Add Single Invoice</button>
-      </div>
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="dateRange">Date Range:</label>
-                <select style="width: 100%;" class="form-control" id="dateRange">
-                  <option value="today">Today</option>
-                  <option value="yesterday">Yesterday</option>
-                  <option value="last7days">Last 7 Days</option>
-                  <option value="thismonth">This Month</option>
-                  <option value="lastmonth">Last Month</option>
-                  <option value="custom">Custom Range</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="classDropdown">All Classes:</label>
-                <select style="width: 100%;" class="form-control" id="classDropdown">
-                  <option value="" selected>Select All Classes</option>
-                  <option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="row align-items-end">
-              <div class="col-md-6">
-                <div class="text-right">
-                  <button class="btn btn-primary" style="margin-top: 14%;" (click)="filter()">Filter</button>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="text-left">
-                  <button style="margin-top: 14%;" class="btn btn-warning ml-2">Export Report</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="showEntries">Show Entries:</label>
-            <select style="width: 100%;" class="form-control" id="showEntries">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="search">Search:</label>
-            <input type="text" class="form-control" id="search" placeholder="Search...">
-          </div>
-        </div>
-        <div *ngIf="showTable" class="table-bordered">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Invoice No</th>
-                  <th>Student Name <span class="sort-icons">&#9650;</span><span class="sort-icons">&#9660;</span></th>
-                  <th>Invoice Title <span class="sort-icons">&#9650;</span><span class="sort-icons">&#9660;</span></th>
-                  <th>Total Amount <span class="sort-icons">&#9650;</span><span class="sort-icons">&#9660;</span></th>
-                  <th>Paid Amount <span class="sort-icons">&#9650;</span><span class="sort-icons">&#9660;</span></th>
-                  <th>Status <span class="sort-icons">&#9650;</span><span class="sort-icons">&#9660;</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let invoice of invoices">
-                  <td>{{ invoice.invoiceNo }}</td>
-                  <td>{{ invoice.studentName }}</td>
-                  <td>{{ invoice.invoiceTitle }}</td>
-                  <td>{{ invoice.totalAmount }}</td>
-                  <td>{{ invoice.paidAmount }}</td>
-                  <td>{{ invoice.status }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-      </div>
-    </div>
-  </div> -->
-  
-
   <div class="container-fluid">
     <div class="card shadow mb-4">
       <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
@@ -127,17 +36,8 @@
           <div class=" form-group col-md-1">
               <a class="btn btn-info " [href]="baseURL+'studentFee/export'+'/'+this.searchForm.get('start_date')?.value
               +'/'+this.searchForm.get('end_date')?.value+'/'+this.searchForm.get('class_id')?.value+'/'+this.searchForm.get('status')?.value">
-              <i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+              <i class="fa-solid fa-download"></i></a>
           </div>
-          <!-- <div class="form-group col-md-1 dropdown">
-            <button class="btn btn-warning dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-arrow-up-from-bracket"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="exportDropdown">
-              <a class="dropdown-item" >PDF</a>
-              <a class="dropdown-item" >XLSX</a>
-            </div>
-          </div> -->
         </form>
   
         <div *ngIf="isLoading" style="position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);">
@@ -187,3 +87,14 @@
     </div>
   </div>
   
+
+  
+  <!-- <div class="form-group col-md-1 dropdown">
+    <button class="btn btn-warning dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="exportDropdown">
+      <a class="dropdown-item" >PDF</a>
+      <a class="dropdown-item" >XLSX</a>
+    </div>
+  </div> -->

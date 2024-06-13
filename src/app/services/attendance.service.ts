@@ -21,6 +21,9 @@ export class AttendanceService {
     });
   }
 
+  getAttendanceWeekly(): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}attendances/weekly`);
+  }
   getAttendances(): Observable<any> {
     return this.http.get<any>(`${this.baseURL}attendances`);
   }

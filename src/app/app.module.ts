@@ -7,8 +7,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -21,10 +23,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserAnimationsModule, 
     ReactiveFormsModule,
+    SharedModule,
     ToastrModule.forRoot(),
   ],
   exports:[],
-  providers: [DatePipe],
+  providers: [DatePipe, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

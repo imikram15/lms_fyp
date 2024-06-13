@@ -63,6 +63,7 @@ export class TakeAttendanceComponent {
         catchError(err => {
           console.error('Error fetching students:', err);
           this.toastr.showError('No Students Found For this Class.', 'Error');
+            this.isLoading = false;
           return throwError(err);
         })
       ).subscribe(data => {
@@ -126,7 +127,7 @@ submitAttendance() {
     };
   });
 
-  this.attendanceService.updateAttendance(attendance).pipe(
+  this.attendanceService.postAttendance(attendance).pipe(
     catchError(err => {
       console.error('Error updating attendance:', err);
       this.handle422Error(err); 

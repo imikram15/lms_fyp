@@ -38,6 +38,9 @@ export class TeachersService {
   getTeachers(): Observable<any> {
     return this.httpclient.get( this.baseUrl + 'teachers');
   }
+  getTeachersCount(): Observable<any> {
+    return this.httpclient.get( this.baseUrl + 'teachersCount');
+  }
 
   getPaginatedTeachers(page: number|string, pageSize: number|string): Observable<TeachersResponse[]> {
     return this.httpclient.get<TeachersResponse[]>(`${this.baseUrl}teachers?page=${page}&pageSize=${pageSize}`);
