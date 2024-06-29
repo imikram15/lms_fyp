@@ -8,6 +8,7 @@ import { AddMassComponent } from './add-mass/add-mass.component';
 import { AddSingleComponent } from './add-single/add-single.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../shared/shared.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SharedModule } from "../shared/shared.module";
         CommonModule,
         AccountingRoutingModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
         SharedModule
     ]
 })

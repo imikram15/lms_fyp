@@ -23,6 +23,8 @@ export class SyllabusComponent {
   subjects: any[] = [];  
   fileUrl = environment.mediaUrl2;
 
+  member_type:any;
+  member_id:any;
 
   constructor(
     private fb: FormBuilder,
@@ -31,13 +33,45 @@ export class SyllabusComponent {
     public dialog: MatDialog,
     public commonService:CommonService
   ) {
+    this.member_type = localStorage.getItem('member_type');
+    this.member_id = localStorage.getItem('member_id');
     this.syllabusForm = this.fb.group({
-      class_id: ['', Validators.required]
-    });
+      class_id: ['']
+      });
+    this.setClassIdValidator();
   }
   ngOnInit(): void {  
-    this.loadClasses(); 
-    
+    if (this.member_type == 'students') {
+      this.loadSyllabus();      
+      } else if(this.member_type == 'teachers')
+      this.loadClassesByType();      
+      else{
+      this.loadClasses(); 
+    }    
+  }
+
+  loadClassesByType() {
+    this.syllabusService.getClassesByType( this.member_type,this.member_id,).pipe(
+      catchError(err => {
+        console.error('Error fetching classes:', err);
+        this.toastr.showError('Failed to load classes. Please try again later.', 'Error');
+        return throwError(err);
+      })
+    ).subscribe(data => {     
+      this.classes = data.classes;
+    });
+  }
+
+ setClassIdValidator() {
+    const classIdControl = this.syllabusForm.get('class_id');
+    if (classIdControl) {
+      if (this.member_type !== 'students') {
+        classIdControl.setValidators([Validators.required]);
+      } else {
+        classIdControl.clearValidators();
+      }
+      classIdControl.updateValueAndValidity();
+    }
   }
 
   loadClasses() {
@@ -52,6 +86,22 @@ export class SyllabusComponent {
     });
   }
   
+    loadSyllabus(): void {
+    this.isLoading = true;
+    if (this.member_type && this.member_id) {
+      this.syllabusService.filterSyllabusByType(this.member_type, this.member_id).pipe(
+        catchError(err => {
+          console.error('Error fetching syllabuses:', err);
+          this.toastr.showError('Failed to load syllabuses. Please try again later.', 'Error');
+          this.isLoading = false;
+          return throwError(err);
+        })
+      ).subscribe((data: any) => {
+        this.syllabusData = data.syllabus.data;
+      this.isLoading = false;
+      });
+    }
+  }
 
   filterData() {
     this.isLoading = true;

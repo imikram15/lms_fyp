@@ -1,9 +1,9 @@
-<div style="display: flex;">
-    <div >
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="w-100">
-      <app-header ></app-header>
+<div class="wrapper" style="display: flex">
+  <div><app-sidebar></app-sidebar></div>
+  <div class="w-100 main-content">
+    <app-header></app-header>
+    <div class="content-wrapper">
       <router-outlet></router-outlet>
     </div>
   </div>
+</div>

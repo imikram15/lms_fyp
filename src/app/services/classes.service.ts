@@ -42,4 +42,13 @@ export class ClassesService {
   destroyClass(classID:number){
     return this.httpclient.delete(this.baseURL + `classes/${classID}/delete`);
   }
+
+   getClassesByType(memberType: string, memberId: number) {
+  return this.httpclient.get<any>(`${this.baseURL}classesByType`, {
+    params: {
+      member_type: memberType,
+      member_id: memberId.toString()
+    }
+  });
+}
 }

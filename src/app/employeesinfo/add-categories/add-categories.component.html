@@ -1,20 +1,38 @@
-<div class="container ">
+<div class="container">
   <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex py-3">
-        <h6 class=" h4 m-0 text-primary" style="font-weight: 500;" >Create Category</h6>
-      </div>
-  <div class="card-body ">
-    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Category Title:</label>
-        <input type="text" class="form-control" formControlName="title" placeholder="Enter Category Name">
-        <div *ngIf="categoryForm.get('title')?.touched && categoryForm.get('title')?.invalid" class="text-danger">
-          Category Name is required.
+    <div class="card-header d-sm-flex py-3">
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">
+        {{ forUpdate ? "Update Category" : "Create Category" }}
+      </h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Category Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="title"
+            placeholder="Enter Category Name"
+          />
+          <div
+            *ngIf="
+              categoryForm.get('title')?.touched &&
+              categoryForm.get('title')?.invalid
+            "
+            class="text-danger"
+          >
+            Category Name is required.
+          </div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">{{ forUpdate ? 'Update' : 'Submit' }}</button>
-    </form>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="categoryForm.invalid"
+        >
+          {{ forUpdate ? "Update" : "Submit" }}
+        </button>
+      </form>
+    </div>
   </div>
- </div>
 </div>
-  

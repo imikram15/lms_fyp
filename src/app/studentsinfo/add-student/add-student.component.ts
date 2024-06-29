@@ -47,7 +47,6 @@ export class AddStudentComponent {
       gender: ['', Validators.required],
       dob: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^\+(?:[0-9] ?){6,14}[0-9]$|^\+[0-9]{1,4}\s\([0-9]{1,4}\)\s[0-9]{1,4}(-[0-9]{1,4}){1,2}$/)]],
       address: ['', Validators.required],
       blood_group: ['', Validators.required],
@@ -175,11 +174,6 @@ export class AddStudentComponent {
     } else {
       this.toastr.showError('An unexpected error occurred. Please try again later.', 'Error');
     }
-  }
-
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-    this.passwordFieldType = this.showPassword ? 'text' : 'password';
   }
 
 }

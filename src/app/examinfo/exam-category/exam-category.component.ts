@@ -32,11 +32,11 @@ export class ExamCategoryComponent extends Paginator{
     getExamCategoryList() {
       this.isLoading = true;
       this.ExamCategoryService.getPgExamCategories(this.page, this.perPage).subscribe((res: any) => {  
-        // console.log(res);           
+        console.log(res);           
         this.ExamCategory = res.examCategory.data;
-        this.page = res.examCategory.data.current_page;
-        this.total = res.examCategory.data.total; 
-        this.perPage = res.examCategory.data.per_page;              
+        this.page = res.examCategory.current_page;
+        this.total = res.examCategory.total; 
+        this.perPage = res.examCategory.per_page;              
         this.isLoading = false;
         },
         (error: any) => {

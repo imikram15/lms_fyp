@@ -1,0 +1,31 @@
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-container {
+    width: 100px;
+    height: 60px;
+}
+
+.avatar-img {
+    width: auto;
+    height: 100%;
+    max-height: 60px;
+    object-fit: contain;
+}
+
+// .sidebar {
+//     width: 250px;
+//     background: #4e73df;
+//     color: white;
+//     position: fixed;
+//     height: 100vh;
+//     overflow-y: auto;
+//     transition: margin 0.3s ease;
+// }
+
+// .sidebar.toggled {
+//     margin-left: -250px;
+// }

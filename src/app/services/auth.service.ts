@@ -19,7 +19,8 @@ export class AuthService {
           console.log('token: ',response);                    
           localStorage.setItem('auth_token', response.data.token);
           localStorage.setItem('role_id', response.data.role_id);
-          localStorage.setItem('role_name', response.data.role_name);
+          localStorage.setItem('member_type', response.data.member_type);
+          localStorage.setItem('member_id', response.data.member_id);
         }         
         return response;
       }));
@@ -29,7 +30,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('auth_token');    
     localStorage.removeItem('role_id');    
-    localStorage.removeItem('role_name');    
+    localStorage.removeItem('member_type');    
+    localStorage.removeItem('member_id');    
   }
 
   getToken(): string | null {

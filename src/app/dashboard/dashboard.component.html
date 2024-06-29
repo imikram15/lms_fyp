@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container">
   <div
     *ngIf="isLoading; else elseForm"
     style="
@@ -11,6 +11,16 @@
     <app-loader :title="loadingTitle" />
   </div>
   <ng-template #elseForm>
+    <div class="col-md-12 welcome-message">
+      <h1 class="name">
+        @if(member_type == 'students'){
+        {{ userName.first_name }} {{ userName.last_name }}
+        }@else{
+        {{ userName.name }}
+        }
+      </h1>
+      <p class="school-name">Welcome Back to MMHS Learning Managment System</p>
+    </div>
     <div class="row">
       <div class="col-lg-3 col-6">
         <div class="small-box bg-info">

@@ -8,12 +8,14 @@ import { ShowUserComponent } from './show-user/show-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from "../shared/shared.module";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
         UserProfileComponent,
         AddUserComponent,
         ShowUserComponent,
+        ProfileComponent,
     ],
     imports: [
         CommonModule,

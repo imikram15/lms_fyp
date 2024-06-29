@@ -56,14 +56,15 @@
             <div
               class="col-lg-6 d-none d-lg-block"
               style="
-                background-image: url('assets/img/login pic.png');
+                margin-top: 20px;
+                background-image: url('assets/img/loginimg.jpg');
                 background-size: cover;
               "
             ></div>
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                  <h1 class="h4 title mb-4">Welcome Back!</h1>
                 </div>
                 <form [formGroup]="loginForm" (ngSubmit)="login()">
                   <div class="form-group">
@@ -75,28 +76,55 @@
                       aria-describedby="emailHelp"
                       placeholder="Enter Email Address..."
                     />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      formControlName="password"
-                      type="password"
-                      class="form-control form-control-user"
-                      id="exampleInputPassword"
-                      placeholder="Password"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox small">
-                      <input
-                        formControlName="rememberMe"
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck"
-                      />
-                      <label class="custom-control-label" for="customCheck"
-                        >Remember Me</label
-                      >
+                    <div
+                      *ngIf="
+                        loginForm.get('email')?.invalid &&
+                        loginForm.get('email')?.touched
+                      "
+                      class="text-danger"
+                    >
+                      Email is invalid or required.
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input
+                        formControlName="password"
+                        [type]="passwordFieldType"
+                        class="form-control"
+                        id="password"
+                        placeholder="Enter Password"
+                        required
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          (click)="togglePasswordVisibility()"
+                        >
+                          <i
+                            class="fa"
+                            [ngClass]="{
+                              'fa-eye': showPassword,
+                              'fa-eye-slash': !showPassword
+                            }"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        loginForm.get('password')?.invalid &&
+                        loginForm.get('password')?.touched
+                      "
+                      class="text-danger"
+                    >
+                      Password is required and must be at least 6 characters
+                      long.
+                    </div>
+                    <label class="custom-control-label" for="customCheck"
+                      >Remember Me</label
+                    >
                   </div>
                   <!-- [disabled]="loginForm.invalid" routerLink="/dashboard" -->
                   <button
@@ -106,6 +134,32 @@
                     Login
                   </button>
                   <hr />
+                  <div class="login-options">
+                    <button
+                      class="login-option btn btn-user m-1"
+                      (click)="selectRole('Admin')"
+                    >
+                      Admin
+                    </button>
+                    <button
+                      class="login-option btn btn-user m-1"
+                      (click)="selectRole('Teacher')"
+                    >
+                      Teacher
+                    </button>
+                    <button
+                      class="login-option btn btn-user m-1"
+                      (click)="selectRole('Employee')"
+                    >
+                      Employee
+                    </button>
+                    <button
+                      class="login-option btn btn-user m-1"
+                      (click)="selectRole('Student')"
+                    >
+                      Student
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -48,5 +48,20 @@ export class StudentFeeService {
 
   getStudents(): Observable<any> {
     return this.http.get<any>(`${this.baseURL}students`);
+  }
+
+   getStudentFees(data:any): Observable<any> {
+     return this.http.get(`${this.baseURL}studentFeeByType`, {
+      params: { 
+        member_type:data.member_type,
+        member_id:data.member_id,
+        status: data.status,
+        start_date: data.start_date,
+        end_date: data.end_date,
+        page:1,
+        per_page:10,
+       }
+    });
+
   }
 }

@@ -6,19 +6,16 @@ import { Injectable } from '@angular/core';
 export class CommonService {
   UrlForStudents = [
     '/dashboard', 
-    '/students', 
     '/attendance', 
     '/teachers', 
     '/class-routine', 
     '/subject', 
     '/syllabus', 
-    '/classes', 
-    '/class-room', 
     '/login', 
     '/live-class', 
-    '/marks', 
+    '/view-marks', 
     '/examination',
-    '/exam-category', 
+    '/student-fee-manager',
     '/grades',
     '/events',
   ];
@@ -32,8 +29,7 @@ export class CommonService {
     '/subject', 
     '/syllabus', 
     '/add-syllabus', 
-    '/classes', 
-    '/class-room',
+    '/add-syllabus/6/edit', 
     '/login', 
     '/live-class', 
     '/marks', 
@@ -62,8 +58,9 @@ export class CommonService {
     '/add-class-routine', 
     '/subject', 
     '/add-subject', 
-    '/syllabus',
+    '/syllabus', 
     '/add-syllabus', 
+    '/add-syllabus/6/edit', 
     '/classes', 
     '/add-class', 
     '/add-class-room', 
@@ -79,7 +76,6 @@ export class CommonService {
     '/student-fee-manager',
     '/events',
     '/add-event',
-    '/add-event/1/edit'
   ];
   UrlForAdmin = [
     '/dashboard', 
@@ -123,7 +119,7 @@ export class CommonService {
     '/add-class-room/2/edit',
     '/login', 
     '/live-class', 
-    '/marks', 
+    '/marks',
     '/examination',
     '/add-exam',
     '/add-exam/1/edit',
@@ -140,31 +136,26 @@ export class CommonService {
   
   role_id:any;
   constructor() {
-
-    this.role_id = localStorage.getItem('role_id');
-   }
-
+  }
+  
   getUrl(url:any){
+    this.role_id = localStorage.getItem('role_id');
       switch(this.role_id){
         case '1':
         {          
           return this.isValidUrl(url,this.UrlForTeachers)
-          break;
         }
         case '2':
           {
             return this.isValidUrl(url,this.UrlForStudents)
-            break;
           }
           case '3':
           {
             return this.isValidUrl(url,this.UrlForEmployees)
-            break;
           }
           case '4':
           {
             return this.isValidUrl(url,this.UrlForAdmin)
-            break;
           }
         default:{
           return false
@@ -195,6 +186,12 @@ export class CommonService {
  
   checkDeleteRole(){
     if (this.role_id === '4') {
+      return true   
+    } else
+    return false
+  }
+  TeacherCase(){
+     if (this.role_id === '1') {
       return true   
     } else
     return false

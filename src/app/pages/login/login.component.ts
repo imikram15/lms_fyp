@@ -9,8 +9,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  loginForm!: FormGroup;
 
+  loginForm!: FormGroup;
+  passwordFieldType: string = 'password';
+  showPassword: boolean = false;
+
+  
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -20,12 +24,50 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['admin@gmail.com', [Validators.required, Validators.email]],
-      password: ['12341234', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
   }
 
+  selectedRole:any;
+
+  selectRole(role: string) {
+    
+    //  this.selectedRole = role;
+    switch(role) {
+      case 'Admin':
+        this.loginForm.setValue({
+          email: 'buttikram15@gmail.com',
+          password: '12341234',
+          rememberMe: false
+        });
+        break;
+         case 'Teacher':
+        this.loginForm.setValue({
+          email: 'teacher1@gmail.com',
+          password: '12345678',
+          rememberMe: false
+        });
+        break;
+         case 'Student':
+        this.loginForm.setValue({
+          email: 'student1@gmail.com',
+          password: '12345678',
+          rememberMe: false
+        });
+        break;
+         case 'Employee':
+        this.loginForm.setValue({
+          email: 'employee1@gmail.com',
+          password: '12345678',
+          rememberMe: false
+        });
+        break;
+        default:
+          break;
+      }
+    }
   get form() {
     return this.loginForm.controls;
   }
@@ -55,5 +97,11 @@ export class LoginComponent {
       console.error('Login failed', error);
     });
   }
+
+   togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+    this.passwordFieldType = this.showPassword ? 'text' : 'password';
+  }
+
 
 }

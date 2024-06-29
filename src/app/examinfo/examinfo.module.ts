@@ -14,6 +14,7 @@ import { ExamCategoryComponent } from './exam-category/exam-category.component';
 import { AddExamCategoryComponent } from './add-exam-category/add-exam-category.component';
 import { SharedModule } from "../shared/shared.module";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewMarksComponent } from './view-marks/view-marks.component';
 
 
 
@@ -28,6 +29,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         AddGradeComponent,
         ExamCategoryComponent,
         AddExamCategoryComponent,
+        ViewMarksComponent,
     ],
     imports: [
         CommonModule,

@@ -10,21 +10,19 @@ export class AuthGuard  implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  UrlForStudents = [
+   UrlForStudents = [
     '/dashboard', 
-    '/students', 
     '/attendance', 
     '/teachers', 
     '/class-routine', 
     '/subject', 
     '/syllabus', 
-    '/classes', 
-    '/class-room', 
     '/login', 
     '/live-class', 
-    '/marks', 
+    '/view-marks', 
     '/examination',
     '/exam-category', 
+    '/student-fee-manager',
     '/grades',
     '/events',
   ];
@@ -38,8 +36,7 @@ export class AuthGuard  implements CanActivate {
     '/subject', 
     '/syllabus', 
     '/add-syllabus', 
-    '/classes', 
-    '/class-room',
+    '/add-syllabus/6/edit', 
     '/login', 
     '/live-class', 
     '/marks', 
@@ -68,8 +65,9 @@ export class AuthGuard  implements CanActivate {
     '/add-class-routine', 
     '/subject', 
     '/add-subject', 
-    '/syllabus',
+    '/syllabus', 
     '/add-syllabus', 
+    '/add-syllabus/6/edit', 
     '/classes', 
     '/add-class', 
     '/add-class-room', 
@@ -85,7 +83,6 @@ export class AuthGuard  implements CanActivate {
     '/student-fee-manager',
     '/events',
     '/add-event',
-    '/add-event/1/edit'
   ];
   UrlForAdmin = [
     '/dashboard', 
@@ -129,14 +126,14 @@ export class AuthGuard  implements CanActivate {
     '/add-class-room/2/edit',
     '/login', 
     '/live-class', 
-    '/marks', 
+    '/marks',
     '/examination',
     '/add-exam',
     '/add-exam/1/edit',
     '/exam-category', 
     '/add-exam-category', 
     '/add-exam-category/2/edit',
-    '/promotion', 
+    '/promotion',
     '/grades', 
     '/student-fee-manager',
     '/events',

@@ -29,113 +29,12 @@ background-color: rgba(0, 0, 0, 0.1);
 }
 .row {
   margin: 0;
-  padding: 15px;
+  padding: 15px 0px;
 }
 
-.card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-.card h6{
-  color: black;
-}
 
-.card-body {
-  padding: 20px;
-  background-color: #fff;
-}
 
-.card-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #333;
-}
 
-.chart-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 275px;
-  margin-bottom: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  padding: 10px;
-  position: relative;
-}
-
-.vertical-axis {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 95%;
-  margin-right: 20px;
-  margin-bottom: 21px;
-  margin-top: 10px;
-  position: relative;
-  color: #333;
-  font-size: 0.75rem;
-  text-align: right;
-}
-
-.chart {
-  display: flex;
-  align-items: flex-end;
-  height: 100%;
-  width: 100%;
-  gap: 15px;
-  position: relative;
-}
-
-.bar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bar {
-  background-color: #007bff;
-  width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  border-radius: 5px 5px 0 0;
-  position: relative;
-  transition: background-color 0.3s;
-}
-
-.bar span {
-  color: white;
-  font-size: 0.75rem;
-  margin-bottom: 5px;
-}
-
-.bar:hover {
-  background-color: #0056b3;
-}
-
-.bar-label {
-  margin-top: 5px;
-  font-size: 0.75rem;
-  color: #333;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
 
 
 
@@ -196,4 +95,22 @@ background-color: rgba(0, 0, 0, 0.1);
       background-color: #0fdb90;
     }
   }
+}
+
+.welcome-message {
+  padding: 20px;
+  background-color: #f8f9fc;
+  border-radius: 8px;
+}
+
+.name {
+  font-size: 24px;
+  color: #4E73DF ;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.school-name {
+  font-size: 16px;
+  color: #666;
 }
