@@ -18,7 +18,21 @@ export class ExamsService {
       params: { class_id: classId.toString() }
     });
   }
-
+  filterExamsByType(member_type:any,member_id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}examByType/`, {
+      params: { member_type: member_type,
+        member_id: member_id.toString()
+       }
+    });
+  }
+   getClassesByType(memberType: string, memberId: number) {
+  return this.http.get<any>(`${this.baseURL}classesByType`, {
+    params: {
+      member_type: memberType,
+      member_id: memberId.toString()
+    }
+  });
+}
   getExams(): Observable<any> {
     return this.http.get(this.baseURL+'exams');
   }

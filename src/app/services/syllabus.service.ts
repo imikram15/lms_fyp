@@ -31,6 +31,22 @@ export class SyllabusService {
   getSyllabusByClass(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseURL}getsyllabusByClass/${id}`);
   }
+   filterSyllabusByType(memberType: string, memberId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}syllabusByType`, {
+     params:{
+       member_type: memberType,
+      member_id: memberId
+     }
+    });
+  }
+   getClassesByType(memberType: string, memberId: number) {
+  return this.http.get<any>(`${this.baseURL}classesByType`, {
+    params: {
+      member_type: memberType,
+      member_id: memberId.toString()
+    }
+  });
+}
   getSyllabuses(): Observable<any> {
     return this.http.get<any>(`${this.baseURL}syllabus`);
   }

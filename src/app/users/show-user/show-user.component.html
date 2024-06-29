@@ -1,64 +1,117 @@
 <div class="container-fluid">
-    <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-        <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Users</h6>
-        <a routerLink="/add-user" *ngIf="this.commonService.getUrl('/add-user')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i class="fas fa-user fa-sm text-white-50"></i> Add User</a>
+  <div class="card shadow mb-4">
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">Users List</h6>
+      <a
+        routerLink="/add-user"
+        *ngIf="this.commonService.getUrl('/add-user')"
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      >
+        <i class="fas fa-user fa-sm text-white-50"></i> Add User</a
+      >
+    </div>
+    <div class="card-body" style="position: relative; padding-top: 0px">
+      <div
+        [formGroup]="userForm"
+        class="row align-items-end d-flex justify-content-center"
+        style="margin: 0px"
+      >
+        <div class="form-group col-md-4">
+          <select formControlName="role_id" class="form-control" required>
+            <option value="" disabled selected>Select a Role</option>
+            <option *ngFor="let role of roles" [value]="role.id">
+              {{ role.title }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-1">
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            (click)="loadUsersByRole()"
+          >
+            Filter
+          </button>
+        </div>
       </div>
-      <div class="card-body" style="position: relative; padding-top: 0px;">
-        <div [formGroup]="userForm" class="row align-items-end d-flex justify-content-center" style="margin: 0px;">
-          <div class="form-group col-md-4">
-            <select formControlName="role_id" class="form-control" required>
-              <option value="" disabled selected>Select a Role</option>
-              <option *ngFor="let role of roles" [value]="role.id">{{ role.title }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-1">
-            <button type="submit" class="btn btn-primary mt-3" (click)="loadUsersByRole()">Filter</button>
-          </div>
-        </div>
-        <div *ngIf="isLoading; else elseForm"
-          style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">
-          <app-loader :title="loadingTitle" />
-        </div>
-        <ng-template #elseForm>
-          <div class="table-responsive col-md-12">
-            <table class="table table-bordered w-100" style="text-align: center;">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Role</th>
-                  <th scope="col"  *ngIf="this.commonService.checkDeleteRole()">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr scope="row" *ngFor="let user of users | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }; let i = index;">
-                  <td>{{ i + 1 }}</td>
-                  @if(user.member_type == 'students'){
-                      <td  >
-                        {{ user.member_info.first_name }} {{ user.member_info.last_name }}
-                    </td>
-                  }@else{
-                      <td >{{ user.member_info.name }} </td>
+      <div
+        *ngIf="isLoading; else elseForm"
+        style="
+          position: absolute;
+          top: 90%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        <app-loader :title="loadingTitle" />
+      </div>
+      <ng-template #elseForm>
+        <div class="table-responsive col-md-12">
+          <table class="table table-bordered w-100" style="text-align: center">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col" *ngIf="this.commonService.checkDeleteRole()">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                scope="row"
+                *ngFor="
+                  let user of users
+                    | paginate
+                      : {
+                          itemsPerPage: perPage,
+                          currentPage: page,
+                          totalItems: total
+                        };
+                  let i = index
+                "
+              >
+                <td>{{ i + 1 }}</td>
+                @if(user.member_type == 'students'){
+                <td>
+                  {{ user.member_info.first_name }}
+                  {{ user.member_info.last_name }}
+                </td>
+                }@else{
+                <td>{{ user.member_info.name }}</td>
 
-                  }
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.member_type | pascalCase }}</td>
-                  <td  *ngIf="this.commonService.checkDeleteRole()" >
-                    <a routerLink="/add-user/{{user.id}}/edit" *ngIf="this.commonService.getUrl('/add-user/'+user.id+'/edit')" class="fas fa-edit text-blue-50" style="margin: 0px 10px 0px 7px;"></a>
-                    <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(user.id)"></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div>
+                }
+                <td>{{ user.email }}</td>
+                <td>{{ user.member_type | pascalCase }}</td>
+                <td *ngIf="this.commonService.checkDeleteRole()">
+                  <a
+                    routerLink="/add-user/{{ user.id }}/edit"
+                    *ngIf="
+                      this.commonService.getUrl(
+                        '/add-user/' + user.id + '/edit'
+                      )
+                    "
+                    class="fas fa-edit text-blue-50"
+                    style="margin: 0px 10px 0px 7px"
+                  ></a>
+                  <a
+                    class="fas fa-trash-alt"
+                    style="color: #ff6347"
+                    (click)="confirmDialog(user.id)"
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div>
               <pagination-controls previousLabel="prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
-            </div>
-          </div>
-        </ng-template>
-      </div>
+            </div> -->
+        </div>
+      </ng-template>
     </div>
   </div>
-  
+</div>

@@ -23,21 +23,31 @@ export class SubjectComponent  extends Paginator{
   selectedClass: any;
   classes:any;
   deletecheck:boolean = false;
-  
+  member_type:any;
+  member_id:any;
+
   constructor(private subjectService:SubjectsService,
     private fb:FormBuilder,
     private toastr:ToasterService,
     public dialog: MatDialog,
     public commonService:CommonService){
     super();
+    this.member_type = localStorage.getItem('member_type');
+    this.member_id = localStorage.getItem('member_id');
     this.subjectForm = this.fb.group({
-      class_id: ['', Validators.required],
+      class_id: [''],
     });
+    
+       this.setClassIdValidator();
   }
     
     ngOnInit(){
-      this.getSubjectsList();      
-      this.getClassesList();
+      if (this.member_type == 'students') {
+        this.loadSubjects();        
+        }else{
+        this.getSubjectsList();      
+        this.getClassesList();
+      }
     }
     
 
@@ -52,7 +62,17 @@ export class SubjectComponent  extends Paginator{
       )
     }
   
- 
+   setClassIdValidator() {
+    const classIdControl = this.subjectForm.get('class_id');
+    if (classIdControl) {
+      if (this.member_type !== 'students') {
+        classIdControl.setValidators([Validators.required]);
+      } else {
+        classIdControl.clearValidators();
+      }
+      classIdControl.updateValueAndValidity();
+    }
+  }
 
     getSubjectsList() {
       this.isLoading = true;
@@ -94,8 +114,21 @@ export class SubjectComponent  extends Paginator{
         });
       }
       this.deletecheck = true;
-      
     }
+
+    loadSubjects(): void {
+    if (this.member_type && this.member_id) {
+      this.subjectService.filterSubjectsByType(this.member_type, this.member_id).pipe(
+        catchError(err => {
+          console.error('Error fetching subjects:', err);
+          this.toastr.showError('Failed to load subjects. Please try again later.', 'Error');
+          return throwError(err);
+        })
+      ).subscribe((data: any) => {
+        this.subjects = data.subjects;
+      });
+    }
+  }
 
 
     onTableDataChange(event:any){

@@ -9,6 +9,7 @@ import { AddExamComponent } from './add-exam/add-exam.component';
 import { AddGradeComponent } from './add-grade/add-grade.component';
 import { ExamCategoryComponent } from './exam-category/exam-category.component';
 import { AddExamCategoryComponent } from './add-exam-category/add-exam-category.component';
+import { ViewMarksComponent } from './view-marks/view-marks.component';
 
 const routes: Routes = [
   { path: 'exam', component:ExamComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'add-exam-category/:id/edit', component:AddExamCategoryComponent },
       { path: 'grades', component:GradesComponent },
       { path: 'marks', component:MarksComponent },
+      { path: 'view-marks', component:ViewMarksComponent },
       { path: 'promotion', component:PromtionsComponent },
       { path: 'add-exam', component:AddExamComponent },
       { path: 'add-exam/:id/edit', component:AddExamComponent },

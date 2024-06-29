@@ -28,6 +28,13 @@ export class SubjectsService {
       params: { class_id: classId.toString() }
     });
   }
+  filterSubjectsByType(member_type:any,member_id: any): Observable<any> {
+    return this.httpclient.get<any>(`${this.baseURL}subjectByType/`, {
+      params: { member_type: member_type,
+        member_id: member_id.toString()
+       }
+    });
+  }
   
   saveSubjects(classData:any){
     return this.httpclient.post( this.baseURL + 'subjects', classData);

@@ -20,7 +20,15 @@ export class AttendanceService {
       params: { class_id: classId.toString() }
     });
   }
-
+   
+    getClassesByType(memberType: string, memberId: number) {
+  return this.http.get<any>(`${this.baseURL}classesByType`, {
+    params: {
+      member_type: memberType,
+      member_id: memberId.toString()
+    }
+  });
+}
   getAttendanceWeekly(): Observable<any> {
     return this.http.get<any>(`${this.baseURL}attendances/weekly`);
   }
@@ -45,6 +53,15 @@ export class AttendanceService {
     return this.http.get<any>(`${this.baseURL}attendances`, { params });
   }
   
+  getSpecificAttendance(member_id: any, member_type:any, month: string, year: string): Observable<any> {
+     const params = { 
+      member_id: member_id.toString(), 
+      member_type: member_type, 
+      month: month, 
+      year: year 
+    };
+    return this.http.get<any>(`${this.baseURL}attendanceById`, { params });
+  }
 
   updateAttendance(attendanceData: any[]): Observable<any> {
     return this.http.post<any>(`${this.baseURL}attendances`, attendanceData);

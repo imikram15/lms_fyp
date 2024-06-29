@@ -29,7 +29,9 @@ export class DashboardComponent {
   formattedUser:any;
   labelData:any=[];
   realData:any=[];
-
+  member_type:any;
+  member_id:any;
+  userName:any;
 
   constructor(private employeeService: EmployeesService,
      private teachersService:TeachersService,
@@ -39,16 +41,18 @@ export class DashboardComponent {
      private decimalPipe: DecimalPipe,
      private EventService:EventService,
      private AttendanceService:AttendanceService,
-  ){    
+  ){  
+      this.member_type = localStorage.getItem('member_type');
+      this.member_id = localStorage.getItem('member_id');
   }
     ngOnInit(): void {
-    this.getEmployeesList();
-    this.getTeachersList();
-    this.getStudentsList();
-    this.getUsersList();
-    this.getEventsList();
-    // this.renderChart();
-    this.getAttendanceReport();
+      this.getEmployeesList();
+      this.getTeachersList();
+      this.getStudentsList();
+      this.getUsersList();
+      this.getUserDataByTypeandID();
+      this.getEventsList();
+      this.getAttendanceReport();
 
   }
 
@@ -117,6 +121,17 @@ export class DashboardComponent {
     }, (error: any) => {
       console.error('Error fetching Users:', error);
       this.toastr.showError('Failed to fetch Users. Please try again later.', 'Error');
+      this.isLoading = false;
+    });
+  }
+  
+  getUserDataByTypeandID() {
+    this.isLoading = true;
+    this.userService.getUserByTypeandID(this.member_id, this.member_type).subscribe((res: any) => {
+      this.userName = res.data;
+    }, (error: any) => {
+      console.error('Error fetching User Data:', error);
+      this.toastr.showError('Failed to fetch User Data. Please try again later.', 'Error');
       this.isLoading = false;
     });
   }

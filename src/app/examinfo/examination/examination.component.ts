@@ -22,7 +22,8 @@ export class ExaminationComponent extends Paginator{
   selectedClass: any;
   classes: any;
   deleteCheck: boolean = false;
-
+  memberType: string;
+  memberId: number;
   constructor(
     private examService: ExamsService,
     private fb: FormBuilder,
@@ -34,13 +35,35 @@ export class ExaminationComponent extends Paginator{
     this.examForm = this.fb.group({
       class_id: ['', Validators.required],
     });
+       this.memberType = localStorage.getItem('member_type') || '';
+    this.memberId = Number(localStorage.getItem('member_id')) || 0;
   }
 
   ngOnInit() {
-    this.getExamsList();
-    this.getClassesList();
+    if(this.memberType == 'teachers' || this.memberType =='students'){
+      this.loadExamByType()
+    }else{
+      this.getExamsList();
+    }
+    
+    if(this.memberType == 'teachers'){
+    this.loadClassesByType(); 
+    }else{
+      this.getClassesList();
+    }
   }
 
+  loadClassesByType() {
+    this.examService.getClassesByType( this.memberType,this.memberId,).pipe(
+      catchError(err => {
+        console.error('Error fetching classes:', err);
+        this.toastr.showError('Failed to load classes. Please try again later.', 'Error');
+        return throwError(err);
+      })
+    ).subscribe(data => {     
+      this.classes = data.classes;
+    });
+  }
   getClassesList() {
     this.examService.getclasses().subscribe(
       (res: any) => {
@@ -57,6 +80,8 @@ export class ExaminationComponent extends Paginator{
     this.isLoading = true;
     this.examService.getPgExams(this.page, this.perPage).subscribe(
       (res: any) => {
+        console.log(res);
+        
         this.exams = res.exams.data;
         this.page = res.exams.current_page;
         this.total = res.exams.total;
@@ -69,6 +94,23 @@ export class ExaminationComponent extends Paginator{
         this.isLoading = false;
       }
     );
+  }
+
+   loadExamByType(): void {
+    this.isLoading= true;
+    if (this.memberType && this.memberId) {
+      this.examService.filterExamsByType(this.memberType, this.memberId).pipe(
+        catchError(err => {
+          console.error('Error fetching exams:', err);
+          this.toastr.showError('Failed to load exams. Please try again later.', 'Error');
+          this.isLoading= false;
+          return throwError(err);
+        })
+      ).subscribe((data: any) => {
+        this.exams = data.exams;
+        this.isLoading= false;        
+      });
+    }
   }
 
   loadExamsByClass() {

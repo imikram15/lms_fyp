@@ -22,6 +22,14 @@ export class ClassRoutinesService {
     });
   }
 
+  getRoutineByType(member_type:any,member_id: any): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}routineByType/`, {
+      params: { member_type: member_type,
+        member_id: member_id.toString()
+       }
+    });
+  }
+
   getRoutine(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseURL}routines/${id}`);
   }

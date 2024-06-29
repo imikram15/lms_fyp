@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">View Marks</h6>
+    </div>
+
+    <div class="card-body" style="position: relative; padding-top: 0px">
+      <div
+        *ngIf="isLoading"
+        style="
+          position: absolute;
+          top: 36%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        <app-loader [title]="'Loading...'"></app-loader>
+      </div>
+
+      <div class="table-responsive col-md-12 mt-3" *ngIf="marks.length !== 0">
+        <table class="table table-bordered w-100" style="text-align: center">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Mark</th>
+              <th scope="col">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mark of marks; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                {{ mark.student.first_name }} {{ mark.student.last_name }}
+              </td>
+              <td>{{ mark.subject.title }}</td>
+              <td>{{ mark.mark }}</td>
+              <td>{{ mark.comment }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center" style="margin: 50px" *ngIf="marks.length === 0">
+        <div class="form-group empty-img">
+          <img src="./assets/img/empty-box.png" alt="No data Found" />
+        </div>
+        <h6 style="margin-left: -40px">No data found</h6>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,41 +1,71 @@
 <div class="container-fluid">
   <div class="card shadow mb-4">
-    <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-      <h6 class="h4 m-0 text-primary" style="font-weight: 500;">Manage Marks</h6>
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h6 class="h4 m-0 text-primary" style="font-weight: 500">Manage Marks</h6>
     </div>
 
-    <div class="card-body" style="position: relative; padding-top: 0px;">
-      <form [formGroup]="searchForm" (ngSubmit)="searchMarks()" class="row align-items-end d-flex justify-content-center mt-3">
+    <div class="card-body" style="position: relative; padding-top: 0px">
+      <form
+        [formGroup]="searchForm"
+        (ngSubmit)="searchMarks()"
+        class="row align-items-end d-flex justify-content-center mt-3"
+      >
         <div class="form-group col-md-3">
           <label for="class_id">Class</label>
           <select formControlName="class_id" class="form-control" required>
             <option value="" disabled selected>Select Class</option>
-            <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
+            <option
+              *ngFor="let classOption of classes"
+              [value]="classOption.id"
+            >
+              {{ classOption.title }}
+            </option>
           </select>
         </div>
         <div class="form-group col-md-3">
           <label for="examCategory_id">Exam Category</label>
-          <select formControlName="examCategory_id" class="form-control" required>
+          <select
+            formControlName="examCategory_id"
+            class="form-control"
+            required
+          >
             <option value="" disabled selected>Select Exam Category</option>
-            <option *ngFor="let examCategory of examCategories" [value]="examCategory.id">{{ examCategory.title }}</option>
+            <option
+              *ngFor="let examCategory of examCategories"
+              [value]="examCategory.id"
+            >
+              {{ examCategory.title }}
+            </option>
           </select>
         </div>
         <div class="form-group col-md-3">
           <label for="subject_id">Subject</label>
           <select formControlName="subject_id" class="form-control" required>
             <option value="" disabled selected>Select Subject</option>
-            <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.title }}</option>
+            <option *ngFor="let subject of subjects" [value]="subject.id">
+              {{ subject.title }}
+            </option>
           </select>
         </div>
         <div class="form-group col-md-2">
           <button type="submit" class="btn btn-primary mt-3">Search</button>
         </div>
       </form>
-      <div *ngIf="isLoading" style="position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);">
+      <div
+        *ngIf="isLoading"
+        style="
+          position: absolute;
+          top: 36%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
         <app-loader [title]="'Loading...'"></app-loader>
-      </div>      
-      <div class="table-responsive col-md-12 mt-3" *ngIf="marks.length!==0">
-        <table class="table table-bordered w-100" style="text-align: center;">
+      </div>
+      <div class="table-responsive col-md-12 mt-3" *ngIf="marks.length !== 0">
+        <table class="table table-bordered w-100" style="text-align: center">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -47,32 +77,61 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row" *ngFor="let mark of marks; let i = index">
+            <tr
+              scope="row"
+              *ngFor="
+                let mark of marks
+                  | paginate
+                    : {
+                        itemsPerPage: perPage,
+                        currentPage: page,
+                        totalItems: total
+                      };
+                let i = index
+              "
+            >
               <td>{{ i + 1 }}</td>
-              <td>{{ mark.student.first_name }} {{ mark.student.last_name }}</td>
+              <td>
+                {{ mark.student.first_name }} {{ mark.student.last_name }}
+              </td>
               <td>{{ mark.subject.title }}</td>
               <td>
-                <input type="number" [(ngModel)]="mark.mark" class="form-control" required />
+                <input
+                  type="number"
+                  [(ngModel)]="mark.mark"
+                  class="form-control"
+                  required
+                />
               </td>
               <td>
-                <textarea [(ngModel)]="mark.comment" class="form-control" rows="1"></textarea>
+                <textarea
+                  [(ngModel)]="mark.comment"
+                  class="form-control"
+                  rows="1"
+                ></textarea>
               </td>
               <td>
-                <button class="btn btn-success" (click)="saveMark(mark)">Save</button>
+                <button class="btn btn-success" (click)="saveMark(mark)">
+                  Save
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
         <div>
-          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+          ></pagination-controls>
         </div>
       </div>
-      
-      <div class="text-center" style="margin:50px;" *ngIf="marks.length===0">
+
+      <div class="text-center" style="margin: 50px" *ngIf="marks.length === 0">
         <div class="form-group empty-img">
-          <img src="./assets/img/empty-box.png" alt="No data Found">
+          <img src="./assets/img/empty-box.png" alt="No data Found" />
         </div>
-        <h6 style="margin-left: -40px;">No data found</h6>
+        <h6 style="margin-left: -40px">No data found</h6>
       </div>
     </div>
   </div>

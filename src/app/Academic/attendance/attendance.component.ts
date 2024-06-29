@@ -38,18 +38,22 @@ export class AttendanceComponent  {
     { value: '12', name: 'December' }
   ];
   years: number[] = [];
+  member_type:any;
+  member_id:any;
 
   constructor(private fb: FormBuilder, 
     private toastr:ToasterService,
     private attendanceService:AttendanceService,
     public commonService:CommonService) {
+       this.member_type = localStorage.getItem('member_type');
+       this.member_id = localStorage.getItem('member_id');
       
       const currentDate = new Date();
       const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');      
       const currentYear = currentDate.getFullYear();
 
     this.attendanceForm = this.fb.group({
-      class_id: ['', Validators.required],
+      class_id: [''],
       month: [currentMonth],
       year: [currentYear]
     });
@@ -57,12 +61,29 @@ export class AttendanceComponent  {
     for (let year = currentYear; year >= 2022; year--) {
       this.years.push(year);
     }
+      this.setClassIdValidator();
   }
 
   ngOnInit(): void {
-    this.loadClasses();
-    this.loadStatus();
+    if(this.member_type == 'teachers'){
+      this.loadClassesByType();
+    }else{
+      this.loadClasses();
+    }
   }
+
+     setClassIdValidator() {
+    const classIdControl = this.attendanceForm.get('class_id');
+    if (classIdControl) {
+      if (this.member_type !== 'students') {
+        classIdControl.setValidators([Validators.required]);
+      } else {
+        classIdControl.clearValidators();
+      }
+      classIdControl.updateValueAndValidity();
+    }
+  }
+
   loadClasses() {
     this.attendanceService.getClasses().pipe(
       catchError(err => {
@@ -74,11 +95,25 @@ export class AttendanceComponent  {
       this.classes = data.classes.data;
     });
   }
+
+    loadClassesByType() {
+    this.attendanceService.getClassesByType( this.member_type,this.member_id,).pipe(
+      catchError(err => {
+        console.error('Error fetching classes:', err);
+        this.toastr.showError('Failed to load classes. Please try again later.', 'Error');
+        return throwError(err);
+      })
+    ).subscribe(data => {     
+      this.classes = data.classes;
+    });
+  }
   
   loadStudents() {
     this.isLoading = true;
     if (this.attendanceForm.invalid) {
+       this.attendanceForm.markAllAsTouched();
       this.toastr.showError('Please select a class and date', 'Error');
+      this.isLoading = false;
       return;
     }   
     this.selectedClass = this.attendanceForm.get('class_id')?.value;
@@ -94,6 +129,9 @@ export class AttendanceComponent  {
         this.students = data.students;
         this.loadAttendance();       
       });
+    }
+    else{
+       this.loadAttendance();  
     }
     
   }
@@ -118,6 +156,12 @@ export class AttendanceComponent  {
 
     if (selectedClass && selectedmonth && selectedyear ) {
       this.attendanceService.getAttendance(selectedClass, selectedmonth, selectedyear).subscribe(res => {
+        this.attendanceData = res.data;
+        this.attendanceDates = res.dates;    
+      });
+    }
+    else{
+      this.attendanceService.getSpecificAttendance(this.member_id, this.member_type, selectedmonth, selectedyear).subscribe(res => {
         this.attendanceData = res.data;
         this.attendanceDates = res.dates;    
       });

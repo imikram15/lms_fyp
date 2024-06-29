@@ -80,8 +80,7 @@ export class AddEmployeeComponent {
             joining_date: this.updateEmployee.joining_date || '',
             address: this.updateEmployee.address || '',
             blood_group: this.updateEmployee.blood_group || '',
-            image: this.imgUrl + 'profile' + '/' + this.updateEmployee.image || ''
-            
+            image: this.imgUrl + 'profile' + '/' + this.updateEmployee.image || ''            
           });
           this.imageURL = this.imgUrl + 'profile' + '/' + this.updateEmployee.image
           this.isLoading = false;

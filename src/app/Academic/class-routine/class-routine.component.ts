@@ -20,20 +20,41 @@ export class ClassRoutineComponent implements OnInit {
   classes: any[] = [];
   classRoutines: any[] = [];
   groupedData: any[] = [];
-
+  member_type:any;
+  member_id:any;
   constructor(private formBuilder: FormBuilder,
     private toastr: ToasterService,
     private classRoutineService: ClassRoutinesService,
     public dialog: MatDialog,
     public commonService:CommonService
   ) {
+    this.member_type = localStorage.getItem('member_type');
+    this.member_id = localStorage.getItem('member_id');
+
     this.classroutineForm = this.formBuilder.group({
-      class_id: ['', Validators.required],
+      class_id: [''],
     });
+
+    this.setClassIdValidator();
   }
 
   ngOnInit(): void {  
     this.loadClasses(); 
+   if (this.member_type == 'students') {
+     this.loadRoutinesByMemberType();
+   }
+  }
+
+    setClassIdValidator() {
+    const classIdControl = this.classroutineForm.get('class_id');
+    if (classIdControl) {
+      if (this.member_type !== 'students') {
+        classIdControl.setValidators([Validators.required]);
+      } else {
+        classIdControl.clearValidators();
+      }
+      classIdControl.updateValueAndValidity();
+    }
   }
 
   loadClasses() {
@@ -48,6 +69,22 @@ export class ClassRoutineComponent implements OnInit {
     });
   }
 
+  loadRoutinesByMemberType() {
+    this.isLoading = true;
+    this.classRoutineService.getRoutineByType(this.member_type, this.member_id).pipe(
+      catchError(error => {
+        console.error('Error fetching routines:', error);
+        this.toastr.showError('Failed to load routines. Please try again later.', 'Error');
+        this.isLoading = false;
+        return throwError(error);
+      })
+    ).subscribe((data: any) => {
+      console.log(data.routines);
+      this.classRoutines = data.routines;
+      this.groupDataByWeekday();
+      this.isLoading = false;
+    });
+  }
   filterData() {
     this.isLoading = true;
     if (this.classroutineForm.invalid) {
@@ -59,11 +96,11 @@ export class ClassRoutineComponent implements OnInit {
 
     if (selectedClass) {
       this.classRoutineService.getRoutines(selectedClass).pipe(
-        catchError(err => {
-          console.error('Error fetching class routines:', err);
-          this.toastr.showError('Failed to load class routines. Please try again later.', 'Error');
+        catchError(error => {
+          console.error('Error fetching class routines:', error);
+          this.toastr.showError('Failed to load class routines for this Class. Please try again later.', 'Error');
           this.isLoading = false;
-          return throwError(err);
+          return throwError(error);
 
         })
       ).subscribe((data: any) => {

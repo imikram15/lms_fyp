@@ -58,7 +58,7 @@ export class AddTeachersComponent {
       address: ['', Validators.required],
       image: [null, Validators.required],
       blood_group: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]]
+      // password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]]
     });
 
     this.teacherID = this.route.snapshot.paramMap.get('id');
@@ -78,7 +78,6 @@ export class AddTeachersComponent {
             gender: this.updateTeacher.gender || '',
             dob: this.updateTeacher.dob || '',
             blood_group:this.updateTeacher.blood_group || '',
-            password: this.updateTeacher.password || '',
             email: this.updateTeacher.email || '',
             phone: this.updateTeacher.phone || '',
             joining_date: this.updateTeacher.joining_date || '',

@@ -1,95 +1,199 @@
-  <div class="container-fluid">
-    <div class="card shadow mb-4">
-      <div class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3">
-        <h5 class="m-0 font-weight-bold text-primary">Student Fee Manager</h5>
-        <button routerLink="/add-mass" class="btn btn-success mr-2" style="margin-left: 45%;" >Add Mass Invoice</button>
-        <button routerLink="/add-single" class="btn btn-info">Add Single Invoice</button>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div
+      class="card-header d-sm-flex align-items-center justify-content-between mb-2 py-3"
+    >
+      <h5 class="m-0 font-weight-bold text-primary">Student Fee Manager</h5>
+      <button
+        routerLink="/add-mass"
+        *ngIf="this.commonService.getUrl('/add-mass')"
+        class="btn btn-success mr-2"
+        style="margin-left: 43%"
+      >
+        Add Mass Invoice
+      </button>
+      <button
+        routerLink="/add-single"
+        *ngIf="this.commonService.getUrl('/add-single')"
+        class="btn btn-info"
+      >
+        Add Single Invoice
+      </button>
+    </div>
+    <div class="card-body" style="position: relative; padding-top: 0px">
+      <form
+        [formGroup]="searchForm"
+        (ngSubmit)="searchStudentFees()"
+        class="row align-items-end d-flex justify-content-center mt-3"
+      >
+        <div class="form-group col-md-3">
+          <label for="start_date">Start Date</label>
+          <input
+            type="date"
+            formControlName="start_date"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group col-md-3">
+          <label for="end_date">End Date</label>
+          <input
+            type="date"
+            formControlName="end_date"
+            class="form-control"
+            required
+          />
+        </div>
+        <div *ngIf="member_type !== 'students'" class="form-group col-md-2">
+          <label for="class_id">Class</label>
+          <select formControlName="class_id" class="form-control" required>
+            <option [value]="defaultClassId" selected>All Classes</option>
+            <option
+              *ngFor="let classOption of classes"
+              [value]="classOption.id"
+            >
+              {{ classOption.title }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="status">Status</label>
+          <select formControlName="status" class="form-control" required>
+            <option [value]="defaultStatus" selected>All Status</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+        <div class="form-group col-md-1">
+          <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </div>
+        <div class="form-group col-md-1">
+          <a
+            class="btn btn-info"
+            [href]="
+              baseURL +
+              'studentFee/export' +
+              '/' +
+              this.searchForm.get('start_date')?.value +
+              '/' +
+              this.searchForm.get('end_date')?.value +
+              '/' +
+              this.searchForm.get('class_id')?.value +
+              '/' +
+              this.searchForm.get('status')?.value
+            "
+          >
+            <i class="fa-solid fa-download"></i
+          ></a>
+        </div>
+      </form>
+
+      <div
+        *ngIf="isLoading"
+        style="
+          position: absolute;
+          top: 36%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        <app-loader [title]="'Loading...'"></app-loader>
       </div>
-      <div class="card-body" style="position: relative; padding-top: 0px;">
-        <form [formGroup]="searchForm" (ngSubmit)="searchStudentFees()" class="row align-items-end d-flex justify-content-center mt-3">
-          <div class="form-group col-md-3">
-            <label for="start_date">Start Date</label>
-            <input type="date" formControlName="start_date" class="form-control" required>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="end_date">End Date</label>
-            <input type="date" formControlName="end_date" class="form-control" required>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="class_id">Class</label>
-            <select formControlName="class_id" class="form-control" required>
-              <option [value]="defaultClassId" selected >All Classes</option>
-              <option *ngFor="let classOption of classes" [value]="classOption.id">{{ classOption.title }}</option>
-            </select>
-          </div>         
-          <div class="form-group col-md-2">
-            <label for="status">Status</label>
-            <select formControlName="status" class="form-control" required>
-              <option [value]="defaultStatus" selected >All Status</option>
-              <option value="paid">Paid</option>
-              <option value="unpaid">Unpaid</option>
-            </select>
-          </div>
-          <div class="form-group col-md-1">
-            <button type="submit" class="btn btn-primary mt-3">Search</button>
-          </div>
-          <div class=" form-group col-md-1">
-              <a class="btn btn-info " [href]="baseURL+'studentFee/export'+'/'+this.searchForm.get('start_date')?.value
-              +'/'+this.searchForm.get('end_date')?.value+'/'+this.searchForm.get('class_id')?.value+'/'+this.searchForm.get('status')?.value">
-              <i class="fa-solid fa-download"></i></a>
-          </div>
-        </form>
-  
-        <div *ngIf="isLoading" style="position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%);">
-          <app-loader [title]="'Loading...'"></app-loader>
-        </div>      
-        <div class="table-responsive col-md-12 mt-3" *ngIf="studentFees.length !== 0">
-          <table class="table table-bordered w-100" style="text-align: center;">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Student Name</th>
-                <th scope="col">Class</th>
-                <th scope="col">Total Amount (Rs)</th>
-                <th scope="col">Paid Amount (Rs)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr scope="row" *ngFor="let studentFee of studentFees; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ studentFee.student.first_name }}</td>
-                <td>{{ studentFee.class.title }}</td>
-                <td>{{ studentFee.totalAmount }} </td>
-                <td>{{ studentFee.paidAmount }}</td>
-                <td>{{ studentFee.created_at | date:'yyyy-MM-dd' }}</td>
-                <td style="font-weight: 500;" [ngClass]="{ 'text-success font-weight:400': studentFee.status === 'paid',
-               'text-danger': studentFee.status === 'unpaid' }">{{ studentFee.status }}</td>                
-               <td>
-                <a routerLink="/add-single/{{ studentFee.id }}/edit" *ngIf="this.commonService.getUrl('/add-exam/'+studentFee.id+'/edit')" class="fas fa-edit text-blue-50"
-                  style="margin:0px 10px 0px 7px;"></a>
-                <a class="fas fa-trash-alt" style="color: #ff6347;" (click)="confirmDialog(studentFee.id)"></a>
+      <div
+        class="table-responsive col-md-12 mt-3"
+        *ngIf="studentFees.length !== 0"
+      >
+        <table class="table table-bordered w-100" style="text-align: center">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Class</th>
+              <th scope="col">Total Amount (Rs)</th>
+              <th scope="col">Paid Amount (Rs)</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+              <th *ngIf="this.commonService.checkDeleteRole()" scope="col">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              scope="row"
+              *ngFor="
+                let studentFee of studentFees
+                  | paginate
+                    : {
+                        itemsPerPage: perPage,
+                        currentPage: page,
+                        totalItems: total
+                      };
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>
+                {{ studentFee.student.first_name }}
+                {{ studentFee.student.last_name }}
               </td>
-              </tr>
-            </tbody>
-          </table>
+              <td>{{ studentFee.class.title }}</td>
+              <td>{{ studentFee.totalAmount }}</td>
+              <td>{{ studentFee.paidAmount }}</td>
+              <td>{{ studentFee.created_at | date : "yyyy-MM-dd" }}</td>
+              <td
+                style="font-weight: 500"
+                [ngClass]="{
+                  'text-success font-weight:400': studentFee.status === 'paid',
+                  'text-danger': studentFee.status === 'unpaid'
+                }"
+              >
+                {{ studentFee.status }}
+              </td>
+              <td *ngIf="this.commonService.checkDeleteRole()">
+                <a
+                  routerLink="/add-single/{{ studentFee.id }}/edit"
+                  *ngIf="
+                    this.commonService.getUrl(
+                      '/add-exam/' + studentFee.id + '/edit'
+                    )
+                  "
+                  class="fas fa-edit text-blue-50"
+                  style="margin: 0px 10px 0px 7px"
+                ></a>
+                <a
+                  class="fas fa-trash-alt"
+                  style="color: #ff6347"
+                  (click)="confirmDialog(studentFee.id)"
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+          ></pagination-controls>
         </div>
-        
-        <div class="text-center" style="margin:50px;" *ngIf="studentFees.length === 0">
-          <div class="form-group empty-img">
-            <img src="./assets/img/empty-box.png" alt="No data Found">
-          </div>
-          <h6 style="margin-left: -40px;">No data found</h6>
+      </div>
+
+      <div
+        class="text-center"
+        style="margin: 50px"
+        *ngIf="studentFees.length === 0"
+      >
+        <div class="form-group empty-img">
+          <img src="./assets/img/empty-box.png" alt="No data Found" />
         </div>
+        <h6 style="margin-left: -40px">No data found</h6>
       </div>
     </div>
   </div>
-  
+</div>
 
-  
-  <!-- <div class="form-group col-md-1 dropdown">
+<!-- <div class="form-group col-md-1 dropdown">
     <button class="btn btn-warning dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa-solid fa-arrow-up-from-bracket"></i>
     </button>

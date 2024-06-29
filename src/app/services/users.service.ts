@@ -37,6 +37,10 @@ export class UsersService {
     return this.httpclient.get(`${this.baseURL}usersByType/${userID}`);
   }
 
+  getUserByTypeandID(member_id: any, member_type:any): Observable<any> {
+      return this.httpclient.get(`${this.baseURL}TypeandID/${member_id}/${member_type}`);
+  }
+
   saveUser(userData: any): Observable<any> {
     return this.httpclient.post(`${this.baseURL}users`, userData);
   }
